@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="New_E8_Automation_Suite" verbose="2">
+
+	<listeners>
+		<listener class-name="com.yesmail.qa.framework.testng.support.TestInterceptor"></listener>
+		<listener class-name="com.yesmail.qa.framework.DriverInitialization"></listener>
+		<listener class-name="com.yesmail.qa.framework.testng.support.GuiMethodInterceptor"></listener>
+		<listener class-name="com.yesmail.qa.framework.testng.support.RetryIAnnotationTransformer"></listener>
+		<listener class-name="org.uncommons.reportng.HTMLReporter"></listener>
+	</listeners>
+
+
+	<test name="New_E8_Automation_Test" preserve-order="true"
+		parallel="methods" thread-count="3">
+		<classes>
+			<class name="com.yesmail.qa.test.configuration.ConfigurationClass"></class>
+			<class name="com.yesmail.qa.test.dummytest.LoginTest"></class>
+		</classes>
+	</test>
+
+</suite> 
+ 

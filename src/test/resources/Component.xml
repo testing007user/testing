@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<page name="LoginPage">
+	<!-- 	<siteUrl>https://uat-enterprise7.yesmail.com/</siteUrl>-->
+		<pageUrl>#login</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>		
+	</page>
+	<page name="Home">
+		<pageUrl>#home</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	
+	<!--  Email -->
+	<page name="Envelope">
+		<pageUrl>#email/envelope</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		<xmlPath>src\test\resources\EnvelopeXml.xml</xmlPath>
+	</page>
+	<page name="Target">
+		<pageUrl>#email/target</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="Schedule">
+		<pageUrl>#email/schedule</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="Summary">
+		<pageUrl>#email//summary</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="Content">
+		<pageUrl>#email/content</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		<txtFilePath>src\test\resources\Lexus.zip</txtFilePath>
+		<BatFilePath>src\test\resources\content\BAT.zip</BatFilePath>
+		<htmlFilePath>src\test\resources\content\HTML.zip</htmlFilePath>
+		<jpgFilePath>src\test\resources\content\test(jpeg).jpg</jpgFilePath>
+		<docFilePath>src\test\resources\content\Docfile.zip</docFilePath>
+		<htmFilePath>src\test\resources\content\testwithlinks.htm</htmFilePath>
+		<shareFilePath>src\test\resources\content\shareThis.zip</shareFilePath>
+		<lexusHTML>src\test\resources\content\LexusHTML.html</lexusHTML>
+		<lexusText>src\test\resources\content\lexusText.txt</lexusText>
+		<trailingSpaces>src\test\resources\content\trailingSpaces.htm</trailingSpaces>
+		<explicitFilePath>src\test\resources\content\explicitURLPersonalization(1).zip</explicitFilePath>
+		<goLeftFilePath>src\test\resources\content\go_left.html</goLeftFilePath>
+		<gifFilePath>src\test\resources\content\giflogo.gif</gifFilePath>
+		<cacheFilePath>src\test\resources\content\CachedTableFactoryTest.html</cacheFilePath>
+		<textFilePath>src\test\resources\content\Sample Text.txt</textFilePath>
+		<conferencePromotextFilePath>src\test\resources\content\conferencePromo.txt</conferencePromotextFilePath>
+		<messageFilePath>src\test\resources\content\message.htm</messageFilePath>				
+	</page>
+		<page name="MasterStatus">
+		<pageUrl>#viewMasters/-1</pageUrl>
+		<lblPageTitle>Enterprise 7</lblPageTitle>
+	</page>
+	<page name="Report">
+		<pageUrl>#reports</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="Subscribers">
+		<pageUrl>#subscribers</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	
+	<!--  SMS -->
+	<page name="SMSHeader">
+		<pageUrl>#sms/header</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="SMSContent">
+		<pageUrl>#sms/content</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="SMSTarget">
+		<pageUrl>#sms/target</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="SMSSchedule">
+		<pageUrl>#sms/schedule</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="SMSStatus">
+		<pageUrl>#viewMasters/-2</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	
+	<!--  Tweet -->
+	<page name="Tweets">
+		<pageUrl>#twitter/details</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+
+	<page name="TweetsStatus">
+		<pageUrl>#viewMasters/-3</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+
+	<page name="Campaign">
+		<pageUrl>#campaigns</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	
+	<!--  Import -->
+	<page name="Imports">
+		<pageUrl>#jobs?type=Any</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		<txtImportFilePath>src\test\resources\imports.txt</txtImportFilePath>
+		<txtImportFilePathSubscriber>src\test\resources\importSubscribers.txt</txtImportFilePathSubscriber>		
+	</page>
+	<page name="ImportStatus">
+		<pageUrl>#jobs?type=Import</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="Yahoo">
+		<pageUrl>www.yahoomail.com</pageUrl>
+		<E7Url>http://e7.qatest.aws.p0.com</E7Url>
+	</page>
+	<page name="Admin">
+		<pageUrl>/#adminAdvanced</pageUrl>
+        <xmlFilePath>src/test/resources/admin/</xmlFilePath>
+	</page>	
+
+	<!--  Attributes -->
+	<page name="DataAttributes">
+		<pageUrl>#attributes</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
+	<page name="CreateAttribute"> 
+		<pageUrl>#attribute</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		 <XMLPath>src\test\resources\attribute.xml</XMLPath>
+	</page>	
+	
+	<!--  MVT -->
+   <page name="TestSetupPage">
+            <pageUrl>#testCase/details</pageUrl>
+            <lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>     
+    <page name="TestEnvelopePage">
+            <pageUrl>#testCase/envelope</pageUrl>
+            <lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>     
+    <page name="TestContentPage">
+            <pageUrl>#testCase/content</pageUrl>
+            <lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>     
+    <page name="TestTargetPage">
+            <pageUrl>#testCase/target</pageUrl>
+            <lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>     
+    <page name="TestSchedulePage">
+            <pageUrl>#testCase/schedule</pageUrl>
+            <lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>     
+	
+	<!--  Facebook -->
+    <page name="Facebook">
+		<pageUrl>#facebook/content</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>
+
+		<page name="FacebookStatus">
+		<pageUrl>#viewMasters/-8</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>
+
+</pages>
