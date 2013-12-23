@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.IProperty;
 import com.yesmail.qa.framework.libraries.PropertyMapping;
+import com.yesmail.qa.framework.libraries.Utils;
 
 /***
  * This class set the variable required to configure Driver either from Command
@@ -358,8 +359,9 @@ public class CommandLineArgs {
 	 */
 	private static void loadDefaultProperties() {
 		if (null == frameworkProp) {
-			frameworkProp = new PropertyMapping(CommandLineArgs.class
-					.getResource("/Framework.properties").getPath().toString());
+//			frameworkProp = new PropertyMapping(CommandLineArgs.class
+//					.getResource("/Framework.properties").getPath().toString());
+			frameworkProp = new PropertyMapping(Utils.getResources(CommandLineArgs.class,"Framework.properties"));
 		}
 
 	}

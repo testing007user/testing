@@ -8,6 +8,7 @@
 
 package com.yesmail.qa.framework.libraries;
 
+import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.UUID;
@@ -71,6 +72,23 @@ public class Utils {
 			return "pm";
 		}
 		return "am";
+	}
+	
+	/***
+	 * This method return full path of the resource file name using class loader
+	 * @param className
+	 * @param fileName
+	 * @return
+	 */
+	public static String getResources(Object className,String fileName)
+	{
+		try {
+			return className.getClass().getResource("/"+fileName).toURI().getPath().toString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

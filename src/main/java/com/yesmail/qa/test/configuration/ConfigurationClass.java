@@ -6,6 +6,7 @@ import com.yesmail.qa.framework.configuration.CustomFrameworkProperties;
 import com.yesmail.qa.framework.exception.FrameworkError;
 import com.yesmail.qa.framework.libraries.IProperty;
 import com.yesmail.qa.framework.libraries.PropertyMapping;
+import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 /***
@@ -40,11 +41,13 @@ public class ConfigurationClass {
 	 */
 	public String getCustomEnvironmentFilePath() {
 		String customEnvironmentPath = null;
-		String environmentFileName = "/"
-				+ System.getProperty("env-type").trim() + "-env.properties";
-		if (getClass().getResource(environmentFileName) != null) {
-			customEnvironmentPath = getClass().getResource(environmentFileName)
-					.getPath().toString();
+//		String environmentFileName = "/"
+//				+ System.getProperty("env-type").trim() + "-env.properties";
+		String environmentFileName =  System.getProperty("env-type").trim() + "-env.properties";
+		customEnvironmentPath = Utils.getResources(this,environmentFileName);
+		if (customEnvironmentPath != null) {
+//			customEnvironmentPath = getClass().getResource(environmentFileName)
+//					.getPath().toString();
 			return customEnvironmentPath;
 		} else {
 			throw new FrameworkError(
@@ -63,12 +66,15 @@ public class ConfigurationClass {
 	 */
 	public String getPropertyFilePath() {
 		String pagesHelperFilePath = null;
-		String pagesHelperFileName = "/"
-				+ System.getProperty("env-type").trim()
+//		String pagesHelperFileName = "/"
+//				+ System.getProperty("env-type").trim()
+//				+ "-pagesHelper.properties";
+		String pagesHelperFileName = System.getProperty("env-type").trim()
 				+ "-pagesHelper.properties";
-		if (getClass().getResource(pagesHelperFileName) != null) {
-			pagesHelperFilePath = getClass().getResource(pagesHelperFileName)
-					.getPath().toString();
+		pagesHelperFilePath = Utils.getResources(this, pagesHelperFileName);
+		if (pagesHelperFilePath != null) {
+//			pagesHelperFilePath = getClass().getResource(pagesHelperFileName)
+//					.getPath().toString();
 			return pagesHelperFilePath;
 		} else {
 			throw new FrameworkError(
