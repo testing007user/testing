@@ -6,6 +6,11 @@ public enum PAGE_NAME {
 	Import,
 	Subscribers,
 	TestSetupPage,
+	SMSHeader,
+	SMSContent,
+	SMSTarget,
+	SMSSchedule,
+	
 	
 
 }

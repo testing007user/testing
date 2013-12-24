@@ -27,9 +27,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
-public class RequestReportsPage {
+public class RequestReportsPage extends BasePage {
 
 	/**
 	 * Initializing Page objects
@@ -106,7 +107,7 @@ public class RequestReportsPage {
 	 * Initializing Constructor
 	 */
 	public RequestReportsPage(WebDriver driver, String pageUrl) {
-
+		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);

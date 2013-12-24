@@ -8,6 +8,10 @@ import com.yesmail.qa.pageobjects.login.LoginPage;
 
 import com.yesmail.qa.pageobjects.mvt.*;
 
+import com.yesmail.qa.pageobjects.sms.SmsContentPage;
+import com.yesmail.qa.pageobjects.sms.SmsHeaderPage;
+import com.yesmail.qa.pageobjects.sms.SmsSchedulePage;
+import com.yesmail.qa.pageobjects.sms.SmsTargetPage;
 import com.yesmail.qa.pageobjects.subscriber.SubscribersPage;
 import com.yesmail.qa.test.configuration.XMLParser;
 
@@ -29,6 +33,11 @@ public class PageObjectFactory {
 	private TestSchedulePage testSchedulePage;
 	private TestSetupPage testSetupPage;
 	private TestTargetPage testTargetPage;
+	private SmsHeaderPage smsHeaderPage;
+	private SmsContentPage smsContentPage;
+	private SmsTargetPage smsTargetPage;
+	private SmsSchedulePage smsSchedulePage;
+	
 
 	public PageObjectFactory(WebDriver driver) {
 		this.driver = driver;
@@ -89,6 +98,34 @@ public class PageObjectFactory {
 		if (testTargetPage == null)
 			testTargetPage = new TestTargetPage(driver, "");
 		return testTargetPage;
+	}
+	
+	public SmsHeaderPage smsHeaderPage()
+	{
+		if(null == smsHeaderPage)
+			smsHeaderPage = new SmsHeaderPage(driver, XMLParser.readComponentValueFromXML(PAGE_NAME.SMSHeader, PAGE_ATTRI.pageUrl));
+		return smsHeaderPage;
+	}
+	
+	public SmsContentPage smsContentPage()
+	{
+		if(smsContentPage == null)
+			smsContentPage = new SmsContentPage(driver, XMLParser.readComponentValueFromXML("SMSContent.pageUrl"));
+		return smsContentPage;
+	}
+	
+	public SmsTargetPage smsTargetPage()
+	{
+		if(smsTargetPage == null)
+			smsTargetPage = new SmsTargetPage(driver, XMLParser.readComponentValueFromXML("SMSTarget.pageUrl"));
+		return smsTargetPage;
+	}
+	
+	public SmsSchedulePage smsSchedulePage()
+	{
+		if(smsSchedulePage == null)
+			smsSchedulePage = new SmsSchedulePage(driver, XMLParser.readComponentValueFromXML("SMSSchedule.pageUrl"));
+		return smsSchedulePage;
 	}
 
 }
