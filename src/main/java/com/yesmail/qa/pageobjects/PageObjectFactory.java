@@ -1,6 +1,8 @@
 package com.yesmail.qa.pageobjects;
 
 import org.openqa.selenium.WebDriver;
+
+import com.yesmail.qa.pageobjects.imports.Import;
 import com.yesmail.qa.pageobjects.imports.ImportHomePage;
 import com.yesmail.qa.pageobjects.login.LoginPage;
 
@@ -20,6 +22,7 @@ public class PageObjectFactory {
 	private WebDriver driver;
 	private LoginPage loginPage;
 	private ImportHomePage importHomePage;
+	private Import importPage;
 	private SubscribersPage subscriberPage;
 	private TestContentPage testContentPage;
 	private TestEnvelopPage testEnvelopPage;
@@ -37,17 +40,24 @@ public class PageObjectFactory {
 		return loginPage;
 	}
 
-	public ImportHomePage importP() {
+	public ImportHomePage importHomePage() {
 		if (importHomePage == null)
 			importHomePage = new ImportHomePage(driver,
-					"https://qa2-platform.yesmail.com/#jobs?type=Any");
+					XMLParser.readComponentValueFromXML(PAGE_NAME.ImportHomePage,PAGE_ATTRI.pageUrl));
 		return importHomePage;
+	}
+	
+	public Import importPage()
+	{
+		if(importPage == null)
+			importPage = new Import(driver);
+		return importPage;
 	}
 
 	public SubscribersPage subscriberPage() {
 		if (subscriberPage == null)
 			subscriberPage = new SubscribersPage(driver,
-					XMLParser.readComponentValueFromXML("Subscribers.pageUrl"));
+					XMLParser.readComponentValueFromXML(PAGE_NAME.Subscribers,PAGE_ATTRI.pageUrl));
 		return subscriberPage;
 	}
 
@@ -71,7 +81,7 @@ public class PageObjectFactory {
 
 	public TestSetupPage testSetupPage() {
 		if (testSetupPage == null)
-			testSetupPage = new TestSetupPage(driver,XMLParser.readComponentValueFromXML("TestSetupPage.pageUrl"));
+			testSetupPage = new TestSetupPage(driver,XMLParser.readComponentValueFromXML(PAGE_NAME.TestSetupPage,PAGE_ATTRI.pageUrl));
 		return testSetupPage;
 	}
 

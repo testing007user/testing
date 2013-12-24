@@ -104,10 +104,10 @@
 	<page name="Imports">
 		<pageUrl>#jobs?type=Any</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
-		<txtImportFilePath>src\test\resources\imports.txt</txtImportFilePath>
-		<txtImportFilePathSubscriber>src\test\resources\importSubscribers.txt</txtImportFilePathSubscriber>		
+		<txtImportFileName>imports.txt</txtImportFileName>
+		<txtImportSubscriberFileName>importSubscribers.txt</txtImportSubscriberFileName>		
 	</page>
-	<page name="ImportStatus">
+	<page name="ImportHomePage">
 		<pageUrl>#jobs?type=Import</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>

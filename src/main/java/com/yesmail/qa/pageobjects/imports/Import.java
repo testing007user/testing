@@ -1,20 +1,28 @@
 package com.yesmail.qa.pageobjects.imports;
 
-import java.util.Iterator;
+
+
 import java.util.List;
 
-import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class Import {
+import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
+import com.yesmail.qa.test.configuration.XMLParser;
+
+
+public class Import extends BasePage {
 
 	// ** Variable declaration section
-
-	private String subscriberEmail;
-	private static final WebDriver driver = null;
+	private WebDriver driver;
 
 	/** Element locator section */
 
@@ -44,6 +52,10 @@ public class Import {
 
 	@FindBy(css = "a#uploadNewFileAction")
 	private WebElement browserYourDesktopBtn;
+	
+	@FindBy(css = "#previewTable >table")
+	private WebElement importPreviewTable;
+	
 
 	// Delimiter header WebElement locators
 
@@ -123,249 +135,173 @@ public class Import {
 
 	@FindBy(css = "a#importSubmit")
 	private WebElement submitJobForProcessingBtn;
+		
+	@FindBy(css = "a#modalAlertPopUpYesAction")
+	private WebElement modalAlertPopUpYesBtn;
 	
-
-	/*@FindBy(css = "a#modalAlertPopUpYesAction")
-	private WebElement modalAlertPopUpYesBtn;*/
+	@FindBy(css = "#jobid")
+	private WebElement JobID;
+		
 
 	// list of WebElement that represent each option in the File Column
-	@FindBys(value = { @FindBy(css = "select#headerList") })
+	@FindBys(value = { @FindBy(css = "select#headerList >option") })
 	private static List<WebElement> optionFileColumns;
 
 	// list of WebElement that represent each row in the Subscriber
 	// Attributes[data type]
-	@FindBys(value = { @FindBy(css = "div#dbSelectList.selectList") })
+	@FindBys(value = { @FindBy(css = "#fieldList>option") })
 	private static List<WebElement> optionSubscriberAttributesDataType;
 
+	/**
+	 * Constructor section
+	 * 
+	 * @return
+	 */
 	
+	public Import(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);				
+	}
 	
+	public Import load()
+	{
+		openImportUtilityBtn.click();
+		return this;
+	}
 	
+	public void isLoaded()
+	{
+		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.cssSelector("input#uploadFilesAction")), driver,50))
+		{
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds ");
+		}
+	}
 	
 	/***
-	 * 
-	 * @param delimiter
-	 *            : to define the delimiter as Comma/Tab/Space/Semicolon/Pipe/No
-	 *            Delimiter
+	 * This method is added to load Import Page	 
+	 * @author Sangeeta Pote	 	 
+	 *//*
+	public void loadImportPage() {
+		driver.get(pageUrl);
+		DriverUtility.waitforElementDisplay(driver, openImportUtilityBtn, 10);
+	}	*/
+	
+	/***
+	 * This method is added to import Subscribers	 
+	 * @param delimiter : to define the delimiter as Comma/Tab/Space/Semicolon/Pipe/No
+	 * @return JobId of imported subscriber            
 	 */
-
-	/*public void importScrubscribers(WebElement delimiter) {
-
-		String[] expected = { "eMail[Email]", "firstName[Name]",
-				"lastName[Name]" };
-
-		boolean yesHeader = true;// // Need to get this value from PagesHelper
-									// for header true or false
-
-		openImportUtilityBtn.click();
-
-		java.util.Set<String> winId = driver.getWindowHandles();
-		Iterator<String> it = winId.iterator();
-
-		String winParentId = it.next();
-		String winChildId = it.next();
-
-		driver.switchTo().window(winChildId);
-		{
-
-			// Select DataFile
-			uploadModifyMySubscribers.click();
-			selectContinueActionBtn.click();
-			browserYourDesktopBtn.click();
-
-			// String winParentId1= it.next();
-			String winChildId1 = it.next();
-
-			driver.switchTo().window(winChildId1);
-			{
-				chooseFileBtn.click();
-				chooseFileBtn
-						.sendKeys("C:\\Users\\sangeetap\\Desktop\\import.txt");
-				uploadFileBtn.click();
-				driver.close();
-			}
-			driver.switchTo().window(winChildId);
-			dataFileContinueBtn.click();
-
-			 Define delimiter 
-
-			if (yesHeader) {
-				yesRadioBtn.click();
-				delimiter.click();
-				delimiterContinueActionbtn.click();
-			} else {
-				noRadioBtn.click();
-				delimiterContinueActionbtn.click();
-			}
-			// Select Map
-
-			editMapBtn.click();
-			String winChildId2 = it.next();
-			driver.switchTo().window(winChildId2);
-			{
-				optionFileColumns.size();
-				optionSubscriberAttributesDataType.size();
-				for (WebElement option : optionFileColumns) {
-					System.out.println(String.format("Value is: %s",
-							option.getAttribute("value")));
-					option.click();
-					{
-						for (WebElement option1 : optionSubscriberAttributesDataType) {
-
-							if (option.getText().equals(option1.getText())) {
-								option1.click();
-							}
-						}
-						// System.out.println(String.format("Value is : %s",option1.getAttribute("value")));
-						associtatMapBtn.click();
-					}
-					createMapContinueBtn.click();
-					driver.close();
-					driver.switchTo().window(winChildId);
-					mapContinueBtn.click();
-				}
-				//
-				importCustomersBtn.click();
-				selectDivisionDropDown.click();
-				submitJobForProcessingBtn.click();
-				Alert alert = driver.switchTo().alert();
-				alert.accept();
-
-				driver.switchTo().window(winParentId);
-				driver.close();
-				
-
-			}
-
-		}
-
-	}
-	
-	*/
-	
-	public void selectDataFileYesmailFTP() {
-	}
-	
-	public void importScrubscribers() {
-		WebElement element = null;
-		
-		String winhandParentId = selectDataFileDesktop();
-		String winhandle1=defindDelimiter(winhandParentId,element );
-		String winhandle2=createNewMap(winhandle1);
-		String winhandle3=chooseImportType(winhandle2);
+	public String importScrubscribers(boolean headerFlag,DELIMITER delimiter) {
+		String jobID = null;
+		String parentWindowId = driver.getWindowHandle();
+		selectDataFileDesktop();
+		selectHeader(headerFlag);
+		definedDelimiter(delimiter);
+		delimiterContinueActionbtn.click();
+		createNewMap();
+		chooseImportType();
+		DriverUtility.waitforElementDisplay(driver, JobID, 5);
+		jobID = JobID.getText();		
 		driver.close();
-		driver.switchTo().window(winhandParentId);
-		
+		driver.switchTo().window(parentWindowId);
+		return jobID;
 	}
-	
-	
-	
-	
-	
-	private String chooseImportType(String winhandle2) {
-		// TODO Auto-generated method stub
-		driver.switchTo().window(winhandle2);
+
+	/***
+	 * This method is added to choose Import Type	
+	 * @author sangeetap       
+	 */
+	private void chooseImportType() {				
+		DriverUtility.waitforElementDisplay(driver, importCustomersBtn, 20);
 		importCustomersBtn.click();
-		selectDivisionDropDown.click();
-		submitJobForProcessingBtn.click();
-		Alert alert = driver.switchTo().alert();
-		alert.accept();
-		return winhandle2;
+		DriverUtility.selectDropDown(selectDivisionDropDown,"marketing",1);
+		DriverUtility.waitforElementDisplay(driver, submitJobForProcessingBtn, 10);		
+		submitJobForProcessingBtn.click();		
+		DriverUtility.waitforElementDisplay(driver, modalAlertPopUpYesBtn, 10);
+		modalAlertPopUpYesBtn.click();		
 	}
 
 	/***
 	 * This method is added to select Data file from user desktop
 	 * 
 	 * @author sangeetap
-	 * @return
-	 * @Since completed by 26 Nov 13
+	 * @return	 
 	 */
-	public String selectDataFileDesktop(/*Window winhandle*/) {
+	private void selectDataFileDesktop() {	
 		openImportUtilityBtn.click();
-		java.util.Set<String> winId = driver.getWindowHandles();
-		Iterator<String> it = winId.iterator();
-		String winParentId = it.next();
-		String winChildId = it.next();
-		driver.switchTo().window(winChildId);
-		{
-			// Select DataFile
-			uploadModifyMySubscribers.click();
-			selectContinueActionBtn.click();
-			browserYourDesktopBtn.click();
-			// String winParentId1= it.next();
-			String winChildId1 = it.next();
-			driver.switchTo().window(winChildId1);
-			{
-				chooseFileBtn.click();
-				chooseFileBtn
-						.sendKeys("C:\\Users\\sangeetap\\Desktop\\import.txt");
-				uploadFileBtn.click();
-				driver.close();
-			}
-			driver.switchTo().window(winChildId);
-			dataFileContinueBtn.click();
-			return winParentId;
+		String childWindowTitle = "Yesmail Enterprise: Import Data";
+		DriverUtility.switchToWindow(driver, childWindowTitle);	
+		
+		// Select DataFile	
+		uploadModifyMySubscribers.click();
+		selectContinueActionBtn.click();
+		browserYourDesktopBtn.click();
+		DriverUtility.waitforElementDisplay(driver, chooseFileBtn, 20);
+		chooseFileBtn.click();
+		chooseFileBtn.sendKeys(Utils.getResources(this,XMLParser.readComponentValueFromXML("Imports.txtImportFileName")));
+		uploadFileBtn.click();
+		DriverUtility.waitforElementDisplay(driver, importPreviewTable, 60);
+		DriverUtility.waitforElementDisplay(driver, dataFileContinueBtn, 10);
+		dataFileContinueBtn.click();				
+	}
+	
+	public enum DELIMITER{
+		COMMA, TAB, SPACE, SEMICOLON, PIPE, NO_DELIMITER
+	}
+	
+	/***
+	 * This method is added to select delimiter
+	 * @param- delimiter(Comma, Tab, Space, Semicolon, Pipe)
+	 * @author sangeetap
+	 * @return	 
+	 */
+	private void definedDelimiter(DELIMITER selectDelimiter){
+		
+		switch(selectDelimiter){	
+		case COMMA :delimiterCommaRadioBtn.click(); break;
+		case TAB : delimiterTabRadioBtn.click(); break;
+		case SPACE : delimiterSpaceRadioBtn.click();break;
+		case SEMICOLON : delimiterSemicolonRadiBtn.click();break;
+		case PIPE : delimiterPipeRadioBtn.click();break;		
+		default : noDelimiterRadioBtn.click();break;		
 		}
-	}
-	
-	public String defindDelimiter(String winhandle,WebElement delimiter)
-	{
-		boolean yesHeader = true;// // Need to get this value from PagesHelper
-		// for header true or false
-		driver.switchTo().window(winhandle);
-		if (yesHeader) {
-			yesRadioBtn.click();
-			delimiter.click();
-			delimiterContinueActionbtn.click();
-		} else {
-			noRadioBtn.click();
-			delimiterContinueActionbtn.click();
-			
-			}
-		driver.close();
-		return winhandle;
-	}
 
-
-	public void selectExistingMap()
-	{
 		
+	}	
+	
+	private void selectHeader(boolean selectHeaderFlag)
+	{
+		if(selectHeaderFlag)
+			yesRadioBtn.click();	
+		else
+			noRadioBtn.click();	
 	}
 	
-	public String createNewMap(String winhandle1)
-	{
-
-	driver.switchTo().window(winhandle1);
+	/***
+	 * This method is added to create New Map
+	 * 
+	 * @author sangeetap
+	 * @return	 
+	 */
+	private void createNewMap(){		
 		editMapBtn.click();
-		
-		Iterator<String> it = null;
-		String winChildId2 = it.next();
-		driver.switchTo().window(winChildId2);
-		{
-			optionFileColumns.size();
-			optionSubscriberAttributesDataType.size();
-			for (WebElement option : optionFileColumns) {
-				System.out.println(String.format("Value is: %s",
-						option.getAttribute("value")));
-				option.click();
-				{
-					for (WebElement option1 : optionSubscriberAttributesDataType) {
-
-						if (option.getText().equals(option1.getText())) {
-							option1.click();
-						}
-					}
-					// System.out.println(String.format("Value is : %s",option1.getAttribute("value")));
+		DriverUtility.waitforElementDisplay(driver, associtatMapBtn, 20);		
+		for (WebElement option : optionFileColumns) {			
+			option.click();
+			for (WebElement option1 : optionSubscriberAttributesDataType) {
+				System.out.println(option1.getText().split("\\[")[0]);
+				if (option.getText().equalsIgnoreCase(option1.getText().split("\\[")[0].trim())) {
+					option1.click();
 					associtatMapBtn.click();
+					break;
 				}
-				createMapContinueBtn.click();
-				driver.close();
-				driver.switchTo().window(winhandle1);
-				mapContinueBtn.click();
-				
-				
 			}
+
+		}
+		createMapContinueBtn.click();
+		mapContinueBtn.click();
 	}
-		return winhandle1;
-}
-	
+		
 }
