@@ -31,6 +31,7 @@
 	<page name="Content">
 		<pageUrl>#email/content</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		<contentUploadFileName>Test 12 March 2013.zip</contentUploadFileName>
 		<txtFilePath>src\test\resources\Lexus.zip</txtFilePath>
 		<BatFilePath>src\test\resources\content\BAT.zip</BatFilePath>
 		<htmlFilePath>src\test\resources\content\HTML.zip</htmlFilePath>

@@ -23,6 +23,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -95,10 +97,11 @@ public class TestContentPage extends MvtBase {
 	 * 
 	 * @param count
 	 *            ` - numbder of content to add
-	 * @param uploadFileName:Name of the file like :Lexus.zip etc
+	 * @param uploadFileName
+	 *            :Name of the file like :Lexus.zip etc
 	 * @return countStore - number of content added
 	 */
-	public int addContent(int count,String uploadFileName) {
+	public int addContent(int count, String uploadFileName) {
 		int countStore = count;
 
 		if (count != 0) {
@@ -112,7 +115,7 @@ public class TestContentPage extends MvtBase {
 			uploadFile(uploadFileName);
 			count--;
 			if (count >= 1)
-				addContent(count,uploadFileName);
+				addContent(count, uploadFileName);
 		}
 		return countStore;
 	}
@@ -120,13 +123,15 @@ public class TestContentPage extends MvtBase {
 	/***
 	 * This Method is added to upload content file in the Test content page
 	 * 
-	 * @param uploadFileName:Name of the file like :Lexus.zip etc
+	 * @param uploadFileName
+	 *            :Name of the file like :Lexus.zip etc
 	 */
 	public void uploadFile(String uploadFileName) {
 
 		uploadButton.click();
-		uploadformTextField
-				.sendKeys(Utils.getResources(this,uploadFileName));
+		uploadformTextField.sendKeys(Utils.getResources(this, uploadFileName));
+		// uploadformTextField
+		// .sendKeys("D:\\NEWUIAutomation\\kapil test\\target\\test-classes\\Test 12 March 2013.zip");
 		uploadAssetsButton.click();
 
 	}
