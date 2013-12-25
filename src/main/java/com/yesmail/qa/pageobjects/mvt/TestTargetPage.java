@@ -23,6 +23,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.yesmail.qa.pageobjects.PagesHelper;
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.exception.FrameworkException;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class TestTargetPage extends MvtBase {
 
@@ -76,7 +79,7 @@ public class TestTargetPage extends MvtBase {
  * @author sangeetap
  */
 	public TestTargetPage(WebDriver driver, String pageUrl) {
-		super(driver, pageUrl);
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		
@@ -86,6 +89,16 @@ public class TestTargetPage extends MvtBase {
 	{
 		navigateToTargetTab();
 		return this;
+	}
+	
+	public boolean isLoaded()
+	{
+		if(null == DriverUtility.waitFor(elementToBeClickable(By.cssSelector("input.clearable")), driver,50))
+		{
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds");
+		}
+		return true;
 	}
 
 	/***

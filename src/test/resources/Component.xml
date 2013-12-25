@@ -103,7 +103,7 @@
 	<!--  Import -->
 	<page name="Imports">
 		<pageUrl>#jobs?type=Any</pageUrl>
-		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		<lblPageTitle>Yesmail Enterprise: Import Data</lblPageTitle>
 		<txtImportFileName>imports.txt</txtImportFileName>
 		<txtImportSubscriberFileName>importSubscribers.txt</txtImportSubscriberFileName>		
 	</page>

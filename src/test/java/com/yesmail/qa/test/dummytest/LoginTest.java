@@ -14,8 +14,8 @@ public class LoginTest {
 	public void loginTest1() {
 
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 
 		a.assertAll();
@@ -28,8 +28,8 @@ public class LoginTest {
 	public void loginTest2() {
 
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		 a.assertAll();
 
@@ -39,7 +39,7 @@ public class LoginTest {
 	@Test(groups = "Testing3",timeOut = 500000)
 	public void loginTest3() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
-		pof.loginPage().loginAs();
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
 		pof.testSetupPage().load().isLoaded();
 		a.assertTrue(true,"Job ID is:"+pof.testSetupPage().fillSetUpPage(true, true, false));
 		pof.testEnvelopPage().load().isLoaded();

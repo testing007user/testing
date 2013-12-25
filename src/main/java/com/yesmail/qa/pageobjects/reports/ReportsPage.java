@@ -16,12 +16,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class ReportsPage extends BasePage {
 
@@ -63,9 +62,8 @@ public class ReportsPage extends BasePage {
 		// TODO Auto-generated method stub
 		if (null == DriverUtility
 				.waitFor(
-						ExpectedConditions
-								.elementToBeClickable(By
-										.cssSelector("#mainContentArea div:nth-child(3) select[name='typeSelect']")),
+						elementToBeClickable(By
+								.cssSelector("#mainContentArea div:nth-child(3) select[name='typeSelect']")),
 						driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");

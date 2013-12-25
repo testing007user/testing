@@ -22,13 +22,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class RequestReportsPage extends BasePage {
 
@@ -115,14 +114,13 @@ public class RequestReportsPage extends BasePage {
 	}
 
 	public RequestReportsPage load() {
-		driver.navigate().to(PagesHelper.URL+pageUrl);
+		driver.navigate().to(PagesHelper.URL + pageUrl);
 		return this;
 	}
 
 	public void isLoaded() {
-		ExpectedCondition<WebElement> condition = ExpectedConditions
-				.elementToBeClickable(By
-						.cssSelector("#mainContentArea div:nth-child(3) select.reportTypeSelect"));
+		ExpectedCondition<WebElement> condition = elementToBeClickable(By
+				.cssSelector("#mainContentArea div:nth-child(3) select.reportTypeSelect"));
 		if (null == DriverUtility.waitFor(condition, driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
@@ -130,14 +128,14 @@ public class RequestReportsPage extends BasePage {
 	}
 
 	/**
-	 * This method is added to select the report type
-	 * visible text : Delivery and Response
+	 * This method is added to select the report type visible text : Delivery
+	 * and Response
+	 * 
 	 * @author sangeetap
 	 */
 	public void selectReportType(String visibleText) {
 
-		DriverUtility.selectDropDown(reportTypeDropDown,
-				visibleText, 0);
+		DriverUtility.selectDropDown(reportTypeDropDown, visibleText, 0);
 	}
 
 	/**
@@ -228,7 +226,8 @@ public class RequestReportsPage extends BasePage {
 	 * 
 	 * @author sangeetap
 	 */
-	public void RequestRunReport(String visibleTextReportType,String visibleTextMailingView,String attributeText) {
+	public void RequestRunReport(String visibleTextReportType,
+			String visibleTextMailingView, String attributeText) {
 		selectReportType(visibleTextReportType);
 		selectMailingView(visibleTextMailingView);
 		selectAttributes(attributeText);

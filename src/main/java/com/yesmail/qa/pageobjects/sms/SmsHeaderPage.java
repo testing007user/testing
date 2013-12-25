@@ -9,18 +9,16 @@
 
 package com.yesmail.qa.pageobjects.sms;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class SmsHeaderPage extends SmsBasePage {
 
@@ -63,25 +61,22 @@ public class SmsHeaderPage extends SmsBasePage {
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
-		
+
 	}
 
 	public SmsHeaderPage load() {
-		driver.get(PagesHelper.URL+pageUrl);
+		driver.get(PagesHelper.URL + pageUrl);
 		return this;
 	}
 
 	public void isLoaded() {
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.id("name")), driver, 50))
-		{
+		if (null == DriverUtility.waitFor(elementToBeClickable(By.id("name")),
+				driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
-		
+
 	}
-
-
-	
 
 	/***
 	 * This method is added to fill name
@@ -90,7 +85,6 @@ public class SmsHeaderPage extends SmsBasePage {
 	 */
 	private void fillSMSMasterName() {
 
-		
 		// waitForRibbonToClose();
 		smsName.sendKeys(Utils.getUniqueName("SMS"));
 	}
@@ -111,23 +105,22 @@ public class SmsHeaderPage extends SmsBasePage {
 	 * @author sangeetap
 	 */
 	public void selectCampaign() {
-		DriverUtility.selectDropDown(campaign,
-				"campaignName", 1); //get from pagesHelper
+		DriverUtility.selectDropDown(campaign, "campaignName", 1); // get from
+																	// pagesHelper
 
-		if ("campaignName"
-				.equalsIgnoreCase("Create New...")) {
+		if ("campaignName".equalsIgnoreCase("Create New...")) {
 			// DriverUtility.selectDropDown(campaignDropDown,PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME,
 			// 1);
 			campaignNewCampaignName.clear();
-			String strName = Utils
-					.getUniqueName("campaignNewName");//get from pagesHelper
+			String strName = Utils.getUniqueName("campaignNewName");// get from
+																	// pagesHelper
 			strName = strName.substring(0, strName.length() - 20);
 			campaignNewCampaignName.sendKeys(strName);
 			if (newCampaignTypeSelect.toString().equalsIgnoreCase(
 					("Create New..."))) {
-				String strDesc = Utils
-						.getUniqueName("newStr",20);//get from pagesHelper
-				//strDesc = strDesc.substring(0, StrDesc.length() - 20);
+				String strDesc = Utils.getUniqueName("newStr", 20);// get from
+																	// pagesHelper
+				// strDesc = strDesc.substring(0, StrDesc.length() - 20);
 				newCampaignNewTypeTextBox.sendKeys(strDesc);
 				newCampaignCreateButton.click();
 			}

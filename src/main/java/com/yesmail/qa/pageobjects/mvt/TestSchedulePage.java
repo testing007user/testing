@@ -13,13 +13,15 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class TestSchedulePage extends MvtBase {
 
@@ -63,7 +65,7 @@ public class TestSchedulePage extends MvtBase {
 	 */
 
 	public TestSchedulePage(WebDriver driver, String pageUrl) {
-		super(driver, pageUrl);
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		
@@ -73,6 +75,15 @@ public class TestSchedulePage extends MvtBase {
 	{
 		navigateToScheduleTab();
 		return this;
+	}
+	
+	public void isLoaded()
+	{
+		if(null == DriverUtility.waitFor(elementToBeClickable(By.id("startDatepicker")), driver, 50))
+		{
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds");
+		}
 	}
 	/**
 	 * This method is added to click on schedule Tab 

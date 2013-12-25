@@ -73,7 +73,7 @@ public class TestSetupPage extends MvtBase {
 	// Constructor
 
 	public TestSetupPage(WebDriver driver, String pageUrl) {
-		super(driver, pageUrl);
+		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
@@ -89,7 +89,8 @@ public class TestSetupPage extends MvtBase {
 	public void isLoaded()
 	{
 		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.id("name")), driver, 50))
-			throw new FrameworkException(TestSetupPage.class.getName()+" is not loaded");
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds");
 		
 	}
 

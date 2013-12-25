@@ -36,8 +36,8 @@ public class LoginTest2 {
 		a.assertTrue(true, "Checking for Web Element on Home page");
 		a.assertTrue(true, "Checking for Web Element on Home page");
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 
 		a.assertAll();
@@ -70,8 +70,8 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(driver);
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		pof.subscriberPage().load();
 		pof.subscriberPage().isLoaded();
@@ -91,8 +91,8 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(driver);
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		pof.subscriberPage().load();
 		pof.subscriberPage().isLoaded();
@@ -112,8 +112,8 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(driver);
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		pof.subscriberPage().load();
 		pof.subscriberPage().isLoaded();
@@ -133,8 +133,8 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(driver);
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		pof.subscriberPage().load();
 		pof.subscriberPage().isLoaded();
@@ -154,8 +154,8 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(driver);
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		pof.subscriberPage().load();
 		pof.subscriberPage().isLoaded();
@@ -175,8 +175,8 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(driver);
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 		pof.subscriberPage().load();
 		pof.subscriberPage().isLoaded();
@@ -194,15 +194,15 @@ public class LoginTest2 {
 
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 
-		pof.loginPage().loginAs();
-		a.assertTrue(pof.loginPage().check(),
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
+		a.assertTrue(pof.homePage().isLoaded(),
 				"Checking for Web Element on Home page");
 	}
 
 	@Test(groups = "Testing")
 	public void loginTest2() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
-		pof.loginPage().loginAs();
+		pof.loginPage().loginAs(PagesHelper.USERNAME,PagesHelper.PASSWORD);
 
 	}
 

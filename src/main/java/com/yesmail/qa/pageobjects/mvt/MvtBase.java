@@ -11,18 +11,18 @@ package com.yesmail.qa.pageobjects.mvt;
  * Version:1.1 Updated for below reason
  */
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.yesmail.qa.framework.DriverUtility;
-import com.yesmail.qa.pageobjects.PagesHelper;
+import com.yesmail.qa.pageobjects.BasePage;
 
-public class MvtBase {
+public class MvtBase extends BasePage {
 
 	private WebDriver driver;
-	private String pageUrl;
+	
 
 	// Page Elements for MVTBase class
 
@@ -52,10 +52,10 @@ public class MvtBase {
 
 	// Constructor section for MVTBase class
 	
-	public MvtBase(WebDriver driver, String pageUrl) {
+	public MvtBase(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
-		this.pageUrl = pageUrl;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(this.driver, this);
 		
 
 	}

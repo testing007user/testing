@@ -20,11 +20,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class SmsTargetPage extends SmsBasePage{
 
@@ -105,7 +104,7 @@ public class SmsTargetPage extends SmsBasePage{
 	
 	public void isLoaded()
 	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.cssSelector("input.clearable")), driver, 50))
+		if(null == DriverUtility.waitFor(elementToBeClickable(By.cssSelector("input.clearable")), driver, 50))
 		{
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
@@ -115,7 +114,7 @@ public class SmsTargetPage extends SmsBasePage{
 	/***
 	 * This enum selectAttrSMS class is added to list attribute to be searched
 	 */
-	public enum selectAttrSMS {
+	public enum SELECT_SMS_ATTRIBUTE {
 		eMail, attrString
 	}
 
@@ -133,7 +132,7 @@ public class SmsTargetPage extends SmsBasePage{
 																			// pagesHelper
 	}
 
-	public String filterSelect(selectAttrSMS selectAttrSMS) {
+	public String filterSelect(SELECT_SMS_ATTRIBUTE selectAttrSMS) {
 		DriverUtility.waitforElementDisplay(driver, attributeFilterInput, 10);
 		int i = 1;
 		attributeFilterInput.sendKeys(selectAttrSMS.toString());
@@ -166,7 +165,7 @@ public class SmsTargetPage extends SmsBasePage{
 	public boolean selectMobileAsYes() {
 		DriverUtility.waitforElementDisplay(driver, selectedYesDropDown, 20);
 
-		if (null != DriverUtility.waitFor(ExpectedConditionExtended
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended
 				.invisibilityOfElementLocated(selectedYesDropDown), driver, 10)) {
 			return true;
 		} else {
@@ -181,7 +180,7 @@ public class SmsTargetPage extends SmsBasePage{
 	 * @author sangeetap
 	 */
 
-	public void clickSaveGetCount(selectAttrSMS selectAttrSMS) {
+	public void clickSaveGetCount(SELECT_SMS_ATTRIBUTE selectAttrSMS,String textToEnter) {
 		String strAttString;
 		boolean segmentInput = false;
 		int j;
@@ -199,11 +198,11 @@ public class SmsTargetPage extends SmsBasePage{
 
 				switch (selectAttrSMS) {
 				case eMail:
-					emailSegMentInput.sendKeys("eMail");// //get from
+					emailSegMentInput.sendKeys(textToEnter);// //get from
 					segmentInput = true; // pagesHelper
 					break;
 				case attrString:
-					emailSegMentInput.sendKeys("attString");// //get from
+					emailSegMentInput.sendKeys(textToEnter);// //get from
 					segmentInput = true;
 					break; // pagesHelper
 				default:
