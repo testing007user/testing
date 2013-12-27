@@ -78,7 +78,7 @@ public class TestEnvelopPage extends MvtBase {
 	// Constructor
 
 	public TestEnvelopPage(WebDriver driver, String pageUrl) {
-		super(driver, pageUrl);
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		
@@ -119,7 +119,7 @@ public class TestEnvelopPage extends MvtBase {
 	 * 
 	 * @author sangeetap
 	 */
-	public void selectDivision() {
+	public void selectDivision(String visibleDivision) {
 
 		DriverUtility.selectDropDown(divisionDropDown,
 				PagesHelper.MULTIVARIATE_ENVELOPE_DIVISION, 0);
@@ -199,10 +199,10 @@ public class TestEnvelopPage extends MvtBase {
 	 * @param subjectCount
 	 *            - number of subject to add
 	 */
-	public void fillEnevlopePage(int subjectCount) {
+	public void fillEnevlopePage(int subjectCount,String visibleDivision) {
 
 		fillEnvName();
-		selectDivision();
+		selectDivision(visibleDivision);
 		fillfrom();
 		fillSubject(subjectCount);
 		DriverUtility.selectDropDown(encodingDropDown,

@@ -29,6 +29,7 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class TestContentPage extends MvtBase {
 
@@ -68,28 +69,27 @@ public class TestContentPage extends MvtBase {
 	@FindBy(css = "#testCasePanel span#currentContent")
 	private WebElement selectedCurrentContent;
 
-
 	/**
 	 * Constructor section
 	 * 
 	 * @author sangeetap
 	 */
 	public TestContentPage(WebDriver driver, String pageUrl) {
-		super(driver, pageUrl);
-		this.driver=driver;
+		super(driver);
+		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	public TestContentPage load()
-	{
+
+	public TestContentPage load() {
 		navigateToContentTab();
 		return this;
 	}
-	
-	public void isLoaded()
-	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.cssSelector("button[id='contentUpload']")), driver, 50))
-			throw new FrameworkException(TestContentPage.class.getName()+" is not loaded");
+
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(elementToBeClickable(By
+				.cssSelector("button[id='contentUpload']")), driver, 50))
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds");
 	}
 
 	/***
@@ -97,39 +97,43 @@ public class TestContentPage extends MvtBase {
 	 * 
 	 * @param count
 	 *            ` - numbder of content to add
+	 * @param uploadFileName
+	 *            :Name of the file like :Lexus.zip etc
 	 * @return countStore - number of content added
 	 */
-	public int addContent(int count) {
+	public int addContent(int count, String uploadFileName) {
 		int countStore = count;
-		
+
 		if (count != 0) {
 			addContentButton.click();
-			contentNameTextBox.sendKeys( Utils.getUniqueName(PagesHelper.MULTIVARIATE_CONTENT_NAME,25));
-			contentDescriptionTextBox.sendKeys(Utils.getUniqueName(PagesHelper.MULTIVARIATE_CONTENT_DESC,25));
+			contentNameTextBox.sendKeys(Utils.getUniqueName(
+					PagesHelper.MULTIVARIATE_CONTENT_NAME, 25));
+			contentDescriptionTextBox.sendKeys(Utils.getUniqueName(
+					PagesHelper.MULTIVARIATE_CONTENT_DESC, 25));
 			addConfirmButton.click();
-			DriverUtility.waitforElementDisplay(driver,addContentButton, 30);
-			uploadFile();
+			DriverUtility.waitforElementDisplay(driver, addContentButton, 30);
+			uploadFile(uploadFileName);
 			count--;
 			if (count >= 1)
-				addContent(count);
+				addContent(count, uploadFileName);
 		}
 		return countStore;
 	}
 
-	/**
+	/***
 	 * This Method is added to upload content file in the Test content page
 	 * 
-	 * @author sangeetap
+	 * @param uploadFileName
+	 *            :Name of the file like :Lexus.zip etc
 	 */
-	public void uploadFile() {
+	public void uploadFile(String uploadFileName) {
 
 		uploadButton.click();
-		uploadformTextField
-				.sendKeys("D:\\sangeeta_files\\Test 12 March 2013.zip");
+		uploadformTextField.sendKeys(Utils.getResources(this, uploadFileName));
+		// uploadformTextField
+		// .sendKeys("D:\\NEWUIAutomation\\kapil test\\target\\test-classes\\Test 12 March 2013.zip");
 		uploadAssetsButton.click();
 
 	}
-
-	
 
 }

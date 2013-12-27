@@ -31,6 +31,7 @@
 	<page name="Content">
 		<pageUrl>#email/content</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+		<contentUploadFileName>Test 12 March 2013.zip</contentUploadFileName>
 		<txtFilePath>src\test\resources\Lexus.zip</txtFilePath>
 		<BatFilePath>src\test\resources\content\BAT.zip</BatFilePath>
 		<htmlFilePath>src\test\resources\content\HTML.zip</htmlFilePath>
@@ -103,11 +104,11 @@
 	<!--  Import -->
 	<page name="Imports">
 		<pageUrl>#jobs?type=Any</pageUrl>
-		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
-		<txtImportFilePath>src\test\resources\imports.txt</txtImportFilePath>
-		<txtImportFilePathSubscriber>src\test\resources\importSubscribers.txt</txtImportFilePathSubscriber>		
+		<lblPageTitle>Yesmail Enterprise: Import Data</lblPageTitle>
+		<txtImportFileName>imports.txt</txtImportFileName>
+		<txtImportSubscriberFileName>importSubscribers.txt</txtImportSubscriberFileName>		
 	</page>
-	<page name="ImportStatus">
+	<page name="ImportHomePage">
 		<pageUrl>#jobs?type=Import</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>

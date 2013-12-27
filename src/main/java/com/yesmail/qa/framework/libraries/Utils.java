@@ -8,13 +8,18 @@
 
 package com.yesmail.qa.framework.libraries;
 
+import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.UUID;
+import org.apache.log4j.Logger;
+
 
 public class Utils {
-
+	
+	private static final Logger log = Logger.getLogger(Utils.class);
+	
 	/***
 	 * method for getting hours with +2 minutes
 	 * 
@@ -82,11 +87,20 @@ public class Utils {
 	 */
 	public static String getResources(Object className,String fileName)
 	{
+		log.debug("File Name Recieved is:"+fileName);
+		String returFilePath = null ;
 		try {
-			return className.getClass().getResource("/"+fileName).toURI().getPath().toString();
+			returFilePath	= className.getClass().getResource("/"+fileName).toURI().getPath().toString();
+			returFilePath = returFilePath.replace("/",File.separator).substring(1);
+			log.debug("Returned File Path is:::"+returFilePath);
+			return returFilePath;
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
+		}
+		catch(NullPointerException e){
+			log.info("Not able to find File with path:"+returFilePath+" in class path.Returning Null");
 			return null;
 		}
 	}

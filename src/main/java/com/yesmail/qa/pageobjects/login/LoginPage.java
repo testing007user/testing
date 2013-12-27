@@ -4,13 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
-import com.yesmail.qa.framework.libraries.IProperty;
+import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import com.yesmail.qa.pageobjects.PagesHelperEnum;
-import com.yesmail.qa.test.configuration.ConfigurationClass;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 
 public class LoginPage {
@@ -38,26 +35,32 @@ public class LoginPage {
 	
 	}
 	 
-	 public void load()
+	 public LoginPage load()
 	 {
-		 
-		 
+		 driver.get(PagesHelper.URL);
+		 driver.navigate().refresh();
+		 return this;
+	 }
+	 
+	 public boolean isLoaded()
+	 {
+		 if(null == DriverUtility.waitFor(elementToBeClickable(By.name("username")), driver, 50))
+		 {
+				throw new FrameworkException(this.getClass().getName()
+						+ " is not loaded in 50 seconds");
+		 }
+		 return true;
 	 }
 	
-	public void loginAs() {
-		
-		driver.get(PagesHelper.URL);
-		driver.navigate().refresh();
-		DriverUtility.waitforElementDisplay(driver, emailInput, 50);
-		emailInput.sendKeys(PagesHelper.USERNAME);
-		passwordInput.sendKeys(PagesHelper.PASSWORD);
+	public void loginAs(String userName,String password) {
+		emailInput.sendKeys(userName);
+		passwordInput.sendKeys(password);
 		submitBtn.click();
-		DriverUtility.waitFor(ExpectedConditions.invisibilityOfElementLocated(By.name("username")), driver, 20);
 	}
 	
-	public boolean check()
+	/*public boolean check()
 	{
 		return DriverUtility.waitforElementDisplay(driver, recentMessagesIcon, 20);		
-	}
+	}*/
 	
 }

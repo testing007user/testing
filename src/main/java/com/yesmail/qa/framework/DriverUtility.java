@@ -72,13 +72,12 @@ public class DriverUtility {
 
 	/***
 	 * This method is for switching between windows.
-	 * 
 	 * @param driver
-	 * @param sString
-	 *            :target Window title
-	 * @return:Handle of the new Window
+	 * @param sString :Target window Title
+	 * @return:True if window switched
 	 */
-	public static String getWindowHandle(WebDriver driver, String sString) {
+	public static boolean switchToWindow(WebDriver driver, String sString) {
+		String currentHandle = driver.getWindowHandle();
 		Set<String> handles = driver.getWindowHandles();
 		if (handles.size() >= 1) {
 			for (String handle : handles) {
@@ -86,13 +85,20 @@ public class DriverUtility {
 				driver.switchTo().window(handle);
 				if (driver.getTitle().contains(sString)) {
 					log.info("switched to window with title:" + sString);
-					return handle;
-				}
+					return true;
+				}	
 			}
-		}
+			driver.switchTo().window(currentHandle);
+		
 		log.info("Window with title:" + sString
 				+ " Not present,Not able to switch");
-		return null;
+		return false;
+		}
+		else
+		{
+			log.info("There is only one window handle :"+currentHandle);
+			return false;
+		}
 	}
 
 	/***
