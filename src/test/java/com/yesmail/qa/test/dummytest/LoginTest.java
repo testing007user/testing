@@ -9,7 +9,7 @@ import com.yesmail.qa.framework.testng.support.SAssert;
 public class LoginTest {
 
 	public SAssert a = new SAssert();
-
+/*
 	@Test(groups = "Testing2")
 	public void loginTest1() {
 
@@ -20,10 +20,10 @@ public class LoginTest {
 
 		a.assertAll();
 		
-	}
+	}*/
 
 
-
+/*
 	@Test(groups = "Testing2",timeOut = 300000)
 	public void loginTest2() {
 
@@ -35,18 +35,19 @@ public class LoginTest {
 
 
 	}
-
+*/
 	@Test(groups = "Testing3",timeOut = 500000)
 	public void loginTest3() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		pof.loginPage().loginAs();
-		pof.testSetupPage().load().isLoaded();
+	/*	pof.testSetupPage().load().isLoaded();
 		a.assertTrue(true,"Job ID is:"+pof.testSetupPage().fillSetUpPage(true, true, false));
 		pof.testEnvelopPage().load().isLoaded();
 		pof.testEnvelopPage().fillEnevlopePage(1);
 		pof.testContentPage().load().isLoaded();
-		a.assertAll();
-		
+		a.assertAll();*/
+		pof.createCampaignPage().load().isLoaded();
+		a.assertTrue(true,"Create Campaign Name:"+pof.createCampaignPage().createCampaign(true));
 		
 
 	}

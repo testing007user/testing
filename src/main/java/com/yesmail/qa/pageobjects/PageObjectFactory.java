@@ -1,6 +1,8 @@
 package com.yesmail.qa.pageobjects;
 
 import org.openqa.selenium.WebDriver;
+
+import com.yesmail.qa.pageobjects.campaign.CreateCampaignPage;
 import com.yesmail.qa.pageobjects.imports.ImportHomePage;
 import com.yesmail.qa.pageobjects.login.LoginPage;
 
@@ -16,7 +18,7 @@ import com.yesmail.qa.test.configuration.XMLParser;
  * 
  */
 public class PageObjectFactory {
-	
+
 	private WebDriver driver;
 	private LoginPage loginPage;
 	private ImportHomePage importHomePage;
@@ -26,6 +28,7 @@ public class PageObjectFactory {
 	private TestSchedulePage testSchedulePage;
 	private TestSetupPage testSetupPage;
 	private TestTargetPage testTargetPage;
+	private CreateCampaignPage createCampaignPage;
 
 	public PageObjectFactory(WebDriver driver) {
 		this.driver = driver;
@@ -71,7 +74,9 @@ public class PageObjectFactory {
 
 	public TestSetupPage testSetupPage() {
 		if (testSetupPage == null)
-			testSetupPage = new TestSetupPage(driver,XMLParser.readComponentValueFromXML("TestSetupPage.pageUrl"));
+			testSetupPage = new TestSetupPage(driver,
+					XMLParser
+							.readComponentValueFromXML("TestSetupPage.pageUrl"));
 		return testSetupPage;
 	}
 
@@ -81,4 +86,13 @@ public class PageObjectFactory {
 		return testTargetPage;
 	}
 
+	public CreateCampaignPage createCampaignPage() {
+		if (createCampaignPage == null)
+			createCampaignPage = new CreateCampaignPage(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("CreateCampaignPage.pageUrl"));
+		return createCampaignPage;
+
+	}
 }
