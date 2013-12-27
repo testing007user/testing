@@ -19,6 +19,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.yesmail.qa.framework.configuration.CommandLineArgs;
@@ -105,7 +106,9 @@ class DriverFactory {
 	private WebDriver intializeRemoteWebDriver() {
 		try {
 			setDesiredCapability();
-			return new RemoteWebDriver(new URL(remoteURL), dc);
+			RemoteWebDriver rw = new RemoteWebDriver(new URL(remoteURL), dc);
+			rw.setFileDetector(new LocalFileDetector());
+			return rw;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return null;

@@ -16,13 +16,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
 
+import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.pageobjects.BasePage;
 
 public class MvtBase extends BasePage {
 
 	private WebDriver driver;
 	
+
 
 	// Page Elements for MVTBase class
 
@@ -50,6 +53,8 @@ public class MvtBase extends BasePage {
 	@FindBy(css = ".mvt-ico-results > span:nth-child(1)")
 	private WebElement resultsTab;
 
+	@FindBy(css=".mvt-step.complete")
+	private WebElement mvtCompleteIcon;
 	// Constructor section for MVTBase class
 	
 	public MvtBase(WebDriver driver) {
@@ -82,6 +87,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to SetUp Test page
 	 */
 	public void navigateToSetUpTab() {
+		Reporter.log("Navigating to --> Test Setup Tab");
 		setUpTab.click();
 	}
 
@@ -89,6 +95,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to Envelope Test page
 	 */
 	public void navigateToEnvelopeTab() {
+		Reporter.log("Navigating to --> Test Envelope Tab");
 		envelopTab.click();
 	}
 
@@ -96,6 +103,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to Content Test page
 	 */
 	public void navigateToContentTab() {
+		Reporter.log("Navigating to --> Test Content Tab");
 		contentTab.click();
 
 	}
@@ -104,6 +112,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to Target Test page
 	 */
 	public void navigateToTargetTab() {
+		Reporter.log("Navigating to --> Test Target Tab");
 		targetTab.click();
 	}
 
@@ -119,6 +128,7 @@ public class MvtBase extends BasePage {
 	 */
 	
 	public void navigateToSummaryTab() {
+		Reporter.log("Navigating to --> Test Summary Tab");
 		summaryTab.click();
 	}
 
@@ -130,5 +140,13 @@ public class MvtBase extends BasePage {
 	{
 		resultsTab.click();
 	}
+	
+	/***
+	 * This checks if the page is completed and green mark is displayed
+	 * @return
+	 */
+	public boolean stepCompleted(){
+		  return DriverUtility.waitforElementDisplay(driver, mvtCompleteIcon, 10);
+		 }
 
 }

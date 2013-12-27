@@ -18,6 +18,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -85,13 +87,7 @@ public class TestSchedulePage extends MvtBase {
 					+ " is not loaded in 50 seconds");
 		}
 	}
-	/**
-	 * This method is added to click on schedule Tab 
-	 */
-	public void navigateToScheduleTab() {
-		scheduleTab.click();
-
-	}
+	
 
 	/***
 	 * This method is added to select the AM/PM radio button
@@ -116,7 +112,9 @@ public class TestSchedulePage extends MvtBase {
 	public void enterCurrentHour() {
 		DriverUtility.waitforElementDisplay(driver, hourTextBox, 20);
 		hourTextBox.clear();
-		hourTextBox.sendKeys(Utils.getHourString());
+		String hourString = Utils.getHourString();
+		Reporter.log("Hour Enter is:"+hourString);
+		hourTextBox.sendKeys();
 		}
 
 	/***
@@ -125,7 +123,9 @@ public class TestSchedulePage extends MvtBase {
 		public void enterCurrentMinutes() {
 		DriverUtility.waitforElementDisplay(driver, minuteTextBox, 20);
 		minuteTextBox.clear();
-		minuteTextBox.sendKeys(Utils.getMinuteString());
+		String minString = Utils.getMinuteString();
+		Reporter.log("Minute Enter is:"+minString);
+		minuteTextBox.sendKeys(minString);
 	}
 
 	/***

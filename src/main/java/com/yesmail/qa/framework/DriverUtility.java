@@ -58,22 +58,30 @@ public class DriverUtility {
 	 */
 	public static <T> T waitFor(ExpectedCondition<T> expectedCondition,
 			WebDriver driver, int timeOutInSeconds) {
-		driver.manage().timeouts().implicitlyWait(0,TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		try {
 			T returnValue = new WebDriverWait(driver, timeOutInSeconds)
 					.until(expectedCondition);
-			driver.manage().timeouts().implicitlyWait(CommandLineArgs.getDriverTimeOut(), TimeUnit.SECONDS);
+			driver.manage()
+					.timeouts()
+					.implicitlyWait(CommandLineArgs.getDriverTimeOut(),
+							TimeUnit.SECONDS);
 			return returnValue;
 		} catch (TimeoutException e) {
-			driver.manage().timeouts().implicitlyWait(CommandLineArgs.getDriverTimeOut(), TimeUnit.SECONDS);
+			driver.manage()
+					.timeouts()
+					.implicitlyWait(CommandLineArgs.getDriverTimeOut(),
+							TimeUnit.SECONDS);
 			return null;
 		}
 	}
 
 	/***
 	 * This method is for switching between windows.
+	 * 
 	 * @param driver
-	 * @param sString :Target window Title
+	 * @param sString
+	 *            :Target window Title
 	 * @return:True if window switched
 	 */
 	public static boolean switchToWindow(WebDriver driver, String sString) {
@@ -86,17 +94,15 @@ public class DriverUtility {
 				if (driver.getTitle().contains(sString)) {
 					log.info("switched to window with title:" + sString);
 					return true;
-				}	
+				}
 			}
 			driver.switchTo().window(currentHandle);
-		
-		log.info("Window with title:" + sString
-				+ " Not present,Not able to switch");
-		return false;
-		}
-		else
-		{
-			log.info("There is only one window handle :"+currentHandle);
+
+			log.info("Window with title:" + sString
+					+ " Not present,Not able to switch");
+			return false;
+		} else {
+			log.info("There is only one window handle :" + currentHandle);
 			return false;
 		}
 	}
@@ -133,14 +139,31 @@ public class DriverUtility {
 	 * 
 	 * @param element
 	 *            :Element on which Double click needs to be performed
+	 * @param clickStrategy : double click using javascript or using action class
 	 * @param driver
 	 */
-	public static void doubleClick(WebElement element, WebDriver driver) {
-		((JavascriptExecutor) driver)
-				.executeScript(
-						"var evt = document.createEvent('MouseEvents');"
-								+ "evt.initMouseEvent('dblclick',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0,null);"
-								+ "arguments[0].dispatchEvent(evt);", element);
+	public static void doubleClick(WebElement element, WebDriver driver,
+			CLICK_STRATEGY clickStrategy) {
+
+		switch (clickStrategy) {
+
+		case USING_ACTION:
+			Actions action = new Actions(driver);
+			action.doubleClick(element).perform();
+			break;
+		case USING_JS:
+			((JavascriptExecutor) driver)
+					.executeScript(
+							"var evt = document.createEvent('MouseEvents');"
+									+ "evt.initMouseEvent('dblclick',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0,null);"
+									+ "arguments[0].dispatchEvent(evt);",
+							element);
+		}
+
+	}
+
+	public enum CLICK_STRATEGY {
+		USING_JS, USING_ACTION
 	}
 
 	/***

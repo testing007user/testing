@@ -25,9 +25,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.pageobjects.PagesHelper;
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.DriverUtility.CHECK_UNCHECK;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -82,6 +84,7 @@ public class TestSetupPage extends MvtBase {
 	
 	public TestSetupPage load()
 	{
+		Reporter.log("Navigating to -->Test Setup Page");
 		driver.navigate().to(PagesHelper.URL+pageUrl);
 		return this;
 	}
@@ -127,12 +130,12 @@ public class TestSetupPage extends MvtBase {
 	 * @param checkUncheck
 	 *            Will take two value as input "true(check)" or "false(uncheck)"
 	 */
-	public String fillSetUpPage(boolean subjectCheckBox,
+	public String fillSetUpPage(CHECK_UNCHECK checkboxFlag,
 			boolean contentCheckBox, boolean autoSendcheck) {
 		fillName(Utils.getUniqueName(PagesHelper.MULTIVARIATE_SETUP_NAME,20));
 		fillDescription(Utils
 				.getUniqueName(PagesHelper.MULTIVARIATE_SETUP_DESC,20));
-		checkUncheckCheckboxSubject(subjectCheckBox);
+		DriverUtility.checkUncheckCheckBox(checkboxSubject, checkboxFlag);
 		checkUncheckCheckboxContent(contentCheckBox);
 		checkboxAutoSendWinningMessage(autoSendcheck);
 		selectCriterionAutoSend(PagesHelper.MULTIVARIATE_SETUP_AUTOSEND_CRITERIA);
@@ -161,7 +164,7 @@ public class TestSetupPage extends MvtBase {
 		  String jobNum = driver.getCurrentUrl().substring(
 		  loginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
 		  
-		  
+		  Reporter.log("Job Number is:"+jobNum,true);
 		  //System.out.println(jobNum);
 		  return jobNum;
 		 }
@@ -173,7 +176,7 @@ public class TestSetupPage extends MvtBase {
 	 *            input value will be either "check" or "uncheck"
 	 */
 
-	public void checkUncheckCheckboxSubject(boolean check)
+	/*public void checkUncheckCheckboxSubject(boolean check)
 
 	{
 		boolean checkBoxSelected = checkboxSubject.isSelected();
@@ -185,7 +188,7 @@ public class TestSetupPage extends MvtBase {
 			if (check)
 				checkboxSubject.click();
 		}
-	}
+	}*/
 
 	/**
 	 * This method is added to check /uncheck Content checkbox in Test Setup
