@@ -66,7 +66,7 @@ public class PageObjectFactory {
 	public ImportHomePage importHomePage() {
 		if (importHomePage == null)
 			importHomePage = new ImportHomePage(driver,
-					XMLParser.readComponentValueFromXML(PAGE_NAME.ImportHomePage,PAGE_ATTRI.pageUrl));
+					XMLParser.readComponentValueFromXML("ImportHomePage.pageUrl"));
 		return importHomePage;
 	}
 	
@@ -80,37 +80,37 @@ public class PageObjectFactory {
 	public SubscribersPage subscriberPage() {
 		if (subscriberPage == null)
 			subscriberPage = new SubscribersPage(driver,
-					XMLParser.readComponentValueFromXML(PAGE_NAME.Subscribers,PAGE_ATTRI.pageUrl));
+					XMLParser.readComponentValueFromXML("Subscribers.pageUrl"));
 		return subscriberPage;
 	}
 
 	public TestContentPage testContentPage() {
 		if (testContentPage == null)
-			testContentPage = new TestContentPage(driver, "");
+			testContentPage = new TestContentPage(driver);
 		return testContentPage;
 	}
 
 	public TestEnvelopPage testEnvelopPage() {
 		if (testEnvelopPage == null)
-			testEnvelopPage = new TestEnvelopPage(driver, "");
+			testEnvelopPage = new TestEnvelopPage(driver);
 		return testEnvelopPage;
 	}
 
 	public TestSchedulePage testSchedulePage() {
 		if (testSchedulePage == null)
-			testSchedulePage = new TestSchedulePage(driver, "");
+			testSchedulePage = new TestSchedulePage(driver);
 		return testSchedulePage;
 	}
 
 	public TestSetupPage testSetupPage() {
 		if (testSetupPage == null)
-			testSetupPage = new TestSetupPage(driver,XMLParser.readComponentValueFromXML(PAGE_NAME.TestSetupPage,PAGE_ATTRI.pageUrl));
+			testSetupPage = new TestSetupPage(driver,XMLParser.readComponentValueFromXML("TestSetupPage.pageUrl"));
 		return testSetupPage;
 	}
 
 	public TestTargetPage testTargetPage() {
 		if (testTargetPage == null)
-			testTargetPage = new TestTargetPage(driver, "");
+			testTargetPage = new TestTargetPage(driver);
 		return testTargetPage;
 	}
 	
@@ -124,7 +124,7 @@ public class PageObjectFactory {
 	public SmsHeaderPage smsHeaderPage()
 	{
 		if(null == smsHeaderPage)
-			smsHeaderPage = new SmsHeaderPage(driver, XMLParser.readComponentValueFromXML(PAGE_NAME.SMSHeader, PAGE_ATTRI.pageUrl));
+			smsHeaderPage = new SmsHeaderPage(driver, XMLParser.readComponentValueFromXML("SMSHeader.pageUrl"));
 		return smsHeaderPage;
 	}
 	

@@ -78,7 +78,7 @@ public class TestEnvelopPage extends MvtBase {
 
 	// Constructor
 
-	public TestEnvelopPage(WebDriver driver, String pageUrl) {
+	public TestEnvelopPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

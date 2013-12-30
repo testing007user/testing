@@ -74,7 +74,7 @@ public class TestContentPage extends MvtBase {
 	 * 
 	 * @author sangeetap
 	 */
-	public TestContentPage(WebDriver driver, String pageUrl) {
+	public TestContentPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

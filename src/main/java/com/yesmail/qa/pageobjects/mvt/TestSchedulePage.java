@@ -66,7 +66,7 @@ public class TestSchedulePage extends MvtBase {
 	 * @param pageUrl
 	 */
 
-	public TestSchedulePage(WebDriver driver, String pageUrl) {
+	public TestSchedulePage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
