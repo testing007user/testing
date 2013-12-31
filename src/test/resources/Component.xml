@@ -65,7 +65,15 @@
 	<page name="Subscribers">
 		<pageUrl>#subscribers</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
-	</page>
+	</page>	
+	<page name="ContentLibrary">
+		<pageUrl>#contentLibrary</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>	
+	<page name="CountsPage">
+		<pageUrl>#jobs?type=Count%20Task</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>		
 	
 	<!--  SMS -->
 	<page name="SMSHeader">

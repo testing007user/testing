@@ -38,7 +38,7 @@ public class LoginTest {
 
 	}
 
-	@Test(groups = "Testing3",timeOut = 500000)
+	//@Test(groups = "Testing3",timeOut = 500000)
 	public void loginTest3() {
 //		System.out.println(XMLParser.readComponentValueFromXML("Content.contentUploadFileName"));
 //		System.out.println(Utils.getResources(this, XMLParser.readComponentValueFromXML("Content.contentUploadFileName")));
@@ -56,11 +56,81 @@ public class LoginTest {
 		pof.testTargetPage().load().isLoaded();
 		
 		a.assertAll();
-		
-		
 
+	}
+	
+	@Test(timeOut = 5000000)
+	public void testing(){
+		
+		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
+		pof.loginPage().loginAs("sudhakar.a@yesmail.com", "Infogroup01!");
+		pof.homePage().isLoaded();
+		pof.emailEnvelopePage().load().isLoaded();
+				
+		a.assertTrue(pof.emailEnvelopePage().createEnvelope(),"Creating email envelope page");
+		
+		pof.emailContentPage().navigateToContentTab();		
+		pof.emailContentPage().isLoaded();
+		
+		String masterId = pof.emailContentPage().getMasterId();
+		System.out.println(masterId);
+		//pof.emailContentPage().createContent("html",false);
+		//pof.emailContentPage().createContent("text",false);
+		pof.emailContentPage().uploadFile();
+		a.assertTrue(pof.emailContentPage().stepCompleted(),"Creating email content page");
+
+		pof.emailTargetPage().navigateToTargetTab();
+		pof.emailTargetPage().isLoaded();
+		a.assertTrue(pof.emailTargetPage().clickSaveGetCount("eMail", "sangeeta.pote@yesmail.com" , "Subscribed"),"Creating email target Page");
+		
+		pof.emailSchedulePage().navigateToScheduleTab();
+		pof.emailSchedulePage().isLoaded();		
+		pof.emailSchedulePage().setDateTime();
+		pof.emailSchedulePage().selectOccurence();
+		pof.emailSchedulePage().checkObeyLimit();		
+		//pof.emailSchedulePage().preCompileSetformattedTime();	
+		a.assertTrue(pof.emailSchedulePage().saveScheduleButton(),"Creating schedule page");
+		pof.emailSchedulePage().enableAndConfirmSchedule();	
+				
+		pof.viewEmailPage().load();
+		pof.viewEmailPage().isLoaded();
+		a.assertTrue(pof.viewEmailPage().verifyEmailMasterStatus(masterId, "Delivered"),"Verifying Master status on Listing Page");
+		
+		pof.countsPage().load();
+		pof.countsPage().isLoaded();
+		a.assertTrue(pof.countsPage().verifyStatusOnCountsPage(masterId, "Finished")," verifying status Master ID "+masterId+ " on Counts Page");
+		
+		
+		
+		
+		/*PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
+		pof.loginPage().loginAs("sudhakar.a@yesmail.com", "Infogroup01!");
+		threadSleep(5);
+		pof.dataAttributesPage().load();
+		pof.dataAttributesPage().isLoaded();
+		pof.dataAttributesPage().clickCreateAttributeBtn();
+		String attributeName = Utils.getUniqueName("test", 12);
+		pof.dataAttributesPage().enterDisplayName(attributeName);
+		pof.dataAttributesPage().enterColumnName();
+		pof.dataAttributesPage().selectStringAttribute("String", "Test");
+		pof.dataAttributesPage().selectTableName();
+		pof.dataAttributesPage().selectDivisions();
+		pof.dataAttributesPage().saveAttribute();
+		a.assertTrue(pof.dataAttributesPage().searchAttribute(attributeName),"searching attribute");
+		a.assertTrue(pof.dataAttributesPage().deleteAttribute(attributeName),"deleting the attribute");	*/	
+		
 	}
 
 	
+	
+	
+	public void threadSleep(int seconds) {
+		try {
+			Thread.sleep(seconds * 1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
