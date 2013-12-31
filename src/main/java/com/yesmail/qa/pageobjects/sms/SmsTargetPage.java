@@ -104,7 +104,7 @@ public class SmsTargetPage extends SmsBasePage{
 	
 	public void isLoaded()
 	{
-		if(null == DriverUtility.waitFor(elementToBeClickable(By.cssSelector("input.clearable")), driver, 50))
+		if(null == DriverUtility.waitFor(elementToBeClickable(attributeFilterInput), driver, 50))
 		{
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");

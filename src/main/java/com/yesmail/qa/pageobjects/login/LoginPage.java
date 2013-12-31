@@ -1,5 +1,4 @@
 package com.yesmail.qa.pageobjects.login;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,7 +43,7 @@ public class LoginPage {
 	 
 	 public boolean isLoaded()
 	 {
-		 if(null == DriverUtility.waitFor(elementToBeClickable(By.name("username")), driver, 50))
+		 if(null == DriverUtility.waitFor(elementToBeClickable(emailInput), driver, 50))
 		 {
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");

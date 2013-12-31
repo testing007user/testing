@@ -95,7 +95,7 @@ public class TestEnvelopPage extends MvtBase {
 	
 	public void isLoaded()
 	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.id("name")), driver,50))
+		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(nameTextBox), driver,50))
 			throw new FrameworkException(TestEnvelopPage.class.getName()+" is not loaded");
 	}
 

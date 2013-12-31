@@ -28,8 +28,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class SubscribersPage {
@@ -159,7 +161,10 @@ public class SubscribersPage {
 	
 	public void isLoaded()
 	{
-		DriverUtility.waitforElementDisplay(driver, createNewSubscriberButton, 40);
+	
+		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(createNewSubscriberButton),driver,50))
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds ");
 	}
 
 	

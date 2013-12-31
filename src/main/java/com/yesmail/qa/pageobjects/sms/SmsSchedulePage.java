@@ -12,7 +12,6 @@ package com.yesmail.qa.pageobjects.sms;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -80,7 +79,7 @@ public class SmsSchedulePage extends SmsBasePage {
 
 	public void isLoaded() {
 		
-		if(null == DriverUtility.waitFor(elementToBeClickable(By.id("startDatepicker")), driver, 50))
+		if(null == DriverUtility.waitFor(elementToBeClickable(dateBox), driver, 50))
 		{
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");

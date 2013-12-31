@@ -93,7 +93,7 @@ public class TestTargetPage extends MvtBase {
 	
 	public boolean isLoaded()
 	{
-		if(null == DriverUtility.waitFor(elementToBeClickable(By.cssSelector("input.clearable")), driver,50))
+		if(null == DriverUtility.waitFor(elementToBeClickable(attributeFilterInput), driver,50))
 		{
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
