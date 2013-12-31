@@ -7,9 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
 public class BasePage {
 	
@@ -38,7 +37,7 @@ public class BasePage {
 	 */
 	public Map<String,String> getRibbonText(int timeToWaitInSeconds)
 	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(ribbonMessage), driver, timeToWaitInSeconds))
+		if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(ribbonMessage,ribbonStatus), driver, timeToWaitInSeconds))
 			return null;
 		Map<String,String> returnMessage = new HashMap<String, String>();
 		returnMessage.put("Status",ribbonStatus.getText());

@@ -11,7 +11,6 @@ package com.yesmail.qa.framework;
 import java.io.File;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -29,6 +28,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.google.common.base.Stopwatch;
 import com.yesmail.qa.framework.configuration.CommandLineArgs;
 
 /***
@@ -58,21 +58,25 @@ public class DriverUtility {
 	 */
 	public static <T> T waitFor(ExpectedCondition<T> expectedCondition,
 			WebDriver driver, int timeOutInSeconds) {
+		Stopwatch stopwatch = new Stopwatch();
+		stopwatch.start();
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		try {
 			T returnValue = new WebDriverWait(driver, timeOutInSeconds)
 					.until(expectedCondition);
-			driver.manage()
-					.timeouts()
-					.implicitlyWait(CommandLineArgs.getDriverTimeOut(),
-							TimeUnit.SECONDS);
 			return returnValue;
 		} catch (TimeoutException e) {
-			driver.manage()
-					.timeouts()
-					.implicitlyWait(CommandLineArgs.getDriverTimeOut(),
-							TimeUnit.SECONDS);
+			
 			return null;
+		}
+		finally
+		{
+			driver.manage()
+			.timeouts()
+			.implicitlyWait(CommandLineArgs.getDriverTimeOut(),
+					TimeUnit.SECONDS);
+			stopwatch.stop();
+			log.debug("Time Taken for waitFor method for Expected Condition is:"+stopwatch.elapsedTime(TimeUnit.SECONDS));
 		}
 	}
 
@@ -284,5 +288,8 @@ public class DriverUtility {
 			}
 		}
 	}
+	
+	
+	
 
 }

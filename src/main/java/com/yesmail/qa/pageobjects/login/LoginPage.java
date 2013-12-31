@@ -5,8 +5,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
 
 
 public class LoginPage {
@@ -26,6 +27,8 @@ public class LoginPage {
 	
 	@FindBy(id = "recentMessagesIcon" )
 	private WebElement recentMessagesIcon;
+	@FindBy(id = "test")
+	private WebElement test;
 	
 	
 	 public LoginPage(WebDriver driver) {
@@ -43,8 +46,9 @@ public class LoginPage {
 	 
 	 public boolean isLoaded()
 	 {
-		 if(null == DriverUtility.waitFor(elementToBeClickable(emailInput), driver, 50))
+		 if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(emailInput,passwordInput), driver, 50))
 		 {
+			 
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");
 		 }

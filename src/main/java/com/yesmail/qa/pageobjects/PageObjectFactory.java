@@ -14,6 +14,7 @@ import com.yesmail.qa.pageobjects.sms.SmsContentPage;
 import com.yesmail.qa.pageobjects.sms.SmsHeaderPage;
 import com.yesmail.qa.pageobjects.sms.SmsSchedulePage;
 import com.yesmail.qa.pageobjects.sms.SmsTargetPage;
+import com.yesmail.qa.pageobjects.sms.ViewSmsPage;
 import com.yesmail.qa.pageobjects.subscriber.SubscribersPage;
 import com.yesmail.qa.test.configuration.XMLParser;
 
@@ -43,6 +44,7 @@ public class PageObjectFactory {
 	private SmsContentPage smsContentPage;
 	private SmsTargetPage smsTargetPage;
 	private SmsSchedulePage smsSchedulePage;
+	private ViewSmsPage viewSmsPage;
 	
 	private CampaignManagement campaignManagement;
 
@@ -147,6 +149,13 @@ public class PageObjectFactory {
 		if(smsSchedulePage == null)
 			smsSchedulePage = new SmsSchedulePage(driver, XMLParser.readComponentValueFromXML("SMSSchedule.pageUrl"));
 		return smsSchedulePage;
+	}
+	
+	public ViewSmsPage viewSmsPage()
+	{
+		if(viewSmsPage == null)
+			viewSmsPage = new ViewSmsPage(driver, XMLParser.readComponentValueFromXML("SMSStatus.pageUrl"));
+		return viewSmsPage;
 	}
 	
 	public CampaignManagement campaignManagement()
