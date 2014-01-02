@@ -1,3 +1,19 @@
+/***
+ * File Name: LoginPage.java 
+ * Description: This Java Class is used to log in to the application with user valid credential
+ * 
+ * @author sangeetap
+ * @version Draft 1.0
+ * @since completed by 14/11/2013
+ * @Version History
+ * 
+ * @Vesion: 1.1 Version name Updated By Reason / Comments Removed verification
+ *          code for the ClickLearnMore method Added code in
+ *          'navigateToAdminPage' method to return new Page Object for Admin
+ *          Page, same changes done for the 'navigateToUsersPage' method to
+ *          return new Page Object for Users Page
+ * */
+
 package com.yesmail.qa.pageobjects.login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,15 +68,24 @@ public class LoginPage {
 		 return true;
 	 }
 	
+	 /**
+	  * This method is added to log in to the app
+	  * @param userName - valid username 
+	  * @param password - valid password
+	  */
 	public void loginAs(String userName,String password) {
 		emailInput.sendKeys(userName);
 		passwordInput.sendKeys(password);
 		submitBtn.click();
 	}
 	
-	/*public boolean check()
+	/**
+	 * This method is used to check for homepage load
+	 * @return
+	 */
+	public boolean check()
 	{
 		return DriverUtility.waitforElementDisplay(driver, recentMessagesIcon, 20);		
-	}*/
+	}
 	
 }
