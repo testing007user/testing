@@ -1,12 +1,13 @@
 package com.yesmail.qa.pageobjects;
 
-import java.util.HashMap;
-import java.util.Map;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
@@ -31,20 +32,32 @@ public class BasePage {
 	}
 	
 	/***
-	 * Return Map containing Status and Message 
-	 * Values can be retrieved like returnMessage.get("Status") or returnMessage.get("Message")
+	 * Return String containing Status and Message seprated by _
+	 * Values can be retrieved with Strign split on 1st undersocre
 	 * @param timeToWaitInSeconds
+	 * @author kapilag
 	 * @return
 	 */
-	public Map<String,String> getRibbonText(int timeToWaitInSeconds)
+	public String getRibbonText(int timeToWaitInSeconds)
 	{
 		if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(ribbonMessage,ribbonStatus), driver, timeToWaitInSeconds))
 			return null;
-		Map<String,String> returnMessage = new HashMap<String, String>();
-		returnMessage.put("Status",ribbonStatus.getText());
-		returnMessage.put("Message",ribbonMessage.getText());
+		String returnMessage = ribbonStatus.getText()+"_"+ribbonMessage.getText();
 		return returnMessage;
 		
 	}
+	
+	/***
+	 * This checks if the page is completed and green mark is displayed
+	 * Step Number starts with 1 and max to 5
+	 * @author kapilag
+	 * @return
+	 */
+	public boolean stepCompleted(int stepNumber,int timeToWaitInSeconds){
+			String cssPath = "a:nth-of-type("+stepNumber+") >  span.mvt-step[class~=complete]";
+			if(null == DriverUtility.waitFor(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssPath)), driver, timeToWaitInSeconds))
+				return false;
+			return true;
+		 }
 
 }

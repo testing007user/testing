@@ -132,7 +132,7 @@ public class TestContentPage extends MvtBase {
 		// uploadformTextField
 		// .sendKeys("D:\\NEWUIAutomation\\kapil test\\target\\test-classes\\Test 12 March 2013.zip");
 		uploadAssetsButton.click();
-		stepCompleted();
+		stepCompleted(3,15);
 
 	}
 

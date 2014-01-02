@@ -138,6 +138,7 @@ public class TestSetupPage extends MvtBase {
 		checkboxAutoSendWinningMessage(autoSendcheck);
 		selectCriterionAutoSend(PagesHelper.MULTIVARIATE_SETUP_AUTOSEND_CRITERIA);
 		String jobId = saveTest();
+		
 		return jobId;
 	}
 
@@ -146,6 +147,7 @@ public class TestSetupPage extends MvtBase {
 	 */
 	public String saveTest() {
 		saveTestButton.click();
+		System.out.println("Ribbon Text Message for Test Setup Page is:"+getRibbonText(10));
 		return getMasterId();
 
 	}

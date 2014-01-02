@@ -17,8 +17,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-
-import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.pageobjects.BasePage;
 
 public class MvtBase extends BasePage {
@@ -53,9 +51,7 @@ public class MvtBase extends BasePage {
 	@FindBy(css = ".mvt-ico-results > span:nth-child(1)")
 	private WebElement resultsTab;
 
-	@FindBy(css=".mvt-step.complete")
-	private WebElement mvtCompleteIcon;
-	// Constructor section for MVTBase class
+
 	
 	public MvtBase(WebDriver driver) {
 		super(driver);
@@ -141,12 +137,6 @@ public class MvtBase extends BasePage {
 		resultsTab.click();
 	}
 	
-	/***
-	 * This checks if the page is completed and green mark is displayed
-	 * @return
-	 */
-	public boolean stepCompleted(){
-		  return DriverUtility.waitforElementDisplay(driver, mvtCompleteIcon, 10);
-		 }
+	
 
 }
