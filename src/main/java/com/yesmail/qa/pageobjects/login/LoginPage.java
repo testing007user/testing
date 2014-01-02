@@ -1,3 +1,15 @@
+/***
+ * File : LoginPage.java
+ * Description : Page object class for LoginPage functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
 package com.yesmail.qa.pageobjects.login;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

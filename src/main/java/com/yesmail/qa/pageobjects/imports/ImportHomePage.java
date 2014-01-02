@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
@@ -131,13 +132,11 @@ public class ImportHomePage extends BasePage {
 		boolean expStatus = false;
 		int retryCount = 0;
 		long startTime = System.currentTimeMillis() / 1000;
-		System.out.println("startTime = " + startTime);
+		Reporter.log("startTime = " + startTime,true);
 		long stopTime = startTime + 300;
-		System.out.println("stopTime = " + stopTime);
+		Reporter.log("stopTime = " + stopTime,true);
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
-			System.out.println("current time =" + System.currentTimeMillis()
-					/ 1000);
 			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
 			for (index = 0; index < trCollections.size(); index++) {
 
@@ -166,7 +165,7 @@ public class ImportHomePage extends BasePage {
 			selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN.OWNDE_BY,"Me");
 			selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN.REQUESTED,"Within the last 24 hours");
 		}
-		return jobFound;
+		return expStatus;
 	}
 
 }

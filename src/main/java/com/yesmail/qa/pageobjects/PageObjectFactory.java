@@ -2,8 +2,10 @@ package com.yesmail.qa.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
+import com.yesmail.qa.pageobjects.attributes.DataAttributesPage;
 import com.yesmail.qa.pageobjects.campaigns.CampaignManagement;
-import com.yesmail.qa.pageobjects.email.EmailBase;
+import com.yesmail.qa.pageobjects.content.ContentLibraryPage;
+import com.yesmail.qa.pageobjects.counts.CountsPage;
 import com.yesmail.qa.pageobjects.email.EmailContentPage;
 import com.yesmail.qa.pageobjects.email.EmailEnvelopePage;
 import com.yesmail.qa.pageobjects.email.EmailSchedulePage;
@@ -213,25 +215,25 @@ public class PageObjectFactory {
 	public EmailEnvelopePage emailEnvelopePage() {
 		if (emailEnvelopePage == null)
 			emailEnvelopePage = new EmailEnvelopePage(driver,
-					"https://qa2-platform.yesmail.com/#email/envelope");
+					XMLParser.readComponentValueFromXML("EMAILEnvelope.pageUrl"));
 		return emailEnvelopePage;
 	}
 
 	public EmailContentPage emailContentPage() {
 		if (emailContentPage == null)
-			emailContentPage = new EmailContentPage(driver, "");
+			emailContentPage = new EmailContentPage(driver);
 		return emailContentPage;
 	}
 
 	public EmailTargetPage emailTargetPage() {
 		if (emailTargetPage == null)
-			emailTargetPage = new EmailTargetPage(driver, "");
+			emailTargetPage = new EmailTargetPage(driver);
 		return emailTargetPage;
 	}
 
 	public EmailSchedulePage emailSchedulePage() {
 		if (emailSchedulePage == null)
-			emailSchedulePage = new EmailSchedulePage(driver, "");
+			emailSchedulePage = new EmailSchedulePage(driver);
 		return emailSchedulePage;
 	}
 

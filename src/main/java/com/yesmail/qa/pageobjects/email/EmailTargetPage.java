@@ -1,3 +1,15 @@
+/***
+ * File : EmailTargetPage.java
+ * Description : Page object class for EmailTargetPage functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
 package com.yesmail.qa.pageobjects.email;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -19,7 +31,6 @@ import com.yesmail.qa.framework.exception.FrameworkException;
 public class EmailTargetPage extends EmailBase {
 
 	private WebDriver driver;
-	private String pageUrl;
 
 	@FindBy(css = ".subscription-status-options")
 	private WebElement subStatusDropdown;
@@ -53,10 +64,10 @@ public class EmailTargetPage extends EmailBase {
 	 * Constructor section
 	 * 
 	 */
-	public EmailTargetPage(WebDriver driver, String pageUrl) {
+	public EmailTargetPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-		this.pageUrl = pageUrl;
+		
 		PageFactory.initElements(driver, this);
 
 	}

@@ -1,4 +1,17 @@
-package com.yesmail.qa.pageobjects;
+/***
+ * File : ContentLibraryPage.java
+ * Description : Page object class for ContentLibrary functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
+
+package com.yesmail.qa.pageobjects.content;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
@@ -11,11 +24,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Reporter;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
+import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class ContentLibraryPage extends BasePage {
 

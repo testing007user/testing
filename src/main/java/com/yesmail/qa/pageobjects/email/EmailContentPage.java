@@ -1,27 +1,37 @@
+/***
+ * File : EmailContentPage.java
+ * Description : Page object class for EmailContentPage functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
 package com.yesmail.qa.pageobjects.email;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.LocalFileDetector;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
-import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
-
+/***
+ * 
+ * @author kapilag
+ *
+ */
 public class EmailContentPage extends EmailBase {
 
 	private WebDriver driver;
-	private String pageUrl;
 
 	@FindBy(id = "viewHtmlContent")
 	private WebElement hTMLtab;
@@ -62,10 +72,10 @@ public class EmailContentPage extends EmailBase {
 	@FindBy(css = "html>body")
 	private WebElement htmlContent;
 
-	public EmailContentPage(WebDriver driver, String pageUrl) {
+	public EmailContentPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-		this.pageUrl = pageUrl;
+		
 		PageFactory.initElements(driver, this);
 
 	}

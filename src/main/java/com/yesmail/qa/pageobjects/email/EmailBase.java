@@ -1,18 +1,29 @@
+/***
+ * File : EmailBase.java
+ * Description : Page object class for EmailBase functionality 
+ * @author sangeetap
+ * Version History : Draft 0.1
+ *
+ *    
+ */
+
 package com.yesmail.qa.pageobjects.email;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.pageobjects.BasePage;
 
+/***
+ * Base Page having common Functionality specific to email
+ * @author sangeetap
+ *
+ */
 public class EmailBase extends BasePage {
 
+	@SuppressWarnings("unused")
 	private WebDriver driver;
-	private String pageUrl;
 
 	// Page Elements for EmailBase class
 

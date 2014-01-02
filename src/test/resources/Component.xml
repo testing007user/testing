@@ -11,24 +11,24 @@
 	</page>
 	
 	<!--  Email -->
-	<page name="Envelope">
+	<page name="EMAILEnvelope">
 		<pageUrl>#email/envelope</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 		<xmlPath>src\test\resources\EnvelopeXml.xml</xmlPath>
 	</page>
-	<page name="Target">
+	<page name="EMAILTarget">
 		<pageUrl>#email/target</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-	<page name="Schedule">
+	<page name="EMAILSchedule">
 		<pageUrl>#email/schedule</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-	<page name="Summary">
+	<page name="EMAILSummary">
 		<pageUrl>#email//summary</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-	<page name="Content">
+	<page name="EMAILContent">
 		<pageUrl>#email/content</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 		<contentUploadFileName>Test 12 March 2013.zip</contentUploadFileName>

@@ -1,16 +1,25 @@
+/***
+ * File : EmailSchedulePage.java
+ * Description : Page object class for EmailSchedulePage functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
 package com.yesmail.qa.pageobjects.email;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
@@ -20,7 +29,6 @@ import com.yesmail.qa.framework.libraries.Utils;
 public class EmailSchedulePage extends EmailBase {
 
 	private WebDriver driver;
-	private String pageUrl;
 	public static String preCompileMinutes;
 	public static String preCompileHour;
 	public static String preCompilemeridian;
@@ -83,10 +91,10 @@ public class EmailSchedulePage extends EmailBase {
 	 * Constructor section
 	 * 
 	 */
-	public EmailSchedulePage(WebDriver driver, String pageUrl) {
+	public EmailSchedulePage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-		this.pageUrl = pageUrl;
+		
 		PageFactory.initElements(driver, this);
 
 	}

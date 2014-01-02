@@ -1,3 +1,12 @@
+/**File name : BasePage.java
+ * @Description: Base Page having common functionality accross Application 
+ * @author kapilag 
+ * Version: Draft 1.0 
+ * @since completed by 12/17/13
+ * @Version History
+ * Version name Updated By Reason / Comments
+ *  
+ * */
 package com.yesmail.qa.pageobjects;
 
 
@@ -11,6 +20,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
+/***
+ * Common Functionality accross UI
+ * @author kapilag
+ *
+ */
 public class BasePage {
 	
 	WebDriver driver;

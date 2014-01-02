@@ -1,3 +1,15 @@
+/***
+ * File : EmailEnvelopePage.java
+ * Description : Page object class for EmailEnvelopePage functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
 package com.yesmail.qa.pageobjects.email;
 
 import java.util.List;
@@ -6,8 +18,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Reporter;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -100,7 +110,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 * This method is added to load the page.
 	 */
 	public EmailEnvelopePage load() {
-		driver.get(pageUrl);
+		driver.get(PagesHelper.URL+pageUrl);
 		return this;
 	}
 

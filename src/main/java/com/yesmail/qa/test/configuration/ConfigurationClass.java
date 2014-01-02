@@ -1,3 +1,4 @@
+
 package com.yesmail.qa.test.configuration;
 
 import org.apache.log4j.Logger;
@@ -41,13 +42,9 @@ public class ConfigurationClass {
 	 */
 	public String getCustomEnvironmentFilePath() {
 		String customEnvironmentPath = null;
-//		String environmentFileName = "/"
-//				+ System.getProperty("env-type").trim() + "-env.properties";
 		String environmentFileName =  System.getProperty("env-type").trim() + "-env.properties";
 		customEnvironmentPath = Utils.getResources(this,environmentFileName);
 		if (customEnvironmentPath != null) {
-//			customEnvironmentPath = getClass().getResource(environmentFileName)
-//					.getPath().toString();
 			return customEnvironmentPath;
 		} else {
 			throw new FrameworkError(
@@ -66,15 +63,10 @@ public class ConfigurationClass {
 	 */
 	public String getPropertyFilePath() {
 		String pagesHelperFilePath = null;
-//		String pagesHelperFileName = "/"
-//				+ System.getProperty("env-type").trim()
-//				+ "-pagesHelper.properties";
 		String pagesHelperFileName = System.getProperty("env-type").trim()
 				+ "-pagesHelper.properties";
 		pagesHelperFilePath = Utils.getResources(this, pagesHelperFileName);
-		if (pagesHelperFilePath != null) {
-//			pagesHelperFilePath = getClass().getResource(pagesHelperFileName)
-//					.getPath().toString();
+		if (pagesHelperFilePath != null) {			
 			return pagesHelperFilePath;
 		} else {
 			throw new FrameworkError(

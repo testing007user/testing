@@ -28,7 +28,7 @@ public class PagesHelper {
 	public final static String PASSWORD = prop.getValue("PASSWORD");
 	public static final String EMAIL_DIVISION = prop.getValue("email.division");
 	public static final String EMAIL_CAMPAIGN_NAME = prop.getValue("email.campaign");
-	public static final String EMAIL_ENCODING_TYPE = prop.getValue("email.encoding.type");
+	public static final String EMAIL_ENCODING_TYPE = prop.getValue("email.encodingtype");
 
 	//Added For MultiVariate
        public final static String MULTIVARIATE_SETUP_NAME = prop.getValue("multivariate.setuppage.name");

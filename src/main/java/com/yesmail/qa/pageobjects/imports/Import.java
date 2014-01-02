@@ -1,3 +1,13 @@
+/**File name : Import.java
+ * @Description: This Java Class is used  import Subscribers 
+ * @author sangeetap 
+ * Version: Draft 1.0 
+ * @since completed by 12/17/13
+ * @Version History
+ * Version name Updated By Reason / Comments
+ *  
+ * */
+
 package com.yesmail.qa.pageobjects.imports;
 
 
@@ -291,7 +301,6 @@ public class Import extends BasePage {
 		for (WebElement option : optionFileColumns) {			
 			option.click();
 			for (WebElement option1 : optionSubscriberAttributesDataType) {
-				System.out.println(option1.getText().split("\\[")[0]);
 				if (option.getText().equalsIgnoreCase(option1.getText().split("\\[")[0].trim())) {
 					option1.click();
 					associtatMapBtn.click();

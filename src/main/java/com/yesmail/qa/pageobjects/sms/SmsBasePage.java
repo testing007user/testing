@@ -1,3 +1,13 @@
+/**
+ * File Name : SmsBasePage.Java
+ * Description: This Java Class is for SmsBasePage  creation
+ * 
+ * @author sangeetap
+ * @since Completed 10th December, 2013
+ * Version History
+ * Version name Updated By Reason / Comments  
+ */
+
 package com.yesmail.qa.pageobjects.sms;
 
 import org.openqa.selenium.WebDriver;
