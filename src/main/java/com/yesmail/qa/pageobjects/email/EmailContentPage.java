@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
+import com.yesmail.qa.framework.libraries.Utils;
 
 public class EmailContentPage extends EmailBase {
 
@@ -118,7 +119,9 @@ public class EmailContentPage extends EmailBase {
 
 			sourceButton.click();
 
-			DriverUtility.waitforElementDisplay(driver, textSourceBox, 10);
+			DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(textSourceBox),
+					driver, 10);
 
 			if (driver instanceof JavascriptExecutor) {
 				((JavascriptExecutor) driver)
@@ -139,11 +142,12 @@ public class EmailContentPage extends EmailBase {
 	public boolean uploadFile() {
 
 		uploadButton.click();
-		uploadformTextField
-				//.sendKeys("D:\\sangeeta_files\\Test 12 March 2013.zip");
-		.sendKeys("C:\\Users\\sangeetap\\Desktop\\Test 12 March 2013.zip");
-
-		DriverUtility.waitforElementDisplay(driver, htmlContent, 10);
+		uploadformTextField.sendKeys(Utils.getResources(this,
+				"Test 12 March 2013.zip"));
+		uploadAssetsButton.click();
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(htmlContent), driver,
+				10);
 		return stepCompleted();
 
 	}

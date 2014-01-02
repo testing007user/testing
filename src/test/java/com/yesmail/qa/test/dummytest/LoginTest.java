@@ -6,6 +6,7 @@ import com.yesmail.qa.pageobjects.*;
 import com.yesmail.qa.test.configuration.XMLParser;
 import com.yesmail.qa.framework.Driver;
 import com.yesmail.qa.framework.DriverUtility.CHECK_UNCHECK;
+import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.framework.testng.support.SAssert;
 
 public class LoginTest {
@@ -61,8 +62,9 @@ public class LoginTest {
 	
 	@Test(timeOut = 5000000)
 	public void testing(){
-		
+		System.out.println(Utils.getResources(this, "Test 12 March 2013.zip"));
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
+		pof.loginPage().load().isLoaded();
 		pof.loginPage().loginAs("sudhakar.a@yesmail.com", "Infogroup01!");
 		pof.homePage().isLoaded();
 		pof.emailEnvelopePage().load().isLoaded();

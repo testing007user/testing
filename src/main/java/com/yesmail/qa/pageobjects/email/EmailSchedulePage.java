@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
@@ -54,9 +55,6 @@ public class EmailSchedulePage extends EmailBase {
 	@FindBy(css = "span[data-id=precompileDateControls] input[value='pm']")
 	private WebElement prePm;
 
-	@FindBy(css = "a.mvt-ico-schedule")
-	private WebElement scheduleButton;
-
 	@FindBy(id = "precompileDatepicker")
 	private WebElement precompileDate;
 
@@ -75,19 +73,12 @@ public class EmailSchedulePage extends EmailBase {
 	@FindBys({ @FindBy(css = "table.ui-datepicker-calendar td a") })
 	private List<WebElement> dateList;
 
-	@FindBy(css = ".mvt-step.complete")
-	private WebElement mvtCompleteIcon;
-
-	@FindBy(css = ".alert-success")
-	private WebElement successMessage;
-
 	@FindBy(css = ".confirm")
 	private WebElement confirmBtn;
-	
+
 	@FindBy(css = ".btn-danger")
 	private WebElement disableBtn;
-	
-	
+
 	/**
 	 * Constructor section
 	 * 
@@ -181,7 +172,7 @@ public class EmailSchedulePage extends EmailBase {
 	 */
 	public boolean saveScheduleButton() {
 		saveSchedule.click();
-		DriverUtility.waitforElementDisplay(driver, successMessage, 10);
+		getRibbonText(10);
 		return stepCompleted();
 	}
 
@@ -193,12 +184,15 @@ public class EmailSchedulePage extends EmailBase {
 		DriverUtility.waitFor(
 				ExpectedConditions.elementToBeClickable(enableBtn), driver, 10);
 		enableBtn.click();
-		if (DriverUtility.waitforElementDisplay(driver, confirmBtn, 5))
-		confirmBtn.click();
-		if (DriverUtility.waitforElementDisplay(driver, confirmBtn, 5))
+		if (DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(confirmBtn), driver, 5) != null)
 			confirmBtn.click();
-		
-		DriverUtility.waitforElementDisplay(driver, disableBtn, 5);			
+		if (DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(confirmBtn), driver, 5) != null)
+			confirmBtn.click();
+
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(disableBtn), driver, 5);
 	}
 
 	/***

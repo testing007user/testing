@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
@@ -47,10 +48,9 @@ public class CountsPage {
 	/***
 	 * This method is added to load the page.
 	 */
-	public void load() {		
-		driver.navigate().to(PagesHelper.URL+pageUrl);
-	}	
-	
+	public void load() {
+		driver.navigate().to(PagesHelper.URL + pageUrl);
+	}
 
 	/***
 	 * This method is added to verify whether page is loaded.
@@ -61,7 +61,7 @@ public class CountsPage {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
 	}
-	
+
 	/***
 	 * This method is added to select the dropDown values for ownedBy,
 	 * requestedBy dropDowns.
@@ -71,7 +71,8 @@ public class CountsPage {
 		DriverUtility.selectDropDown(ownedByDropDown, "Me", 1);
 		DriverUtility.selectDropDown(requestedByDropDown,
 				"Within the last 24 hours", 1);
-		DriverUtility.waitforElementDisplay(driver, tableBody, 40);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(tableBody), driver, 30);
 	}
 
 	/***
@@ -95,7 +96,9 @@ public class CountsPage {
 		long startTime = System.currentTimeMillis() / 1000;
 		long stopTime = startTime + 300;
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
-			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
+			DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(tableBody), driver,
+					30);
 			for (index = 0; index < trCollections.size(); index++) {
 				if (jobIdTds.get(index).getText().equalsIgnoreCase(masterId)) {
 					jobFound = true;
@@ -118,7 +121,9 @@ public class CountsPage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitforElementDisplay(driver, tableBody, 40);
+			DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(tableBody), driver,
+					30);
 			selectDropDownOnCountsPage();
 		}
 		return expStatus;

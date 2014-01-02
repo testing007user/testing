@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -81,10 +83,10 @@ public class EmailEnvelopePage extends EmailBase {
 
 	@FindBy(css = ".alert-success")
 	private WebElement successMessage;
-	
+
 	/**
 	 * Constructor section
-	 *	
+	 * 
 	 */
 	public EmailEnvelopePage(WebDriver driver, String pageUrl) {
 		super(driver);
@@ -154,7 +156,7 @@ public class EmailEnvelopePage extends EmailBase {
 
 		if (PagesHelper.EMAIL_CAMPAIGN_NAME.equalsIgnoreCase("Create New...")) {
 			campaignNewCampaignName.clear();
-			String strName = Utils.getUniqueName("test_campaign", 20);			
+			String strName = Utils.getUniqueName("test_campaign", 20);
 			campaignNewCampaignName.sendKeys(strName);
 
 			DriverUtility.selectDropDown(campaignTypeDropdown, campaignType, 1);
@@ -185,8 +187,9 @@ public class EmailEnvelopePage extends EmailBase {
 	private void fillSubject() {
 		subjectLine.clear();
 		subjectPersonalizeButton.click();
-		DriverUtility.waitforElementDisplay(driver, subjectPersonalizeDropdown,
-				10);
+		DriverUtility.waitFor(ExpectedConditions
+				.elementToBeClickable(subjectPersonalizeDropdown), driver, 10);
+
 		selectSubjectPersonalization("firstName");
 	}
 
@@ -236,7 +239,7 @@ public class EmailEnvelopePage extends EmailBase {
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
-		DriverUtility.waitforElementDisplay(driver, successMessage, 5);
+		getRibbonText(10);
 		return stepCompleted();
 	}
 
@@ -269,7 +272,10 @@ public class EmailEnvelopePage extends EmailBase {
 	 */
 	public boolean uploadXml() {
 		xmlUploadLink.click();
-		DriverUtility.waitforElementDisplay(driver, xmlUploadPath, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(xmlUploadPath), driver,
+				10);
+
 		xmlUploadPath.sendKeys("abc");// Need to change the path
 		submitxmlUploadLinkBTN.click();
 		return stepCompleted();

@@ -10,12 +10,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 
-public class ContentLibraryPage {
+public class ContentLibraryPage extends BasePage {
 
 	private WebDriver driver;
 	private String pageUrl;
@@ -53,14 +55,12 @@ public class ContentLibraryPage {
 	@FindBy(css = ".modal.fade.in > .modal-footer > button.confirm")
 	private WebElement popUpDeleteBtn;
 
-	@FindBy(css = ".alert-success")
-	private WebElement successAlert;
-
 	/**
 	 * Constructor section
 	 * 
 	 */
 	public ContentLibraryPage(WebDriver driver, String pageUrl) {
+		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
@@ -72,15 +72,15 @@ public class ContentLibraryPage {
 	 * 
 	 */
 	public void load() {
-		driver.navigate().to(PagesHelper.URL+pageUrl);
-	}	
-	
+		driver.navigate().to(PagesHelper.URL + pageUrl);
+	}
+
 	/***
 	 * This method is added to verify whether page is loaded.
 	 */
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(tbody),
-				driver, 50))
+		if (null == DriverUtility.waitFor(elementToBeClickable(tbody), driver,
+				50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
 	}
@@ -98,14 +98,20 @@ public class ContentLibraryPage {
 	public boolean createContentBlock(String contentName) {
 		iconDropdown.click();
 		createNewContentBlockLink.click();
-		DriverUtility.waitforElementDisplay(driver, contentNameTxtBox, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(contentNameTxtBox),
+				driver, 10);
 		contentNameTxtBox.sendKeys(contentName);
 		createBtn.click();
-		DriverUtility.waitforElementDisplay(driver, contentNameTxtBox, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(contentNameTxtBox),
+				driver, 10);
 		uploadAssets();
-		DriverUtility.waitforElementDisplay(driver, successAlert, 10);
+		Reporter.log(getRibbonText(10).get("Status"));
+		Reporter.log(getRibbonText(10).get("Message"));
 		saveContentBlockBtn.click();
-		DriverUtility.waitforElementDisplay(driver, successAlert, 10);
+		Reporter.log(getRibbonText(10).get("Status"));
+		Reporter.log(getRibbonText(10).get("Message"));
 		return searchContent(contentName);
 
 	}
@@ -154,7 +160,9 @@ public class ContentLibraryPage {
 					.cssSelector("tbody > tr:nth-of-type(" + (index + 1)
 							+ ") > td:nth-of-type(4) >a.copyContentBlock"));
 			copyElement.click();
-			DriverUtility.waitforElementDisplay(driver, contentNameTxtBox, 10);
+			DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(contentNameTxtBox),
+					driver, 10);
 			contentNameTxtBox.sendKeys("newcontentName");
 			createBtn.click();
 			operationSatus = searchContent(newcontentName);

@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.pageobjects.PagesHelper;
@@ -43,7 +45,7 @@ public class ViewEmailPage {
 	 * This method is added to load the page.
 	 */
 	public ViewEmailPage load() {
-		driver.navigate().to(PagesHelper.URL+pageUrl);
+		driver.navigate().to(PagesHelper.URL + pageUrl);
 		return this;
 	}
 
@@ -77,7 +79,9 @@ public class ViewEmailPage {
 		long stopTime = startTime + 300;
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
-			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
+			DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(tableBody), driver,
+					30);
 
 			for (index = 0; index < trCollections.size(); index++) {
 				if (jobIdTds.get(index).getText().equalsIgnoreCase(jobId)) {
@@ -101,7 +105,9 @@ public class ViewEmailPage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitforElementDisplay(driver, tableBody, 40);
+			DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(tableBody), driver,
+					30);
 		}
 		return expStatus;
 	}

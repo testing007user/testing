@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.pageobjects.BasePage;
@@ -67,8 +68,7 @@ public class EmailBase extends BasePage {
 	 * @return: completed(True/False)
 	 */
 	public boolean stepCompleted() {
-		return (DriverUtility
-				.waitforElementDisplay(driver, mvtCompleteIcon, 10));
+		return (DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(mvtCompleteIcon),driver,10) != null);
 	}
 
 }

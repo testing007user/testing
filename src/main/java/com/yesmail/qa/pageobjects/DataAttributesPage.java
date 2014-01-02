@@ -1,5 +1,7 @@
 package com.yesmail.qa.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,15 +10,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 
-public class DataAttributesPage {
+public class DataAttributesPage extends BasePage {
 
 	private WebDriver driver;
 	private String pageUrl;
-
 
 	@FindBy(css = ".createAttributeBtn")
 	private WebElement createAttributeBtn;
@@ -66,9 +69,6 @@ public class DataAttributesPage {
 	@FindBys({ @FindBy(css = "tbody > tr > td:nth-of-type(3)") })
 	private List<WebElement> trNameCollections;
 
-	@FindBy(css = ".alert-success")
-	private WebElement successMessage;
-
 	@FindBy(css = "tbody >tr")
 	private WebElement tBody;
 
@@ -76,24 +76,30 @@ public class DataAttributesPage {
 	 * Initializing Constructor
 	 */
 	public DataAttributesPage(WebDriver driver, String pageUrl) {
+		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 	}
-	
-	public void load() {
-		driver.get(pageUrl);
+
+	public DataAttributesPage load() {
+		driver.navigate().to(PagesHelper.URL + pageUrl);
+		return this;
 	}
 
-	public boolean isLoaded() {
-		return DriverUtility.waitforElementDisplay(driver, tBody, 10);
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(elementToBeClickable(tBody), driver,
+				50))
+			throw new FrameworkException(this.getClass().getName()
+					+ " is not loaded in 50 seconds");
 	}
 
 	/**
 	 * Objective of this method is to Click Create Attribute Button
 	 */
 	public void clickCreateAttributeBtn() {
-		DriverUtility.waitforElementDisplay(driver, createAttributeBtn, 10);
+		DriverUtility.waitFor(elementToBeClickable(createAttributeBtn), driver,
+				10);
 		createAttributeBtn.click();
 	}
 
@@ -101,7 +107,8 @@ public class DataAttributesPage {
 	 * Objective of this method is to enter Display Name
 	 */
 	public void enterDisplayName(String name) {
-		DriverUtility.waitforElementDisplay(driver, displayNameTxtBox, 10);
+		DriverUtility.waitFor(elementToBeClickable(displayNameTxtBox), driver,
+				10);
 		displayNameTxtBox.sendKeys(name);
 	}
 
@@ -134,7 +141,8 @@ public class DataAttributesPage {
 	 */
 	public void saveAttribute() {
 		saveAtrtributeBtn.click();
-		DriverUtility.waitforElementDisplay(driver, successMessage, 10);
+		getRibbonText(10);
+
 	}
 
 	/**
@@ -173,7 +181,7 @@ public class DataAttributesPage {
 						.cssSelector("tbody > tr:nth-of-type(" + i
 								+ ") > td:nth-of-type(5) > a.deleteAttribute"));
 				deleteElement.click();
-				DriverUtility.waitforElementDisplay(driver, successMessage, 10);
+				getRibbonText(10);
 				break;
 			}
 		}
@@ -191,7 +199,9 @@ public class DataAttributesPage {
 	public void selectStringAttribute(String attributeType,
 			String attributeValue) {
 		DriverUtility.selectDropDown(attributeTypeDropdown, attributeType, 1);
-		DriverUtility.waitforElementDisplay(driver, maxLengthTxtBox, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(maxLengthTxtBox),
+				driver, 10);
 		maxLengthTxtBox.sendKeys(attributeValue);
 
 	}
@@ -205,7 +215,9 @@ public class DataAttributesPage {
 	public void selectBooleanAttribute(String attributeType,
 			String attributeTrueValue, String attributeFalseValue) {
 		DriverUtility.selectDropDown(attributeTypeDropdown, attributeType, 1);
-		DriverUtility.waitforElementDisplay(driver, trueValueTxtBox, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(trueValueTxtBox),
+				driver, 10);
 		trueValueTxtBox.sendKeys(attributeTrueValue);
 		falseValueTxtBox.sendKeys(attributeTrueValue);
 	}
@@ -219,7 +231,8 @@ public class DataAttributesPage {
 	public void selectNumberAttribute(String attributeType, String minValue,
 			String maxValue, String precision) {
 		DriverUtility.selectDropDown(attributeTypeDropdown, attributeType, 1);
-		DriverUtility.waitforElementDisplay(driver, minValueTxtBox, 10);
+		DriverUtility.waitFor(elementToBeClickable(minValueTxtBox), driver, 10);
+
 		minValueTxtBox.sendKeys(minValue);
 		maxValueTxtBox.sendKeys(maxValue);
 		precisionalueTxtBox.sendKeys(precision);

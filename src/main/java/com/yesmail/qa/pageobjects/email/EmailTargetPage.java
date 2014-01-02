@@ -11,6 +11,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 
@@ -18,7 +20,6 @@ public class EmailTargetPage extends EmailBase {
 
 	private WebDriver driver;
 	private String pageUrl;
-	
 
 	@FindBy(css = ".subscription-status-options")
 	private WebElement subStatusDropdown;
@@ -28,7 +29,7 @@ public class EmailTargetPage extends EmailBase {
 
 	@FindBys({ @FindBy(css = ".m-attributesList") })
 	private List<WebElement> attributeList;
-	
+
 	@FindBy(css = "div.segments div:nth-child(2).segment")
 	private WebElement segmentE1;
 
@@ -47,12 +48,10 @@ public class EmailTargetPage extends EmailBase {
 	@FindBy(css = "input.string-value")
 	private WebElement segmentInputTextBox;
 
-	@FindBy(css = ".alert-success")
-	private WebElement successMessage;
 
 	/**
 	 * Constructor section
-	 *	
+	 * 
 	 */
 	public EmailTargetPage(WebDriver driver, String pageUrl) {
 		super(driver);
@@ -60,7 +59,7 @@ public class EmailTargetPage extends EmailBase {
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 
-	} 
+	}
 
 	/***
 	 * This method is added to load the page.
@@ -81,13 +80,15 @@ public class EmailTargetPage extends EmailBase {
 	}
 
 	/**
-	 * This method is added to select the subscription status drop down
-	 * value
+	 * This method is added to select the subscription status drop down value
 	 * 
-	 * @param subscription status
+	 * @param subscription
+	 *            status
 	 */
 	public void selectSubscriptionStatus(String subscription) {
-		DriverUtility.waitforElementDisplay(driver, subStatusDropdown, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(subStatusDropdown),
+				driver, 10);
 		DriverUtility.selectDropDown(subStatusDropdown, subscription, 1);
 	}
 
@@ -95,10 +96,12 @@ public class EmailTargetPage extends EmailBase {
 	 * This method is added to select the filter value from attribute list
 	 * 
 	 * @param selectAttribute
-	 *
+	 * 
 	 */
 	public void filterSelect(String selectAttribute) {
-		DriverUtility.waitforElementDisplay(driver, attributeFilterInput, 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(attributeFilterInput),
+				driver, 10);
 		int i = 1;
 		attributeFilterInput.sendKeys(selectAttribute);
 
@@ -117,6 +120,7 @@ public class EmailTargetPage extends EmailBase {
 
 	/***
 	 * This mehtod added to get the count for the target attribute
+	 * 
 	 * @param - attribute Name, attribute Value, Subscription Status
 	 * @author sangeetap
 	 */
@@ -125,7 +129,8 @@ public class EmailTargetPage extends EmailBase {
 		// To do - For other attribute type values.
 		selectSubscriptionStatus(subscriptionStatus);
 		filterSelect(attributeName);
-		DriverUtility.waitforElementDisplay(driver, segmentE1, 30);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(segmentE1), driver, 10);
 
 		WebElement segmentHeaderText = driver
 				.findElement(By
@@ -134,7 +139,7 @@ public class EmailTargetPage extends EmailBase {
 			segmentInputTextBox.sendKeys(attributeValue);
 
 			saveGetCount.click();
-			DriverUtility.waitforElementDisplay(driver, successMessage, 10);
+			getRibbonText(10);
 		}
 		return stepCompleted();
 	}
@@ -145,11 +150,15 @@ public class EmailTargetPage extends EmailBase {
 	 * @return true/false
 	 */
 	public boolean hasEmailCheck() {
-		if (DriverUtility.waitforElementDisplay(driver, selectedYesDropDown, 5)) {
+
+		if (DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(selectedYesDropDown),
+				driver, 10) != null) {
 			return true;
 		} else {
-			if (DriverUtility
-					.waitforElementDisplay(driver, hasEmailDropDown, 5))
+			if (DriverUtility.waitFor(
+					ExpectedConditions.elementToBeClickable(hasEmailDropDown),
+					driver, 10) != null)
 				DriverUtility.selectDropDown(hasEmailDropDown, "Yes", 1);
 		}
 		return true;
