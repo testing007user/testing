@@ -65,19 +65,14 @@ public class TweetsContentPage {
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * * define the constructor
-	 * #################################################
-	 * #########################
-	 */
+	// define the constructor
 
 	public TweetsContentPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 
-	} // end of constructor
+	}
 
 	public TweetsContentPage load() {
 		driver.navigate().to(PagesHelper.URL + pageUrl);

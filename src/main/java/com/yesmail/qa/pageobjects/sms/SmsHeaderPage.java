@@ -147,10 +147,10 @@ public class SmsHeaderPage extends SmsBasePage {
 
 	public String getMasterId() {
 		String strloginUrl = driver.getCurrentUrl();
-		System.out.println(strloginUrl);
+		
 		String jobNum = driver.getCurrentUrl().substring(
-				strloginUrl.lastIndexOf("#") + 1);
-		System.out.println(jobNum);
+				strloginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
+		
 		return jobNum;
 	}
 

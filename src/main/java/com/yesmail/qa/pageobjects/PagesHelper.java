@@ -53,6 +53,7 @@ public class PagesHelper {
      	public final static String FACEBOOK_CONTENT_NAME = prop.getValue("facebook.content.name");
      	public final static String FACEBOOK_CONTENT_DESC = prop.getValue("facebook.content.description");
      	public final static String FACEBOOK_PAGE_NAME = prop.getValue("facebook.page.name");
+     	public final static String FACEBOOK_NAME = prop.getValue("facebook.name");
    	
      //Added for Tweets
      	public final static String TWEETS_CONTENT_NAME=prop.getValue("tweets.content.name");

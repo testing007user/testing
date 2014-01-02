@@ -31,14 +31,7 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class FacebookContentPage {
 
-	/*
-	 * 
-	 * ########################################################################
-	 * Facebook Content page web element allocation\
-	 * ############################
-	 * ##############################################
-	 */
-
+	
 	@FindBy(css = "span[data-target='account'] select")
 	private WebElement accountDropDown;
 
@@ -100,12 +93,8 @@ public class FacebookContentPage {
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * \ define the constructor\
-	 * ################################################
-	 * ##########################
-	 */
+	//define the constructor
+	 
 	public FacebookContentPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
 		this.pageUrl = pageUrl;
@@ -233,7 +222,7 @@ public class FacebookContentPage {
 	 */
 
 	public void enterFacebookName() {
-		String strFbName = Utils.getUniqueName("FB_Test", 25);
+		String strFbName = Utils.getUniqueName(PagesHelper.FACEBOOK_NAME, 25);
 		nameTextBox.clear();
 		nameTextBox.sendKeys(strFbName);
 	}
@@ -252,7 +241,7 @@ public class FacebookContentPage {
 	/***
 	 * This method is added to get the generated Facebook master id
 	 * 
-	 * @return getMaserId - return generated facebook matster id
+	 * @return getMaserId - return generated Facebook master id
 	 */
 
 	public String getMasterId() {
