@@ -148,7 +148,7 @@ public class EmailContentPage extends EmailBase {
 		DriverUtility.waitFor(
 				ExpectedConditions.elementToBeClickable(htmlContent), driver,
 				10);
-		return stepCompleted();
+		return stepCompleted(2,10);
 
 	}
 

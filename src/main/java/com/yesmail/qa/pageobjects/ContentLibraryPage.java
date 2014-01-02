@@ -107,11 +107,9 @@ public class ContentLibraryPage extends BasePage {
 				ExpectedConditions.elementToBeClickable(contentNameTxtBox),
 				driver, 10);
 		uploadAssets();
-		Reporter.log(getRibbonText(10).get("Status"));
-		Reporter.log(getRibbonText(10).get("Message"));
+		getRibbonText(10);
 		saveContentBlockBtn.click();
-		Reporter.log(getRibbonText(10).get("Status"));
-		Reporter.log(getRibbonText(10).get("Message"));
+		getRibbonText(10);
 		return searchContent(contentName);
 
 	}

@@ -240,7 +240,7 @@ public class EmailEnvelopePage extends EmailBase {
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
 		getRibbonText(10);
-		return stepCompleted();
+		return stepCompleted(1, 10);
 	}
 
 	/***
@@ -262,7 +262,7 @@ public class EmailEnvelopePage extends EmailBase {
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
-		return stepCompleted();
+		return stepCompleted(1, 10);
 	}
 
 	/***
@@ -278,7 +278,7 @@ public class EmailEnvelopePage extends EmailBase {
 
 		xmlUploadPath.sendKeys("abc");// Need to change the path
 		submitxmlUploadLinkBTN.click();
-		return stepCompleted();
+		return stepCompleted(1, 10);
 
 	}
 

@@ -34,7 +34,7 @@ public class EmailBase extends BasePage {
 	@FindBy(css = ".mvt-step.complete")
 	private WebElement mvtCompleteIcon;
 
-	// Constructor section 
+	// Constructor section
 	public EmailBase(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -60,15 +60,6 @@ public class EmailBase extends BasePage {
 	 */
 	public void navigateToScheduleTab() {
 		scheduleTab.click();
-	}
-
-	/***
-	 * Method to Verify whether Step is completed.
-	 * 
-	 * @return: completed(True/False)
-	 */
-	public boolean stepCompleted() {
-		return (DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(mvtCompleteIcon),driver,10) != null);
 	}
 
 }

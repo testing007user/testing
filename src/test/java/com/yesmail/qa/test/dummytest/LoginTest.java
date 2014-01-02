@@ -77,9 +77,8 @@ public class LoginTest {
 		String masterId = pof.emailContentPage().getMasterId();
 		System.out.println(masterId);
 		//pof.emailContentPage().createContent("html",false);
-		//pof.emailContentPage().createContent("text",false);
-		pof.emailContentPage().uploadFile();
-		a.assertTrue(pof.emailContentPage().stepCompleted(),"Creating email content page");
+		//pof.emailContentPage().createContent("text",false);		
+		a.assertTrue(pof.emailContentPage().uploadFile(),"Creating email content page");
 
 		pof.emailTargetPage().navigateToTargetTab();
 		pof.emailTargetPage().isLoaded();

@@ -141,7 +141,7 @@ public class EmailTargetPage extends EmailBase {
 			saveGetCount.click();
 			getRibbonText(10);
 		}
-		return stepCompleted();
+		return stepCompleted(3, 10);
 	}
 
 	/**

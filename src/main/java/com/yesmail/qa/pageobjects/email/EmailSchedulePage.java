@@ -173,7 +173,7 @@ public class EmailSchedulePage extends EmailBase {
 	public boolean saveScheduleButton() {
 		saveSchedule.click();
 		getRibbonText(10);
-		return stepCompleted();
+		return stepCompleted(4, 10);
 	}
 
 	/***
