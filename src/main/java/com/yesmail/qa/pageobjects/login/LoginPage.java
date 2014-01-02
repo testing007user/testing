@@ -7,11 +7,7 @@
  * @since completed by 14/11/2013
  * @Version History
  * 
- * @Vesion: 1.1 Version name Updated By Reason / Comments Removed verification
- *          code for the ClickLearnMore method Added code in
- *          'navigateToAdminPage' method to return new Page Object for Admin
- *          Page, same changes done for the 'navigateToUsersPage' method to
- *          return new Page Object for Users Page
+ * 
  * */
 
 package com.yesmail.qa.pageobjects.login;
