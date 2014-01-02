@@ -10,6 +10,8 @@ import com.yesmail.qa.pageobjects.login.LoginPage;
 
 import com.yesmail.qa.pageobjects.mvt.*;
 
+import com.yesmail.qa.pageobjects.reports.ReportsPage;
+import com.yesmail.qa.pageobjects.reports.RequestReportsPage;
 import com.yesmail.qa.pageobjects.sms.SmsContentPage;
 import com.yesmail.qa.pageobjects.sms.SmsHeaderPage;
 import com.yesmail.qa.pageobjects.sms.SmsSchedulePage;
@@ -47,6 +49,9 @@ public class PageObjectFactory {
 	private ViewSmsPage viewSmsPage;
 	
 	private CampaignManagement campaignManagement;
+	
+	private ReportsPage reportsPage;
+	private RequestReportsPage requestReportsPage;
 
 	public PageObjectFactory(WebDriver driver) {
 		this.driver = driver;
@@ -163,6 +168,20 @@ public class PageObjectFactory {
 		if(campaignManagement == null)
 			campaignManagement = new CampaignManagement(driver, XMLParser.readComponentValueFromXML("Campaign.pageUrl"));
 		return campaignManagement;
+	}
+	
+	public ReportsPage reportsPage()
+	{
+		if(reportsPage == null)
+			reportsPage = new ReportsPage(driver, XMLParser.readComponentValueFromXML("Report.pageUrl"));
+		return reportsPage;
+	}
+	
+	public RequestReportsPage requestReportsPage()
+	{
+		if(requestReportsPage == null)
+			requestReportsPage = new RequestReportsPage(driver, XMLParser.readComponentValueFromXML("RequestReport.pageUrl"));
+		return requestReportsPage;
 	}
 
 }
