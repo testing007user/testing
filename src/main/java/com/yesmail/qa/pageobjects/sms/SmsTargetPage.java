@@ -25,7 +25,7 @@ import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
-public class SmsTargetPage extends SmsBasePage{
+public class SmsTargetPage extends SmsBasePage {
 
 	// WebElement locators
 
@@ -94,18 +94,18 @@ public class SmsTargetPage extends SmsBasePage{
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
-		
+
 	}
 
 	public void load() {
-		
+
 		navigateToTarget();
 	}
-	
-	public void isLoaded()
-	{
-		if(null == DriverUtility.waitFor(elementToBeClickable(By.cssSelector("input.clearable")), driver, 50))
-		{
+
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(
+				elementToBeClickable(By.cssSelector("input.clearable")),
+				driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
@@ -180,7 +180,8 @@ public class SmsTargetPage extends SmsBasePage{
 	 * @author sangeetap
 	 */
 
-	public void clickSaveGetCount(SELECT_SMS_ATTRIBUTE selectAttrSMS,String textToEnter) {
+	public void clickSaveGetCount(SELECT_SMS_ATTRIBUTE selectAttrSMS,
+			String textToEnter) {
 		String strAttString;
 		boolean segmentInput = false;
 		int j;

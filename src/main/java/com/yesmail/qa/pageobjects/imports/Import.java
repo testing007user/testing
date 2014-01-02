@@ -1,9 +1,16 @@
+/**File name : Import.java
+ * @Description: This Java Class is used  import Subscribers 
+ * @author sangeetap 
+ * Version: Draft 1.0 
+ * @since completed by 12/17/13
+ * @Version History
+ * Version name Updated By Reason / Comments
+ *  
+ * */
+
 package com.yesmail.qa.pageobjects.imports;
 
-
-
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,13 +18,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.test.configuration.XMLParser;
-
 
 public class Import extends BasePage {
 
@@ -52,10 +57,9 @@ public class Import extends BasePage {
 
 	@FindBy(css = "a#uploadNewFileAction")
 	private WebElement browserYourDesktopBtn;
-	
+
 	@FindBy(css = "#previewTable >table")
 	private WebElement importPreviewTable;
-	
 
 	// Delimiter header WebElement locators
 
@@ -135,13 +139,12 @@ public class Import extends BasePage {
 
 	@FindBy(css = "a#importSubmit")
 	private WebElement submitJobForProcessingBtn;
-		
+
 	@FindBy(css = "a#modalAlertPopUpYesAction")
 	private WebElement modalAlertPopUpYesBtn;
-	
+
 	@FindBy(css = "#jobid")
 	private WebElement JobID;
-		
 
 	// list of WebElement that represent each option in the File Column
 	@FindBys(value = { @FindBy(css = "select#headerList >option") })
@@ -157,43 +160,35 @@ public class Import extends BasePage {
 	 * 
 	 * @return
 	 */
-	
+
 	public Import(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-		PageFactory.initElements(driver, this);				
+		PageFactory.initElements(driver, this);
 	}
-	
-	public Import load()
-	{
+
+	public Import load() {
 		openImportUtilityBtn.click();
 		return this;
 	}
-	
-	public void isLoaded()
-	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.cssSelector("input#uploadFilesAction")), driver,50))
-		{
+
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(By
+						.cssSelector("input#uploadFilesAction")), driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
 	}
-	
+
 	/***
-	 * This method is added to load Import Page	 
-	 * @author Sangeeta Pote	 	 
-	 *//*
-	public void loadImportPage() {
-		driver.get(pageUrl);
-		DriverUtility.waitforElementDisplay(driver, openImportUtilityBtn, 10);
-	}	*/
-	
-	/***
-	 * This method is added to import Subscribers	 
-	 * @param delimiter : to define the delimiter as Comma/Tab/Space/Semicolon/Pipe/No
-	 * @return JobId of imported subscriber            
+	 * This method is added to import Subscribers
+	 * 
+	 * @param delimiter
+	 *            : to define the delimiter as Comma/Tab/Space/Semicolon/Pipe/No
+	 * @return JobId of imported subscriber
 	 */
-	public String importScrubscribers(boolean headerFlag,DELIMITER delimiter) {
+	public String importScrubscribers(boolean headerFlag, DELIMITER delimiter) {
 		String jobID = null;
 		String parentWindowId = driver.getWindowHandle();
 		selectDataFileDesktop();
@@ -203,96 +198,118 @@ public class Import extends BasePage {
 		createNewMap();
 		chooseImportType();
 		DriverUtility.waitforElementDisplay(driver, JobID, 5);
-		jobID = JobID.getText();		
+		jobID = JobID.getText();
 		driver.close();
 		driver.switchTo().window(parentWindowId);
 		return jobID;
 	}
 
 	/***
-	 * This method is added to choose Import Type	
-	 * @author sangeetap       
+	 * This method is added to choose Import Type
+	 * 
+	 * @author sangeetap
 	 */
-	private void chooseImportType() {				
+	private void chooseImportType() {
 		DriverUtility.waitforElementDisplay(driver, importCustomersBtn, 20);
 		importCustomersBtn.click();
-		DriverUtility.selectDropDown(selectDivisionDropDown,"marketing",1);
-		DriverUtility.waitforElementDisplay(driver, submitJobForProcessingBtn, 10);		
-		submitJobForProcessingBtn.click();		
+		DriverUtility.selectDropDown(selectDivisionDropDown, "marketing", 1);
+		DriverUtility.waitforElementDisplay(driver, submitJobForProcessingBtn,
+				10);
+		submitJobForProcessingBtn.click();
 		DriverUtility.waitforElementDisplay(driver, modalAlertPopUpYesBtn, 10);
-		modalAlertPopUpYesBtn.click();		
+		modalAlertPopUpYesBtn.click();
 	}
 
 	/***
 	 * This method is added to select Data file from user desktop
 	 * 
 	 * @author sangeetap
-	 * @return	 
+	 * @return
 	 */
-	private void selectDataFileDesktop() {	
+	private void selectDataFileDesktop() {
 		openImportUtilityBtn.click();
 		String childWindowTitle = "Yesmail Enterprise: Import Data";
-		DriverUtility.switchToWindow(driver, childWindowTitle);	
-		
-		// Select DataFile	
+		DriverUtility.switchToWindow(driver, childWindowTitle);
+
+		// Select DataFile
 		uploadModifyMySubscribers.click();
 		selectContinueActionBtn.click();
 		browserYourDesktopBtn.click();
 		DriverUtility.waitforElementDisplay(driver, chooseFileBtn, 20);
 		chooseFileBtn.click();
-		chooseFileBtn.sendKeys(Utils.getResources(this,XMLParser.readComponentValueFromXML("Imports.txtImportFileName")));
+		chooseFileBtn.sendKeys(Utils.getResources(this, XMLParser
+				.readComponentValueFromXML("Imports.txtImportFileName")));
 		uploadFileBtn.click();
 		DriverUtility.waitforElementDisplay(driver, importPreviewTable, 60);
 		DriverUtility.waitforElementDisplay(driver, dataFileContinueBtn, 10);
-		dataFileContinueBtn.click();				
+		dataFileContinueBtn.click();
 	}
-	
-	public enum DELIMITER{
+
+	public enum DELIMITER {
 		COMMA, TAB, SPACE, SEMICOLON, PIPE, NO_DELIMITER
 	}
-	
+
 	/***
 	 * This method is added to select delimiter
+	 * 
 	 * @param- delimiter(Comma, Tab, Space, Semicolon, Pipe)
 	 * @author sangeetap
-	 * @return	 
+	 * @return
 	 */
-	private void definedDelimiter(DELIMITER selectDelimiter){
-		
-		switch(selectDelimiter){	
-		case COMMA :delimiterCommaRadioBtn.click(); break;
-		case TAB : delimiterTabRadioBtn.click(); break;
-		case SPACE : delimiterSpaceRadioBtn.click();break;
-		case SEMICOLON : delimiterSemicolonRadiBtn.click();break;
-		case PIPE : delimiterPipeRadioBtn.click();break;		
-		default : noDelimiterRadioBtn.click();break;		
+	private void definedDelimiter(DELIMITER selectDelimiter) {
+
+		switch (selectDelimiter) {
+		case COMMA:
+			delimiterCommaRadioBtn.click();
+			break;
+		case TAB:
+			delimiterTabRadioBtn.click();
+			break;
+		case SPACE:
+			delimiterSpaceRadioBtn.click();
+			break;
+		case SEMICOLON:
+			delimiterSemicolonRadiBtn.click();
+			break;
+		case PIPE:
+			delimiterPipeRadioBtn.click();
+			break;
+		default:
+			noDelimiterRadioBtn.click();
+			break;
 		}
 
-		
-	}	
-	
-	private void selectHeader(boolean selectHeaderFlag)
-	{
-		if(selectHeaderFlag)
-			yesRadioBtn.click();	
-		else
-			noRadioBtn.click();	
 	}
-	
+
+	/***
+	 * This method is added to select header
+	 * 
+	 * @param selectHeaderFlag
+	 *            - True / False select header / don't select header
+	 */
+
+	private void selectHeader(boolean selectHeaderFlag) {
+		if (selectHeaderFlag)
+			yesRadioBtn.click();
+		else
+			noRadioBtn.click();
+	}
+
 	/***
 	 * This method is added to create New Map
 	 * 
 	 * @author sangeetap
-	 * @return	 
+	 * @return
 	 */
-	private void createNewMap(){		
+	private void createNewMap() {
 		editMapBtn.click();
-		DriverUtility.waitforElementDisplay(driver, associtatMapBtn, 20);		
-		for (WebElement option : optionFileColumns) {			
+		DriverUtility.waitforElementDisplay(driver, associtatMapBtn, 20);
+		for (WebElement option : optionFileColumns) {
 			option.click();
 			for (WebElement option1 : optionSubscriberAttributesDataType) {
 				System.out.println(option1.getText().split("\\[")[0]);
-				if (option.getText().equalsIgnoreCase(option1.getText().split("\\[")[0].trim())) {
+				if (option.getText().equalsIgnoreCase(
+						option1.getText().split("\\[")[0].trim())) {
 					option1.click();
 					associtatMapBtn.click();
 					break;
@@ -303,5 +320,5 @@ public class Import extends BasePage {
 		createMapContinueBtn.click();
 		mapContinueBtn.click();
 	}
-		
+
 }

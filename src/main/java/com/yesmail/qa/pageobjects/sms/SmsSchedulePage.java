@@ -79,17 +79,16 @@ public class SmsSchedulePage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		
-		if(null == DriverUtility.waitFor(elementToBeClickable(By.id("startDatepicker")), driver, 50))
-		{
+
+		if (null == DriverUtility.waitFor(
+				elementToBeClickable(By.id("startDatepicker")), driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
-		
+
 	}
-	
-	public SmsSchedulePage load()
-	{
+
+	public SmsSchedulePage load() {
 		navigateToSchedule();
 		return this;
 	}

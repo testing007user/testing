@@ -45,6 +45,30 @@ public class PagesHelper {
        public final static String MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME= prop.getValue("multivariate.envelope.campaign.name");
        public final static String MULTIVARIATE_ENVELOPE_ENCODING = "Western(ISO-8859-1)";
        
+     //Added for Facebook
+     	
+     	public final static String FACEBOOK_ACCOUNT=prop.getValue("facebook.content.account");
+     	public final static String FACEBOOK_ACCOUNT_PAGE=prop.getValue("facebook.content.page");
+     	public final static String FACEBOOK_CONTENT_CAMPAIGN_NAME= prop.getValue("facebook.content.campaign.name");
+     	public final static String FACEBOOK_CONTENT_NAME = prop.getValue("facebook.content.name");
+     	public final static String FACEBOOK_CONTENT_DESC = prop.getValue("facebook.content.description");
+     	public final static String FACEBOOK_PAGE_NAME = prop.getValue("facebook.page.name");
+   	
+     //Added for Tweets
+     	public final static String TWEETS_CONTENT_NAME=prop.getValue("tweets.content.name");
 
+     	//Added for HomePage
+    	public final static String HOME_COMPANY_SELECT=prop.getValue("home.company.name");
+    	public final static String HOME_SEARCH_MMID=prop.getValue("home.search.mmid");
 
+    	
+    	//Added for SMS
+    	
+    	public final static String SMSVIEWBY = "All active email masters";
+
+    	public final static String STATUSENABLED = "enabled";
+    	public final static String STATUSDELIVERED = "delivered";	
+    	public final static String STATUSPUBLISHED = "published";
+    	public final static String STATUSHALTED = "halted";
+    	public final static String STATUSDISABLED= "disabled";
 }

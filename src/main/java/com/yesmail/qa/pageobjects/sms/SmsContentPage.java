@@ -10,7 +10,6 @@
 
 package com.yesmail.qa.pageobjects.sms;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,7 +18,6 @@ import org.openqa.selenium.support.PageFactory;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
 
 public class SmsContentPage extends SmsBasePage {
 
@@ -72,15 +70,14 @@ public class SmsContentPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if(null == DriverUtility.waitFor(elementToBeClickable(By.id("saveContent")), driver, 50))
-		{
+		if (null == DriverUtility.waitFor(
+				elementToBeClickable(By.id("saveContent")), driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
 		}
 	}
-	
-	public SmsContentPage load()
-	{
+
+	public SmsContentPage load() {
 		navigateToContent();
 		return this;
 	}
@@ -102,9 +99,8 @@ public class SmsContentPage extends SmsBasePage {
 	 * 
 	 * @author sangeetap
 	 */
-	public void previewWithUserid(String textToEnterInContent,String smsUserID) {
+	public void previewWithUserid(String textToEnterInContent, String smsUserID) {
 
-		
 		contentText.clear();
 		contentText.sendKeys(textToEnterInContent);
 		saveContent.click();
@@ -119,7 +115,8 @@ public class SmsContentPage extends SmsBasePage {
 	 * @param mobileNumber
 	 * @author sangeetap
 	 */
-	public void previewWithMobileNumber(String textToEnterInContent,String smsUserID,String smsMobileNo) {
+	public void previewWithMobileNumber(String textToEnterInContent,
+			String smsUserID, String smsMobileNo) {
 		DriverUtility.waitforElementDisplay(driver, contentText, 10);
 		contentText.clear();
 		contentText.sendKeys(textToEnterInContent);
