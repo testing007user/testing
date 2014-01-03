@@ -257,7 +257,6 @@ public class CampaignManagement {
 		// TODO Auto-generated method stub
 		campaignsSearchTxtBox.clear();
 		campaignsSearchTxtBox.sendKeys(searchlabel);
-		System.out.println(searchedCampaign.size());
 		if (searchlabel.equalsIgnoreCase(searchedCampaign.get(0).getText()))
 			return true;
 		else

@@ -359,9 +359,7 @@ public class PageObjectFactory {
 	public FacebookSchedulePage facebookSchedulePage() {
 		if (facebookSchedulePage == null)
 			facebookSchedulePage = new FacebookSchedulePage(
-					driver,
-					XMLParser
-							.readComponentValueFromXML("FacebookSchedulePage.pageUrl"));
+					driver);
 		return facebookSchedulePage;
 	}
 }

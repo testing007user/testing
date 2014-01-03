@@ -147,7 +147,7 @@ public class TestSetupPage extends MvtBase {
 	 */
 	public String saveTest() {
 		saveTestButton.click();
-		System.out.println("Ribbon Text Message for Test Setup Page is:"+getRibbonText(10));
+		Reporter.log("Ribbon Text Message for Test Setup Page is:"+getRibbonText(10),true);
 		return getMasterId();
 
 	}
@@ -160,12 +160,9 @@ public class TestSetupPage extends MvtBase {
 	public String getMasterId() {
 		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeDisabled(checkboxSubject), this.driver, 40);  
 		String loginUrl = driver.getCurrentUrl();
-		  //System.out.println(loginUrl);
 		  String jobNum = driver.getCurrentUrl().substring(
 		  loginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
-		  
 		  Reporter.log("Job Number is:"+jobNum,true);
-		  //System.out.println(jobNum);
 		  return jobNum;
 		 }
 

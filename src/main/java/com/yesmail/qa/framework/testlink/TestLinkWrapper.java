@@ -12,6 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
+
 import br.eti.kinoshita.testlinkjavaapi.TestLinkAPI;
 import br.eti.kinoshita.testlinkjavaapi.constants.ActionOnDuplicate;
 import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
@@ -45,6 +47,7 @@ class TestLinkWrapper {
 	private Platform platform;
 	private boolean checkPerformed;
 
+	private static final Logger log = Logger.getLogger(TestLinkWrapper.class);
 	public TestLinkWrapper(
 
 	String suiteName, String planName, String projectName, String buildName,
@@ -297,7 +300,7 @@ class TestLinkWrapper {
 				estatus = ExecutionStatus.FAILED;
 			// testStatus.toUpperCase().startsWith("P") ? ExecutionStatus.PASSED
 			// : ExecutionStatus.FAILED
-			System.out.println("In the TestList Wrapper and Details are "
+			log.debug("In the TestList Wrapper and Details are "
 					+ "testcase:" + testName + "BuildName:" + buildName
 					+ "Date of Execution will be"
 					+ java.util.Calendar.getInstance().getTime().toString());

@@ -75,14 +75,14 @@ public class FacebookSchedulePage {
 	private WebElement scheduleImmediately;
 
 	private WebDriver driver;
-	private String pageUrl;
+
 
 	// Constructor
 
-	public FacebookSchedulePage(WebDriver driver, String pageUrl) {
+	public FacebookSchedulePage(WebDriver driver) {
 
 		this.driver = driver;
-		this.pageUrl = pageUrl;
+		
 		PageFactory.initElements(driver, this);
 
 	} // end of constructor

@@ -119,15 +119,12 @@ public class TestTargetPage extends MvtBase {
 		attributeFilterInput
 				.sendKeys(selectAttr.attrString.toString());
 		attributeList.size();
-		System.out.println(attributeList.size());
 		for (WebElement elementToClick : attributeList) {
 			elementToClick = driver.findElement(By
 					.cssSelector("div.mAttr:nth-child(" + i + ")"));
 			if ((elementToClick.getText())
 					.equalsIgnoreCase(selectAttr.attrString.toString())) {
 				DriverUtility.doubleClick(elementToClick, driver, CLICK_STRATEGY.USING_ACTION);
-//				Actions inputClick = new Actions(driver);
-//				inputClick.doubleClick(elementToClick).perform();
 				break;
 			}
 			else

@@ -84,9 +84,10 @@ public class HomePage extends BasePage {
 			return true;
 	}
 
-	public void load() {
+	public HomePage load() {
 
 		driver.navigate().to(PagesHelper.URL);
+		return this;
 	}
 
 	/**
