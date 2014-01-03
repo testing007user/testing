@@ -69,7 +69,8 @@ public class LoginTest {
 		pof.homePage().isLoaded();
 		pof.emailEnvelopePage().load().isLoaded();
 				
-		a.assertTrue(pof.emailEnvelopePage().createEnvelope(),"Creating email envelope page");
+		String MasterName = pof.emailEnvelopePage().createEnvelope();
+		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
 		
 		pof.emailContentPage().navigateToContentTab();		
 		pof.emailContentPage().isLoaded();
@@ -82,7 +83,7 @@ public class LoginTest {
 
 		pof.emailTargetPage().navigateToTargetTab();
 		pof.emailTargetPage().isLoaded();
-		a.assertTrue(pof.emailTargetPage().clickSaveGetCount("eMail", "sangeeta.pote@yesmail.com" , "Subscribed"),"Creating email target Page");
+		a.assertTrue(pof.emailTargetPage().clickSaveGetCount("eMail", "postqa1@yahoo.com" , "Subscribed"),"Creating email target Page");
 		
 		pof.emailSchedulePage().navigateToScheduleTab();
 		pof.emailSchedulePage().isLoaded();		
@@ -101,7 +102,11 @@ public class LoginTest {
 		pof.countsPage().isLoaded();
 		a.assertTrue(pof.countsPage().verifyStatusOnCountsPage(masterId, "Finished")," verifying status Master ID "+masterId+ " on Counts Page");
 		
-		
+		pof.yahooPage().load().isLoaded();
+		pof.yahooPage().clickMailLink();
+		pof.yahooPage().loginToYahoo();
+		pof.yahooPage().clickInbox();
+		pof.yahooPage().findEmail(MasterName, 5);
 		
 		
 		/*PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
