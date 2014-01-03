@@ -37,7 +37,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	@FindBy(css = "button[id = 'save']")
 	private WebElement saveSchedule;
 
-	@FindBy(css = "button[data-id = 'masterEnableButton']")
+	@FindBy(css = "div:nth-child(3) button.social-enable")
 	private WebElement enable;
 
 	@FindBy(css = "input[name = 'scheduleHour']")
@@ -46,7 +46,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	@FindBy(css = "input[name = 'scheduleMinute']")
 	private WebElement minuteTextBox;
 
-	@FindBy(css = "button.confirm")
+	@FindBy(css = "div.modal button.confirm")
 	private WebElement confirm;
 
 	@FindBy(css = "input[value = 'am']")
@@ -149,13 +149,16 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	public void setDateTime() {
 
 		insertDate();
+		DriverUtility.waitforElementDisplay(driver,hourTextBox,50);
 		enterCurrentHour();
+		DriverUtility.waitforElementDisplay(driver,minuteTextBox,50);
 		enterCurrentMinutes();
+		DriverUtility.waitforElementDisplay(driver,amRadioButton,50);
 		setAmPm();
 	}
 
 	/**
-	 * This method is added to save scedule
+	 * This method is added to save schedule
 	 */
 	public void saveSchedule() {
 		saveSchedule.click();
@@ -166,11 +169,12 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	 */
 	public void enableTweet() {
 		enable.click();
+		DriverUtility.waitforElementDisplay(driver,confirm, 50);
 		confirm.click();
 	}
 
 	/***
-	 * This method is added to schedule tweets immediately
+	 * This method is added to schedule Tweet immediately
 	 */
 	public void scheduleImmediately() {
 		setDateTime();
@@ -179,7 +183,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	}
 
 	/***
-	 * This method is added to schedule tweets on specific time /later
+	 * This method is added to schedule Tweet on specific time /later
 	 */
 	public void scheduleTweet() {
 

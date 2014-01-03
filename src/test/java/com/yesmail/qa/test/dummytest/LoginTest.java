@@ -59,7 +59,7 @@ public class LoginTest {
 
 	}
 
-	@Test(timeOut = 5000000)
+	//@Test(timeOut = 5000000)
 	public void testing() {
 		System.out.println(Utils.getResources(this, "Test 12 March 2013.zip"));
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
@@ -131,14 +131,18 @@ public class LoginTest {
 		pof.afterTheClickPage().createNewTag("input.tagName");
 	}
 
-	// @Test(groups="VerifyTweetsStatus", timeOut=30000000)
+	 @Test(groups="VerifyTweetsStatus", timeOut=30000000)
 	public void verifyTweetsStatus() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		pof.loginPage().load().isLoaded();
 		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
 		pof.homePage().isLoaded();
+		pof.tweetsContentPage().load().isLoaded();
+		String tweetId = pof.tweetsContentPage().createTweet("magellanGmail");
+		pof.tweetsSchedulePage().load().isLoaded();
+		pof.tweetsSchedulePage().scheduleTweet();
 		pof.viewTweetsPage().load().isLoaded();
-		pof.viewTweetsPage().verifyTweetMasterStatus("1231126", "DISABLED");
+		pof.viewTweetsPage().verifyTweetMasterStatus(tweetId, "PUBLISHED");
 	}
 
 	// @Test(groups="CreateDistributionList",timeOut=300000000)
