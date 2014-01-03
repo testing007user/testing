@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.pageobjects.PagesHelper;
 import com.yesmail.qa.framework.DriverUtility;
@@ -77,7 +78,7 @@ public class TestEnvelopPage extends MvtBase {
 
 	// Constructor
 
-	public TestEnvelopPage(WebDriver driver, String pageUrl) {
+	public TestEnvelopPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -87,13 +88,14 @@ public class TestEnvelopPage extends MvtBase {
 	
 	public TestEnvelopPage load()
 	{
+		
 		navigateToEnvelopeTab();
 		return this;
 	}
 	
 	public void isLoaded()
 	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(By.id("name")), driver,50))
+		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(nameTextBox), driver,50))
 			throw new FrameworkException(TestEnvelopPage.class.getName()+" is not loaded");
 	}
 
@@ -107,6 +109,7 @@ public class TestEnvelopPage extends MvtBase {
 
 		String strEnv = Utils
 				.getUniqueName(PagesHelper.MULTIVARIATE_ENVELOPE_NAME,25);
+		Reporter.log("Entering Envelope name as:"+strEnv);
 		nameTextBox.clear();
 		nameTextBox.sendKeys(strEnv);
 	}
@@ -121,6 +124,7 @@ public class TestEnvelopPage extends MvtBase {
 	 */
 	public void selectDivision(String visibleDivision) {
 
+		Reporter.log("Selecting division:"+visibleDivision);
 		DriverUtility.selectDropDown(divisionDropDown,
 				PagesHelper.MULTIVARIATE_ENVELOPE_DIVISION, 0);
 	}

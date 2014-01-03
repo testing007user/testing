@@ -9,9 +9,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.yesmail.qa.pageobjects.PAGE_ATTRI;
-import com.yesmail.qa.pageobjects.PAGE_NAME;
-
 /***
  * This class contains methods for reading componenet.xml file
  * 
@@ -63,33 +60,7 @@ public class XMLParser {
 		return uiObjectLocator;
 	}
 	
-	/**
-	 * Method to traverse the XML document returns the value for specified
-	 * example is :TestSetupPage.pageUrl
-	 * String
-	 * 
-	 * @param argLocator
-	 * @return
-	 */
-	public static String readComponentValueFromXML(PAGE_NAME pageName,PAGE_ATTRI attribute) {
-		String argLocator = pageName.toString()+"."+attribute.toString();
-		String[] componentLocator = argLocator.split("\\.");
-		String uiObjectAttName = componentLocator[0];
-		String locatorAttrName = componentLocator[1];
-		Element rootElement = document.getDocumentElement();
-		String uiObjectLocator = null;
-		NodeList nodeList = rootElement.getElementsByTagName("page");
-		if (nodeList != null && nodeList.getLength() > 0) {
-			for (int i = 0; i < nodeList.getLength(); i++) {
-				Element element = (Element) nodeList.item(i);
-				if (element.getAttribute("name").equals(uiObjectAttName)) {
-					uiObjectLocator = getTextValue(element, locatorAttrName);
-					break;
-				}
-			}
-		}
-		return uiObjectLocator;
-	}
+	
 
 	/**
 	 * I take a xml element and the tag name, look for the tag and get the text

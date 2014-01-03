@@ -1,13 +1,25 @@
+/***
+ * File : LoginPage.java
+ * Description : Page object class for LoginPage functionality 
+ * @author Ojan
+ * Version History : Draft 0.1
+ * Version name Updated By Reason / Comments 
+ * 1.0  updated for  below Reason / Comments
+ * 
+ * @author sangeetap
+ * Updated/modified code as per review comments
+ *    
+ */
 package com.yesmail.qa.pageobjects.login;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
 
 
 public class LoginPage {
@@ -27,6 +39,8 @@ public class LoginPage {
 	
 	@FindBy(id = "recentMessagesIcon" )
 	private WebElement recentMessagesIcon;
+	@FindBy(id = "test")
+	private WebElement test;
 	
 	
 	 public LoginPage(WebDriver driver) {
@@ -44,8 +58,9 @@ public class LoginPage {
 	 
 	 public boolean isLoaded()
 	 {
-		 if(null == DriverUtility.waitFor(elementToBeClickable(By.name("username")), driver, 50))
+		 if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(emailInput,passwordInput), driver, 50))
 		 {
+			 
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");
 		 }

@@ -16,15 +16,12 @@
 package com.yesmail.qa.pageobjects.mvt;
 
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
+import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -32,6 +29,7 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class TestContentPage extends MvtBase {
+	
 
 	private WebDriver driver;
 
@@ -74,7 +72,7 @@ public class TestContentPage extends MvtBase {
 	 * 
 	 * @author sangeetap
 	 */
-	public TestContentPage(WebDriver driver, String pageUrl) {
+	public TestContentPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -86,8 +84,7 @@ public class TestContentPage extends MvtBase {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(By
-				.cssSelector("button[id='contentUpload']")), driver, 50))
+		if (null == DriverUtility.waitFor(elementToBeClickable(uploadButton), driver, 50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
 	}
@@ -129,10 +126,13 @@ public class TestContentPage extends MvtBase {
 	public void uploadFile(String uploadFileName) {
 
 		uploadButton.click();
-		uploadformTextField.sendKeys(Utils.getResources(this, uploadFileName));
+		String uploadFilePath = Utils.getResources(this, uploadFileName);
+		Reporter.log("Uploaded file path is:"+uploadFilePath);
+		uploadformTextField.sendKeys(uploadFilePath);
 		// uploadformTextField
 		// .sendKeys("D:\\NEWUIAutomation\\kapil test\\target\\test-classes\\Test 12 March 2013.zip");
 		uploadAssetsButton.click();
+		stepCompleted(3,15);
 
 	}
 

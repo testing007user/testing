@@ -11,7 +11,7 @@
 
 package com.yesmail.qa.pageobjects.reports;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -62,8 +62,7 @@ public class ReportsPage extends BasePage {
 		// TODO Auto-generated method stub
 		if (null == DriverUtility
 				.waitFor(
-						elementToBeClickable(By
-								.cssSelector("#mainContentArea div:nth-child(3) select[name='typeSelect']")),
+						elementToBeClickable(typeSelectDropDown),
 						driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");

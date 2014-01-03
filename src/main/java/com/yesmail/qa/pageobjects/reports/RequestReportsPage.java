@@ -14,8 +14,6 @@ package com.yesmail.qa.pageobjects.reports;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -119,8 +117,7 @@ public class RequestReportsPage extends BasePage {
 	}
 
 	public void isLoaded() {
-		ExpectedCondition<WebElement> condition = elementToBeClickable(By
-				.cssSelector("#mainContentArea div:nth-child(3) select.reportTypeSelect"));
+		ExpectedCondition<WebElement> condition = elementToBeClickable(reportTypeDropDown);
 		if (null == DriverUtility.waitFor(condition, driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");

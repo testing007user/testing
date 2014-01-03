@@ -1,3 +1,4 @@
+
 /** File Name: SmsBasePage.java  
  * Description: This Java Class is 
  * used to navigate to to navigate to Content page, Target page, Schedule page
@@ -11,6 +12,7 @@
  * 1.Variable names should start with small character.
  * 2.Also you can remove navigation methods that are returning page objects. As we are going to use 'Page Object Factory' to get new page object. 
  * */
+
 package com.yesmail.qa.pageobjects.sms;
 
 import org.openqa.selenium.WebDriver;

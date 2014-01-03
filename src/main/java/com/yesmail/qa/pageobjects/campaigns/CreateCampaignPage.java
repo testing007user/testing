@@ -11,7 +11,7 @@
  *    
  */
 
-package com.yesmail.qa.pageobjects.campaign;
+package com.yesmail.qa.pageobjects.campaigns;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

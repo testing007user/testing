@@ -45,7 +45,6 @@ public class SAssert extends Assertion {
 		try {
 			a.doAssert();
 			assertMap.get().put(a, "");
-			System.out.println(assertMap.get());
 		} catch (AssertionError ex) {
 			String screenShotPath = "";
 			if (CommandLineArgs.getScreenShotFlag()) {

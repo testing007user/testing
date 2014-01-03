@@ -307,9 +307,7 @@ public class Import extends BasePage {
 		for (WebElement option : optionFileColumns) {
 			option.click();
 			for (WebElement option1 : optionSubscriberAttributesDataType) {
-				System.out.println(option1.getText().split("\\[")[0]);
-				if (option.getText().equalsIgnoreCase(
-						option1.getText().split("\\[")[0].trim())) {
+				if (option.getText().equalsIgnoreCase(option1.getText().split("\\[")[0].trim())) {
 					option1.click();
 					associtatMapBtn.click();
 					break;

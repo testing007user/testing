@@ -9,26 +9,26 @@
 		<pageUrl>#home</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-
-	<!-- Email -->
-	<page name="Envelope">
+	
+	<!--  Email -->
+	<page name="EMAILEnvelope">
 		<pageUrl>#email/envelope</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 		<xmlPath>src\test\resources\EnvelopeXml.xml</xmlPath>
 	</page>
-	<page name="Target">
+	<page name="EMAILTarget">
 		<pageUrl>#email/target</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-	<page name="Schedule">
+	<page name="EMAILSchedule">
 		<pageUrl>#email/schedule</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-	<page name="Summary">
+	<page name="EMAILSummary">
 		<pageUrl>#email//summary</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
-	<page name="Content">
+	<page name="EMAILContent">
 		<pageUrl>#email/content</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 		<contentUploadFileName>Test 12 March 2013.zip</contentUploadFileName>
@@ -67,12 +67,26 @@
 		<pageUrl>#reports</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
+	<page name="RequestReport">
+		<pageUrl>#reports/new</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>
 	<page name="Subscribers">
 		<pageUrl>#subscribers</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
-	</page>
 
-	<!-- SMS -->
+	</page>	
+	<page name="ContentLibrary">
+		<pageUrl>#contentLibrary</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>	
+	<page name="CountsPage">
+		<pageUrl>#jobs?type=Count%20Task</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+	</page>		
+	
+	<!--  SMS -->
+
 	<page name="SMSHeader">
 		<pageUrl>#sms/header</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>

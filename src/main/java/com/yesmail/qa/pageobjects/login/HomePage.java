@@ -17,8 +17,6 @@
 package com.yesmail.qa.pageobjects.login;
 
 import java.util.Iterator;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -78,7 +76,7 @@ public class HomePage extends BasePage {
 	}
 
 	public boolean isLoaded() {
-			if(null == DriverUtility.waitFor(elementToBeClickable(By.cssSelector("header div form input")), driver, 50))
+			if(null == DriverUtility.waitFor(elementToBeClickable(searchTextBox), driver, 50))
 			{
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");

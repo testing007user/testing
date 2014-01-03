@@ -81,7 +81,7 @@ public class Utils {
 	
 	/***
 	 * This method return full path of the resource file name using class loader
-	 * @param className
+	 * @param className : Class which is calling this method
 	 * @param fileName
 	 * @return
 	 */

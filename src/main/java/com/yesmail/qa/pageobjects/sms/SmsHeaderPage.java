@@ -9,7 +9,6 @@
 
 package com.yesmail.qa.pageobjects.sms;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -70,7 +69,7 @@ public class SmsHeaderPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(By.id("name")),
+		if (null == DriverUtility.waitFor(elementToBeClickable(smsName),
 				driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
