@@ -26,7 +26,8 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 public class EmailEnvelopePage extends EmailBase {
 
 	private WebDriver driver;
-	private String pageUrl;
+	private String pageUrl;	
+	private String masterName = Utils.getUniqueName(PagesHelper.EMAIL_MASTER, 25);
 
 	@FindBy(id = "name")
 	private WebElement nameTextBox;
@@ -91,9 +92,6 @@ public class EmailEnvelopePage extends EmailBase {
 	@FindBy(css = "form > select.span3")
 	private WebElement campaignTypeDropdown;
 
-	@FindBy(css = ".alert-success")
-	private WebElement successMessage;
-
 	/**
 	 * Constructor section
 	 * 
@@ -131,11 +129,9 @@ public class EmailEnvelopePage extends EmailBase {
 	 * @author sangeetap
 	 */
 
-	private void fillEnvName() {
-
-		String strEnv = Utils.getUniqueName(PagesHelper.EMAIL_MASTER, 25);
+	private void fillEnvName() {		
 		nameTextBox.clear();
-		nameTextBox.sendKeys(strEnv);
+		nameTextBox.sendKeys(masterName);
 	}
 
 	/***
@@ -187,7 +183,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 */
 	private void fillfromName() {
 		fromTextBox.clear();
-		fromTextBox.sendKeys("from_test");
+		fromTextBox.sendKeys(masterName);
 	}
 
 	/***
@@ -238,9 +234,9 @@ public class EmailEnvelopePage extends EmailBase {
 	/***
 	 * This method is added to fill and save the envelop page.
 	 * 
-	 * @return Envelope Created(True/False)
+	 * @return - Master Name
 	 */
-	public boolean createEnvelope() {
+	public String createEnvelope() {
 		fillEnvName();
 		selectCampaign("Create New...");
 		selectDivision();
@@ -250,7 +246,7 @@ public class EmailEnvelopePage extends EmailBase {
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
 		getRibbonText(10);
-		return stepCompleted(1, 10);
+		return masterName;		
 	}
 
 	/***
@@ -260,7 +256,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 *            of attributes for Subject Personalization
 	 * @return Envelope Created(True/False)
 	 */
-	public boolean createEnvelope(List<String> attributes) {
+	public String createEnvelope(List<String> attributes) {
 		fillEnvName();
 		selectCampaign("Create New...");
 		selectDivision();
@@ -272,7 +268,7 @@ public class EmailEnvelopePage extends EmailBase {
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
-		return stepCompleted(1, 10);
+		return masterName;
 	}
 
 	/***

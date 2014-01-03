@@ -12,6 +12,7 @@ import com.yesmail.qa.test.configuration.ConfigurationClass;
 public class PagesHelper {
 
 	static  IProperty prop = ConfigurationClass.PagesHelperProp;
+	
 
 	private PagesHelper() {
 
@@ -21,6 +22,9 @@ public class PagesHelper {
 		PagesHelper.prop = prop;
 
 	}
+	
+	public final static String YAHOO_USERNAME = prop.getValue("yahooUserName");
+	public final static String YAHOO_PASSWORD = prop.getValue("yahooPassword");
 
 	public final static String EMAIL_MASTER = prop.getValue("email.master");
 	public final static String URL = prop.getValue("URL");
