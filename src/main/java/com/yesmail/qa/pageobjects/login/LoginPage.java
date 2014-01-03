@@ -10,6 +10,7 @@
  * Updated/modified code as per review comments
  *    
  */
+
 package com.yesmail.qa.pageobjects.login;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,15 +68,24 @@ public class LoginPage {
 		 return true;
 	 }
 	
+	 /**
+	  * This method is added to log in to the app
+	  * @param userName - valid username 
+	  * @param password - valid password
+	  */
 	public void loginAs(String userName,String password) {
 		emailInput.sendKeys(userName);
 		passwordInput.sendKeys(password);
 		submitBtn.click();
 	}
 	
-	/*public boolean check()
+	/**
+	 * This method is used to check for homepage load
+	 * @return
+	 */
+	public boolean check()
 	{
 		return DriverUtility.waitforElementDisplay(driver, recentMessagesIcon, 20);		
-	}*/
+	}
 	
 }

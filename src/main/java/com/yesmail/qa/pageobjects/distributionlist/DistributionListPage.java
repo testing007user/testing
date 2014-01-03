@@ -44,13 +44,9 @@ public class DistributionListPage {
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * * define the constructor
-	 * #################################################
-	 * #########################
-	 */
-
+	
+	// define the constructor
+	
 	public DistributionListPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
 		this.pageUrl = pageUrl;

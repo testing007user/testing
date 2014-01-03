@@ -24,13 +24,6 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class CreateCampaignPage {
 
-	/*
-	 * ##########################################################################
-	 * * Campaign page web element allocation
-	 * ###################################
-	 * #######################################
-	 */
-
 	@FindBy(css = "div:nth-child(2) button")
 	private static WebElement createViewBtn;
 
@@ -64,27 +57,13 @@ public class CreateCampaignPage {
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * * define the constructor
-	 * #################################################
-	 * #########################
-	 */
-
 	public CreateCampaignPage(WebDriver driver, String pageUrl) {
 
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 
-	} // end of constructor
-
-	/*
-	 * ##########################################################################
-	 * * define required methods
-	 * ################################################
-	 * ##########################
-	 */
+	}
 
 	public CreateCampaignPage load() {
 		driver.navigate().to(PagesHelper.URL + pageUrl);

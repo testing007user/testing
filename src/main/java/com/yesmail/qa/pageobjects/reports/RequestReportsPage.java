@@ -22,6 +22,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
@@ -95,6 +96,9 @@ public class RequestReportsPage extends BasePage {
 
 	@FindBy(css = "div:nth-child(4) input.minute")
 	private WebElement minute;
+
+	@FindBy(css = "div:nth-child(4) input.message")
+	private WebElement messageId;
 
 	private WebDriver driver;
 
@@ -222,14 +226,30 @@ public class RequestReportsPage extends BasePage {
 	 * This method is added to create new report
 	 * 
 	 * @author sangeetap
+	 * @return - generated report master id
 	 */
-	public void RequestRunReport(String visibleTextReportType,
+	public String RequestRunReport(String visibleTextReportType,
 			String visibleTextMailingView, String attributeText) {
 		selectReportType(visibleTextReportType);
 		selectMailingView(visibleTextMailingView);
 		selectAttributes(attributeText);
 		runReportNowRadioButton.click();
 		requestReportButton.click();
+		return getMasterId();
 	}
 
+	/***
+	 * This method is added to get the id of generated report
+	 * 
+	 * @return
+	 */
+	public String getMasterId() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(messageId),
+				this.driver, 20);
+		String strReportMsg = messageId.getText();
+		String reportId = strReportMsg.substring(
+				strReportMsg.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
+		return reportId;
+	}
 }

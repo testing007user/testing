@@ -28,14 +28,9 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 
-public class FacebookSchedulePage extends FacebookContentPage {
+public class FacebookSchedulePage {
 
-	/*
-	 * ##########################################################################
-	 * Facebook Schedule Page web element allocation
-	 * ############################
-	 * ##############################################
-	 */
+	// Facebook Schedule Page web element allocation
 
 	@FindBy(css = "div:nth-child(2) input[id='scheduleDatePicker']")
 	public WebElement dateBox;
@@ -73,21 +68,19 @@ public class FacebookSchedulePage extends FacebookContentPage {
 	@FindBy(css = "a[href = '#facebook/schedule']")
 	private WebElement schedule;
 
+	@FindBy(css = "div:nth-child(2)>a:nth-of-type(1)")
+	private WebElement contentTab;
+
 	@FindBy(css = "input[id = 'scheduleNow']")
 	private WebElement scheduleImmediately;
 
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * define the constructor
-	 * ###################################################
-	 * #######################
-	 */
+	// Constructor
 
 	public FacebookSchedulePage(WebDriver driver, String pageUrl) {
-		super(driver, pageUrl);
+
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
@@ -101,11 +94,11 @@ public class FacebookSchedulePage extends FacebookContentPage {
 					+ " is not loaded");
 	}
 
-	public FacebookSchedulePage load() {
-
-		navigateToScheduleTab();
-		return this;
-
+	/***
+	 * This method is added to navigate to Content Tab
+	 */
+	public void navigateToContentTab() {
+		contentTab.click();
 	}
 
 	/***
@@ -182,11 +175,11 @@ public class FacebookSchedulePage extends FacebookContentPage {
 	 * This method is added to enable and confirm the facebook post
 	 */
 	public void enableFacebook() {
-		// DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(enableButton),
-		// driver, 10);
-		DriverUtility.waitforElementDisplay(driver,
-				driver.findElement(By.cssSelector("div.alert-success")), 10);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(enableButton), driver,
+				50);
 		enableButton.click();
+		DriverUtility.waitforElementDisplay(driver, confirmButton, 30);
 		confirmButton.click();
 
 	}
@@ -198,6 +191,7 @@ public class FacebookSchedulePage extends FacebookContentPage {
 		setDateTime();
 		scheduleImmediately.click();
 		saveSchedule();
+		enableFacebook();
 	}
 
 	/***

@@ -28,13 +28,7 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class ViewTweetsPage {
 
-	/*
-	 * ##########################################################################
-	 * 
-	 * View Tweet page web element allocation
-	 * ###################################
-	 * #######################################
-	 */
+	// View Tweet page web element allocation
 
 	@FindBy(css = "button[data-id = 'create']")
 	private WebElement createViewButton;
@@ -87,12 +81,7 @@ public class ViewTweetsPage {
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * define the constructor
-	 * ###################################################
-	 * #######################
-	 */
+	// Constructor
 
 	public ViewTweetsPage(WebDriver driver, String pageUrl) {
 
@@ -100,14 +89,7 @@ public class ViewTweetsPage {
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 
-	} // end of constructor
-
-	/*
-	 * ##########################################################################
-	 * define required methods
-	 * ##################################################
-	 * ########################
-	 */
+	}
 
 	public void isLoaded() {
 		if (null == DriverUtility
@@ -194,5 +176,4 @@ public class ViewTweetsPage {
 		return expStatus;
 	}
 
-} // end of ViewTweetPage class
-
+}

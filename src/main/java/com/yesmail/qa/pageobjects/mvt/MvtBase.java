@@ -11,7 +11,6 @@ package com.yesmail.qa.pageobjects.mvt;
  * Version:1.1 Updated for below reason
  */
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,14 +21,13 @@ import com.yesmail.qa.pageobjects.BasePage;
 public class MvtBase extends BasePage {
 
 	private WebDriver driver;
-	
 
 
 	// Page Elements for MVTBase class
 
-	@FindBy(css="button[class='ym-btn ym-btn-secondary create-test']")
+	@FindBy(css = "button[class='ym-btn ym-btn-secondary create-test']")
 	private WebElement createNewTestBtn;
-	
+
 	@FindBy(css = ".mvt-ico-details > span:nth-child(2)")
 	private WebElement setUpTab;
 
@@ -52,33 +50,32 @@ public class MvtBase extends BasePage {
 	private WebElement resultsTab;
 
 
-	
+	// Constructor section for MVTBase class
 	public MvtBase(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(this.driver, this);
-		
 
 	}
 
-	/*public void load() {
-		
-		driver.navigate().to(PagesHelper.URL+pageUrl);
-			}*/
+	/*
+	 * public void load() {
+	 * 
+	 * driver.navigate().to(PagesHelper.URL+pageUrl); }
+	 */
 
-	
-	/*public void isLoaded() {
-		DriverUtility.waitforElementDisplay(driver, setUpTab, 30);
-	}*/
+	/*
+	 * public void isLoaded() { DriverUtility.waitforElementDisplay(driver,
+	 * setUpTab, 30); }
+	 */
 
 	/***
 	 * This method is added to create new view
 	 */
-	public void createNewView()
-	{
+	public void createNewView() {
 		createNewTestBtn.click();
 	}
-	
+
 	/***
 	 * Navigate to SetUp Test page
 	 */
@@ -118,11 +115,11 @@ public class MvtBase extends BasePage {
 	public void navigateToScheduleTab() {
 		scheduleTab.click();
 	}
-	
+
 	/***
 	 * Navigate to Summary Test page
 	 */
-	
+
 	public void navigateToSummaryTab() {
 		Reporter.log("Navigating to --> Test Summary Tab");
 		summaryTab.click();

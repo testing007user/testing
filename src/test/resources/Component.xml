@@ -63,7 +63,7 @@
 		<pageUrl>#viewMasters/-1</pageUrl>
 		<lblPageTitle>Enterprise 7</lblPageTitle>
 	</page>
-	<page name="Report">
+	<page name="ReportsPage">
 		<pageUrl>#reports</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
@@ -194,16 +194,20 @@
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
 
-	<!-- Facebook -->
-	<page name="Facebook">
+	<!--  Facebook -->
+    <page name="FacebookContentPage">
 		<pageUrl>#facebook/content</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
-	</page>
+    </page>
+     <page name="FacebookSchedulePage">
+		<pageUrl>#facebook/schedule</pageUrl>
+		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
+    </page>
 
-	<page name="FacebookStatus">
+		<page name="FacebookStatus">
 		<pageUrl>#viewMasters/-8</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
-	</page>
+    </page>
 
 	<!-- After The Click -->
 	<page name="AfterTheClickPage">

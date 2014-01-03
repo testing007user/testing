@@ -28,12 +28,7 @@ import com.yesmail.qa.framework.libraries.Utils;
 
 public class TweetsSchedulePage extends TweetsContentPage {
 
-	/*
-	 * ##########################################################################
-	 * Tweet Schedule page web element allocation
-	 * ###############################
-	 * ###########################################
-	 */
+	// Tweet Schedule page web element allocation
 
 	// @FindBy(css= "input[id='scheduleDatePicker']")
 	@FindBy(css = "input#scheduleDatePicker")
@@ -74,12 +69,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 
 	private WebDriver driver;
 
-	/*
-	 * ##########################################################################
-	 * define the constructor
-	 * ###################################################
-	 * #######################
-	 */
+	// Constructor
 
 	public TweetsSchedulePage(WebDriver driver, String pageUrl) {
 
@@ -87,14 +77,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 
-	} // end of constructor
-
-	/*
-	 * ##########################################################################
-	 * define required methods
-	 * ##################################################
-	 * ########################
-	 */
+	}
 
 	public TweetsSchedulePage load() {
 		navigateToScheduleTab();
@@ -206,5 +189,4 @@ public class TweetsSchedulePage extends TweetsContentPage {
 
 	}
 
-} // end of TweetsSchedulePage class
-
+}

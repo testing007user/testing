@@ -26,13 +26,7 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class ViewFacebookPage {
 
-	/*
-	 * ##########################################################################
-	 * 
-	 * View Facebook page web element allocation
-	 * ################################
-	 * ##########################################
-	 */
+	// View Facebook page web element allocation
 
 	@FindBy(css = "div.ym-page-content header form select")
 	private WebElement allFacebookMasterDropDown;
@@ -50,12 +44,7 @@ public class ViewFacebookPage {
 
 	private WebDriver driver;
 
-	/*
-	 * ##########################################################################
-	 * define the constructor
-	 * ###################################################
-	 * #######################
-	 */
+	// Constructor
 
 	public ViewFacebookPage(WebDriver driver, String pageUrl) {
 
@@ -63,14 +52,7 @@ public class ViewFacebookPage {
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 
-	} // end of constructor
-
-	/*
-	 * ##########################################################################
-	 * define required methods
-	 * ##################################################
-	 * ########################
-	 */
+	}
 
 	public void isLoaded() {
 		if (null == DriverUtility
@@ -78,7 +60,7 @@ public class ViewFacebookPage {
 						ExpectedConditions
 								.elementToBeClickable(By
 										.cssSelector("div.ym-page-content header form select")),
-						driver, 30))
+						driver, 50))
 			throw new FrameworkException(ViewFacebookPage.class.getName()
 					+ "is not loaded");
 

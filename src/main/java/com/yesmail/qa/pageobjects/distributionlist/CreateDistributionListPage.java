@@ -23,6 +23,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class CreateDistributionListPage {
@@ -83,18 +84,13 @@ public class CreateDistributionListPage {
 	private WebDriver driver;
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * * define the constructor
-	 * #################################################
-	 * #########################
-	 */
+	
 
 	public CreateDistributionListPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
-	}// end of constructor
+	}
 
 	public CreateDistributionListPage load() {
 		driver.navigate().to(PagesHelper.URL + pageUrl);
@@ -145,7 +141,7 @@ public class CreateDistributionListPage {
 	 * @return - created list name
 	 */
 	public String enterListName() {
-		String strListName = /* Utils.getUniqueName("Distlist") */"DistList";
+		String strListName = Utils.getUniqueName("Distlist_");
 		listNameTextBox.clear();
 		listNameTextBox.sendKeys(strListName);
 		return strListName;

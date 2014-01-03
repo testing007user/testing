@@ -8,6 +8,7 @@ import com.yesmail.qa.pageobjects.campaigns.CampaignManagement;
 import com.yesmail.qa.pageobjects.campaigns.CreateCampaignPage;
 import com.yesmail.qa.pageobjects.distributionlist.CreateDistributionListPage;
 import com.yesmail.qa.pageobjects.distributionlist.DistributionListPage;
+
 import com.yesmail.qa.pageobjects.attributes.DataAttributesPage;
 import com.yesmail.qa.pageobjects.content.ContentLibraryPage;
 import com.yesmail.qa.pageobjects.counts.CountsPage;
@@ -16,6 +17,8 @@ import com.yesmail.qa.pageobjects.email.EmailEnvelopePage;
 import com.yesmail.qa.pageobjects.email.EmailSchedulePage;
 import com.yesmail.qa.pageobjects.email.EmailTargetPage;
 import com.yesmail.qa.pageobjects.email.ViewEmailPage;
+import com.yesmail.qa.pageobjects.facebook.FacebookContentPage;
+import com.yesmail.qa.pageobjects.facebook.FacebookSchedulePage;
 import com.yesmail.qa.pageobjects.imports.Import;
 import com.yesmail.qa.pageobjects.imports.ImportHomePage;
 import com.yesmail.qa.pageobjects.login.HomePage;
@@ -48,7 +51,6 @@ public class PageObjectFactory {
 	private ImportHomePage importHomePage;
 	private Import importPage;
 	private SubscribersPage subscriberPage;
-
 	private TestContentPage testContentPage;
 	private TestEnvelopPage testEnvelopPage;
 	private TestSchedulePage testSchedulePage;
@@ -68,24 +70,20 @@ public class PageObjectFactory {
 	private TweetsSchedulePage tweetsSchedulePage;
 	private DistributionListPage distributionListPage;
 	private CreateDistributionListPage createDistributionListPage;
-
-	private ViewSmsPage viewSmsPage;
-	
+	private ViewSmsPage viewSmsPage;	
 	private DataAttributesPage dataAttributesPage;
-
 	private EmailEnvelopePage emailEnvelopePage;
 	private EmailContentPage emailContentPage;
 	private EmailTargetPage emailTargetPage;
 	private EmailSchedulePage emailSchedulePage;
 	private ViewEmailPage viewEmailPage;
-
 	private CountsPage countsPage;
 	private ContentLibraryPage contentLibraryPage;
-	
-	
 	private ReportsPage reportsPage;
 	private RequestReportsPage requestReportsPage;
-
+	private FacebookContentPage facebookContentPage;
+	private FacebookSchedulePage facebookSchedulePage;
+	
 
 	public PageObjectFactory(WebDriver driver) {
 		this.driver = driver;
@@ -328,7 +326,7 @@ public class PageObjectFactory {
 							.readComponentValueFromXML("ViewTweetsPage.pageUrl"));
 		return viewTweetsPage;
 	}
-	
+
 	public DistributionListPage distributionListPage() {
 		if (distributionListPage == null)
 			distributionListPage = new DistributionListPage(
@@ -337,12 +335,33 @@ public class PageObjectFactory {
 							.readComponentValueFromXML("DistributionListPage.pageUrl"));
 		return distributionListPage;
 	}
-	
-	public CreateDistributionListPage createDistributionListPage()
-	{
-		if(createDistributionListPage==null)
-			createDistributionListPage = new CreateDistributionListPage(driver, XMLParser.readComponentValueFromXML("CreatedistributionListPage.pageUrl"));
-			return createDistributionListPage;
+
+	public CreateDistributionListPage createDistributionListPage() {
+		if (createDistributionListPage == null)
+			createDistributionListPage = new CreateDistributionListPage(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("CreatedistributionListPage.pageUrl"));
+		return createDistributionListPage;
 	}
+
 	
+
+	public FacebookContentPage facebookContentPage() {
+		if (facebookContentPage == null)
+			facebookContentPage = new FacebookContentPage(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("FacebookContentPage.pageUrl"));
+		return facebookContentPage;
+	}
+
+	public FacebookSchedulePage facebookSchedulePage() {
+		if (facebookSchedulePage == null)
+			facebookSchedulePage = new FacebookSchedulePage(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("FacebookSchedulePage.pageUrl"));
+		return facebookSchedulePage;
+	}
 }
