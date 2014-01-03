@@ -2,7 +2,6 @@ package com.yesmail.qa.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
-
 import com.yesmail.qa.pageobjects.aftertheclick.AfterTheClickPage;
 import com.yesmail.qa.pageobjects.campaigns.CampaignManagement;
 import com.yesmail.qa.pageobjects.campaigns.CreateCampaignPage;
@@ -17,8 +16,12 @@ import com.yesmail.qa.pageobjects.email.EmailEnvelopePage;
 import com.yesmail.qa.pageobjects.email.EmailSchedulePage;
 import com.yesmail.qa.pageobjects.email.EmailTargetPage;
 import com.yesmail.qa.pageobjects.email.ViewEmailPage;
+
 import com.yesmail.qa.pageobjects.facebook.FacebookContentPage;
 import com.yesmail.qa.pageobjects.facebook.FacebookSchedulePage;
+
+import com.yesmail.qa.pageobjects.email.YahooPage;
+
 import com.yesmail.qa.pageobjects.imports.Import;
 import com.yesmail.qa.pageobjects.imports.ImportHomePage;
 import com.yesmail.qa.pageobjects.login.HomePage;
@@ -64,13 +67,14 @@ public class PageObjectFactory {
 	private SmsContentPage smsContentPage;
 	private SmsTargetPage smsTargetPage;
 	private SmsSchedulePage smsSchedulePage;
-	private CampaignManagement campaignManagement;
+
 	private AfterTheClickPage afterTheClickPage;
 	private TweetsContentPage tweetsContentPage;
 	private TweetsSchedulePage tweetsSchedulePage;
 	private DistributionListPage distributionListPage;
 	private CreateDistributionListPage createDistributionListPage;
-	private ViewSmsPage viewSmsPage;	
+	private ViewSmsPage viewSmsPage;
+
 	private DataAttributesPage dataAttributesPage;
 	private EmailEnvelopePage emailEnvelopePage;
 	private EmailContentPage emailContentPage;
@@ -79,11 +83,15 @@ public class PageObjectFactory {
 	private ViewEmailPage viewEmailPage;
 	private CountsPage countsPage;
 	private ContentLibraryPage contentLibraryPage;
+
+	private CampaignManagement campaignManagement;
+
 	private ReportsPage reportsPage;
 	private RequestReportsPage requestReportsPage;
 	private FacebookContentPage facebookContentPage;
 	private FacebookSchedulePage facebookSchedulePage;
-	
+
+	private YahooPage yahooPage;
 
 	public PageObjectFactory(WebDriver driver) {
 		this.driver = driver;
@@ -103,9 +111,9 @@ public class PageObjectFactory {
 
 	public ImportHomePage importHomePage() {
 		if (importHomePage == null)
-			importHomePage = new ImportHomePage(driver,
 
-					XMLParser.readComponentValueFromXML("ImportHomePage.pageUrl"));
+			importHomePage = new ImportHomePage(driver,
+			XMLParser.readComponentValueFromXML("ImportHomePage.pageUrl"));
 
 		return importHomePage;
 	}
@@ -119,7 +127,7 @@ public class PageObjectFactory {
 	public SubscribersPage subscriberPage() {
 		if (subscriberPage == null)
 			subscriberPage = new SubscribersPage(driver,
-					XMLParser.readComponentValueFromXML("Subscribers.pageUrl"));
+			XMLParser.readComponentValueFromXML("Subscribers.pageUrl"));
 		return subscriberPage;
 	}
 
@@ -143,8 +151,10 @@ public class PageObjectFactory {
 
 	public TestSetupPage testSetupPage() {
 		if (testSetupPage == null)
-			testSetupPage = new TestSetupPage(driver,XMLParser.readComponentValueFromXML("TestSetupPage.pageUrl"));
 
+			testSetupPage = new TestSetupPage(driver,
+					XMLParser
+							.readComponentValueFromXML("TestSetupPage.pageUrl"));
 		return testSetupPage;
 	}
 
@@ -161,13 +171,11 @@ public class PageObjectFactory {
 		return viewTestPage;
 	}
 
+	public SmsHeaderPage smsHeaderPage() {
+		if (null == smsHeaderPage)
+			smsHeaderPage = new SmsHeaderPage(driver,
+					XMLParser.readComponentValueFromXML("SMSHeader.pageUrl"));
 
-	
-	
-	public SmsHeaderPage smsHeaderPage()
-	{
-		if(null == smsHeaderPage)
-			smsHeaderPage = new SmsHeaderPage(driver, XMLParser.readComponentValueFromXML("SMSHeader.pageUrl"));
 		return smsHeaderPage;
 	}
 
@@ -193,34 +201,32 @@ public class PageObjectFactory {
 
 	}
 
-
-
-	
-	public ViewSmsPage viewSmsPage()
-	{
-		if(viewSmsPage == null)
-			viewSmsPage = new ViewSmsPage(driver, XMLParser.readComponentValueFromXML("SMSStatus.pageUrl"));
+	public ViewSmsPage viewSmsPage() {
+		if (viewSmsPage == null)
+			viewSmsPage = new ViewSmsPage(driver,
+					XMLParser.readComponentValueFromXML("SMSStatus.pageUrl"));
 		return viewSmsPage;
 	}
-	
-	public CampaignManagement campaignManagement()
-	{
-		if(campaignManagement == null)
-			campaignManagement = new CampaignManagement(driver, XMLParser.readComponentValueFromXML("Campaign.pageUrl"));
+
+	public CampaignManagement campaignManagement() {
+		if (campaignManagement == null)
+			campaignManagement = new CampaignManagement(driver,
+					XMLParser.readComponentValueFromXML("Campaign.pageUrl"));
 		return campaignManagement;
 	}
-	
-	public ReportsPage reportsPage()
-	{
-		if(reportsPage == null)
-			reportsPage = new ReportsPage(driver, XMLParser.readComponentValueFromXML("Report.pageUrl"));
+
+	public ReportsPage reportsPage() {
+		if (reportsPage == null)
+			reportsPage = new ReportsPage(driver,
+					XMLParser.readComponentValueFromXML("Report.pageUrl"));
 		return reportsPage;
 	}
-	
-	public RequestReportsPage requestReportsPage()
-	{
-		if(requestReportsPage == null)
-			requestReportsPage = new RequestReportsPage(driver, XMLParser.readComponentValueFromXML("RequestReport.pageUrl"));
+
+	public RequestReportsPage requestReportsPage() {
+		if (requestReportsPage == null)
+			requestReportsPage = new RequestReportsPage(driver,
+					XMLParser
+							.readComponentValueFromXML("RequestReport.pageUrl"));
 		return requestReportsPage;
 	}
 
@@ -236,7 +242,8 @@ public class PageObjectFactory {
 	public EmailEnvelopePage emailEnvelopePage() {
 		if (emailEnvelopePage == null)
 			emailEnvelopePage = new EmailEnvelopePage(driver,
-					XMLParser.readComponentValueFromXML("EMAILEnvelope.pageUrl"));
+					XMLParser
+							.readComponentValueFromXML("EMAILEnvelope.pageUrl"));
 		return emailEnvelopePage;
 	}
 
@@ -261,8 +268,7 @@ public class PageObjectFactory {
 	public ViewEmailPage viewEmailPage() {
 		if (viewEmailPage == null)
 			viewEmailPage = new ViewEmailPage(driver,
-					XMLParser
-							.readComponentValueFromXML("MasterStatus.pageUrl"));
+					XMLParser.readComponentValueFromXML("MasterStatus.pageUrl"));
 		return viewEmailPage;
 	}
 
@@ -279,8 +285,14 @@ public class PageObjectFactory {
 					driver,
 					XMLParser
 							.readComponentValueFromXML("ContentLibrary.pageUrl"));
-		return contentLibraryPage;	
-		
+		return contentLibraryPage;
+	}
+
+	public YahooPage yahooPage() {
+		if (yahooPage == null)
+			yahooPage = new YahooPage(driver, "http://www.yahoo.com/");
+		return yahooPage;
+
 	}
 
 	public CreateCampaignPage createCampaignPage() {
@@ -345,8 +357,6 @@ public class PageObjectFactory {
 		return createDistributionListPage;
 	}
 
-	
-
 	public FacebookContentPage facebookContentPage() {
 		if (facebookContentPage == null)
 			facebookContentPage = new FacebookContentPage(
@@ -358,8 +368,7 @@ public class PageObjectFactory {
 
 	public FacebookSchedulePage facebookSchedulePage() {
 		if (facebookSchedulePage == null)
-			facebookSchedulePage = new FacebookSchedulePage(
-					driver);
+			facebookSchedulePage = new FacebookSchedulePage(driver);
 		return facebookSchedulePage;
 	}
 }

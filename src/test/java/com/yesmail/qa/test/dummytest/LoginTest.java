@@ -67,9 +67,13 @@ public class LoginTest {
 		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
 		pof.homePage().isLoaded();
 		pof.emailEnvelopePage().load().isLoaded();
-		a.assertTrue(pof.emailEnvelopePage().createEnvelope(),
-				"Creating email envelope page");
-		pof.emailContentPage().navigateToContentTab();
+
+				
+		String MasterName = pof.emailEnvelopePage().createEnvelope();
+		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
+		
+		pof.emailContentPage().navigateToContentTab();		
+
 		pof.emailContentPage().isLoaded();
 		String masterId = pof.emailContentPage().getMasterId();
 		System.out.println(masterId);
@@ -77,10 +81,10 @@ public class LoginTest {
 				"Creating email content page");
 		pof.emailTargetPage().navigateToTargetTab();
 		pof.emailTargetPage().isLoaded();
-		a.assertTrue(
-				pof.emailTargetPage().clickSaveGetCount("eMail",
-						"sangeeta.pote@yesmail.com", "Subscribed"),
-				"Creating email target Page");
+
+		a.assertTrue(pof.emailTargetPage().clickSaveGetCount("eMail", "postqa1@yahoo.com" , "Subscribed"),"Creating email target Page");
+		
+
 		pof.emailSchedulePage().navigateToScheduleTab();
 		pof.emailSchedulePage().isLoaded();
 		pof.emailSchedulePage().setDateTime();
@@ -96,28 +100,32 @@ public class LoginTest {
 						"Delivered"), "Verifying Master status on Listing Page");
 		pof.countsPage().load();
 		pof.countsPage().isLoaded();
-		a.assertTrue(
-				pof.countsPage().verifyStatusOnCountsPage(masterId, "Finished"),
-				" verifying status Master ID " + masterId + " on Counts Page");
 
-		/*
-		 * PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
-		 * pof.loginPage().loginAs("sudhakar.a@yesmail.com", "Infogroup01!");
-		 * threadSleep(5); pof.dataAttributesPage().load();
-		 * pof.dataAttributesPage().isLoaded();
-		 * pof.dataAttributesPage().clickCreateAttributeBtn(); String
-		 * attributeName = Utils.getUniqueName("test", 12);
-		 * pof.dataAttributesPage().enterDisplayName(attributeName);
-		 * pof.dataAttributesPage().enterColumnName();
-		 * pof.dataAttributesPage().selectStringAttribute("String", "Test");
-		 * pof.dataAttributesPage().selectTableName();
-		 * pof.dataAttributesPage().selectDivisions();
-		 * pof.dataAttributesPage().saveAttribute();
-		 * a.assertTrue(pof.dataAttributesPage
-		 * ().searchAttribute(attributeName),"searching attribute");
-		 * a.assertTrue(pof.dataAttributesPage().deleteAttribute(attributeName),
-		 * "deleting the attribute");
-		 */
+		a.assertTrue(pof.countsPage().verifyStatusOnCountsPage(masterId, "Finished")," verifying status Master ID "+masterId+ " on Counts Page");
+		
+		pof.yahooPage().load().isLoaded();
+		pof.yahooPage().clickMailLink();
+		pof.yahooPage().loginToYahoo();
+		pof.yahooPage().clickInbox();
+		pof.yahooPage().findEmail(MasterName, 5);
+		
+		
+		/*PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
+		pof.loginPage().loginAs("sudhakar.a@yesmail.com", "Infogroup01!");
+		threadSleep(5);
+		pof.dataAttributesPage().load();
+		pof.dataAttributesPage().isLoaded();
+		pof.dataAttributesPage().clickCreateAttributeBtn();
+		String attributeName = Utils.getUniqueName("test", 12);
+		pof.dataAttributesPage().enterDisplayName(attributeName);
+		pof.dataAttributesPage().enterColumnName();
+		pof.dataAttributesPage().selectStringAttribute("String", "Test");
+		pof.dataAttributesPage().selectTableName();
+		pof.dataAttributesPage().selectDivisions();
+		pof.dataAttributesPage().saveAttribute();
+		a.assertTrue(pof.dataAttributesPage().searchAttribute(attributeName),"searching attribute");
+		a.assertTrue(pof.dataAttributesPage().deleteAttribute(attributeName),"deleting the attribute");	*/	
+		
 
 	}
 
