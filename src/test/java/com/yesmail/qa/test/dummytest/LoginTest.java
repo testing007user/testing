@@ -1,5 +1,6 @@
 package com.yesmail.qa.test.dummytest;
 
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.testng.annotations.Test;
 import com.yesmail.qa.pageobjects.*;
 import com.yesmail.qa.test.configuration.XMLParser;
@@ -139,22 +140,40 @@ public class LoginTest {
 		pof.afterTheClickPage().createNewTag("input.tagName");
 	}
 
-	 @Test(groups="VerifyTweetsStatus", timeOut=30000000)
-	public void verifyTweetsStatus() {
+	 @Test(groups="testStatus",timeOut=30000000)
+	public void testStatus() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		pof.loginPage().load().isLoaded();
 		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
 		pof.homePage().isLoaded();
 		pof.tweetsContentPage().load().isLoaded();
-		String tweetId = pof.tweetsContentPage().createTweet("magellanGmail");
+		a.assertTrue(pof.tweetsContentPage().createTweet("magellanGmail"),"creating tweet content");
+		String strTweetId = pof.tweetsContentPage().getMasterId();
 		pof.tweetsSchedulePage().load().isLoaded();
 		pof.tweetsSchedulePage().scheduleTweet();
 		pof.viewTweetsPage().load().isLoaded();
-		pof.viewTweetsPage().verifyTweetMasterStatus(tweetId, "PUBLISHED");
+		pof.viewTweetsPage().verifyTweetMasterStatus(strTweetId, "PUBLISHED");
 	}
+	 
+	 @Test(groups="testStatus1232",timeOut=50000000)
+	 public void test1232(){
+		 PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
+		 pof.loginPage().load().isLoaded();
+		 pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
+		 pof.homePage().isLoaded();
+		 pof.facebookContentPage().load().isLoaded();
+		 a.assertTrue(pof.facebookContentPage().fillFacebookContent(),"fill facebook content");		 
+		 pof.facebookSchedulePage().navigateToScheduleTab();
+		 pof.facebookSchedulePage().isLoaded();
+		 String masterId = pof.facebookContentPage().getMasterId();
+		 pof.facebookSchedulePage().scheduleMaster();
+		 pof.viewFacebookPage().load().isLoaded();
+		 pof.viewFacebookPage().verifyFacebookMasterStatus(masterId, "PUBLISHED");
+		 
+	 }
 
-	// @Test(groups="CreateDistributionList",timeOut=300000000)
-	public void createSeedDistributionList() {
+	// @Test(groups="testList",timeOut=300000000)
+	public void testList() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		pof.loginPage().load().isLoaded();
 		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
@@ -167,4 +186,5 @@ public class LoginTest {
 		pof.distributionListPage().load().isLoaded();
 		pof.distributionListPage().deleteDistributionList(strTestGroup);
 	}
+	
 }

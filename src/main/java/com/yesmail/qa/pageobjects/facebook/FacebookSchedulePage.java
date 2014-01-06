@@ -27,16 +27,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
 
-public class FacebookSchedulePage {
+public class FacebookSchedulePage extends BasePage {
 
 	// Facebook Schedule Page web element allocation
 
 	@FindBy(css = "div:nth-child(2) input[id='scheduleDatePicker']")
 	public WebElement dateBox;
 
-	@FindBy(css = "button[id = 'save']")
-	private WebElement saveSchedule;
+	@FindBy(css = "div.twitter button#save")
+	private WebElement saveScheduleButton;
 
 	@FindBy(css = "button.social-enable")
 	private WebElement enableButton;
@@ -68,37 +69,42 @@ public class FacebookSchedulePage {
 	@FindBy(css = "a[href = '#facebook/schedule']")
 	private WebElement schedule;
 
-	@FindBy(css = "div:nth-child(2)>a:nth-of-type(1)")
-	private WebElement contentTab;
-
 	@FindBy(css = "input[id = 'scheduleNow']")
-	private WebElement scheduleImmediately;
+	private WebElement scheduleImmediatelyButton;
+
+	@FindBy(css = "div.alert-success")
+	private WebElement alertSuccessMsg;
+
+	@FindBy(css = "button.social-disable")
+	private WebElement disableButton;
+
+	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
+	private WebElement scheduleTab;
 
 	private WebDriver driver;
-
 
 	// Constructor
 
 	public FacebookSchedulePage(WebDriver driver) {
-
+		super(driver);
 		this.driver = driver;
-		
 		PageFactory.initElements(driver, this);
 
 	} // end of constructor
 
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(ExpectedConditions
-				.elementToBeClickable(By.id("scheduleDatePicker")), driver, 50))
+				.elementToBeClickable(By.id("scheduleNowFields")), driver, 50))
 			throw new FrameworkException(FacebookSchedulePage.class.getName()
 					+ " is not loaded");
 	}
 
 	/***
-	 * This method is added to navigate to Content Tab
+	 * This method is added to navigate to Schedule Tab
 	 */
-	public void navigateToContentTab() {
-		contentTab.click();
+	public void navigateToScheduleTab() {
+		scheduleTab.click();
+		DriverUtility.waitforElementDisplay(driver, dateBox, 30);
 	}
 
 	/***
@@ -167,17 +173,21 @@ public class FacebookSchedulePage {
 	/***
 	 * This method is added to save schedule
 	 */
-	public void saveSchedule() {
-		saveSchedule.click();
+	public boolean saveSchedule() {
+
+		saveScheduleButton.click();
+		getRibbonText(10);
+		return stepCompleted(2, 10);
 	}
 
 	/***
-	 * This method is added to enable and confirm the facebook post
+	 * This method is added to enable and confirm the Facebook post
 	 */
 	public void enableFacebook() {
-		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(enableButton), driver,
-				50);
+		/*
+		 * DriverUtility.waitFor(
+		 * ExpectedConditions.elementToBeClickable(enableButton), driver, 50);
+		 */
 		enableButton.click();
 		DriverUtility.waitforElementDisplay(driver, confirmButton, 30);
 		confirmButton.click();
@@ -188,10 +198,9 @@ public class FacebookSchedulePage {
 	 * This method is added to schedule post immediately
 	 */
 	public void scheduleImmediately() {
-		setDateTime();
-		scheduleImmediately.click();
+		scheduleImmediatelyButton.click();
 		saveSchedule();
-		enableFacebook();
+		DriverUtility.waitforElementDisplay(driver, disableButton, 30);
 	}
 
 	/***

@@ -204,7 +204,7 @@
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
     </page>
 
-		<page name="FacebookStatus">
+		<page name="ViewFacebookPage">
 		<pageUrl>#viewMasters/-8</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
     </page>

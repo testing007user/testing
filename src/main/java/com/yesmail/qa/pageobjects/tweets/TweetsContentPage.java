@@ -27,9 +27,10 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
-public class TweetsContentPage {
+public class TweetsContentPage extends BasePage{
 
 	/*
 	 * Tweet Content page web element allocation
@@ -68,6 +69,7 @@ public class TweetsContentPage {
 	// define the constructor
 
 	public TweetsContentPage(WebDriver driver, String pageUrl) {
+		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
@@ -122,9 +124,11 @@ public class TweetsContentPage {
 	 * 
 	 * @return
 	 */
-	public String saveTweetContent() {
+	public boolean saveTweetContent() {
 		saveButton.click();
-		return getMasterId();
+		getRibbonText(10);
+		return stepCompleted(1, 10);
+		
 	}
 
 	/**
@@ -134,12 +138,12 @@ public class TweetsContentPage {
 	 *            - account need to be selected
 	 * @return tweetId - created tweet id
 	 */
-	public String createTweet(String twitterAccount) {
+	public boolean createTweet(String twitterAccount) {
 		String msgName = Utils.getUniqueName("Tweets_");
 		selectTwitterAccount(twitterAccount);
 		enterTweetsContent(msgName);
-		String tweetId = saveTweetContent();
-		return tweetId;
+		return saveTweetContent();
+		
 	}
 
 	/***
@@ -149,10 +153,7 @@ public class TweetsContentPage {
 	 */
 
 	public String getMasterId() {
-		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeDisabled(accountDropDown),
-				this.driver, 40);
-		String loginUrl = driver.getCurrentUrl();
+				String loginUrl = driver.getCurrentUrl();
 		String jobNum = driver.getCurrentUrl()
 				.substring(loginUrl.lastIndexOf("#") + 1)
 				.replaceAll("[^0-9]", "");

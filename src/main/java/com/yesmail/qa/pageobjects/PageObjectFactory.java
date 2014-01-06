@@ -19,6 +19,7 @@ import com.yesmail.qa.pageobjects.email.ViewEmailPage;
 
 import com.yesmail.qa.pageobjects.facebook.FacebookContentPage;
 import com.yesmail.qa.pageobjects.facebook.FacebookSchedulePage;
+import com.yesmail.qa.pageobjects.facebook.ViewFacebookPage;
 
 import com.yesmail.qa.pageobjects.email.YahooPage;
 
@@ -90,6 +91,7 @@ public class PageObjectFactory {
 	private RequestReportsPage requestReportsPage;
 	private FacebookContentPage facebookContentPage;
 	private FacebookSchedulePage facebookSchedulePage;
+	private ViewFacebookPage viewFacebookPage;
 
 	private YahooPage yahooPage;
 
@@ -112,8 +114,10 @@ public class PageObjectFactory {
 	public ImportHomePage importHomePage() {
 		if (importHomePage == null)
 
-			importHomePage = new ImportHomePage(driver,
-			XMLParser.readComponentValueFromXML("ImportHomePage.pageUrl"));
+			importHomePage = new ImportHomePage(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("ImportHomePage.pageUrl"));
 
 		return importHomePage;
 	}
@@ -127,7 +131,7 @@ public class PageObjectFactory {
 	public SubscribersPage subscriberPage() {
 		if (subscriberPage == null)
 			subscriberPage = new SubscribersPage(driver,
-			XMLParser.readComponentValueFromXML("Subscribers.pageUrl"));
+					XMLParser.readComponentValueFromXML("Subscribers.pageUrl"));
 		return subscriberPage;
 	}
 
@@ -370,5 +374,14 @@ public class PageObjectFactory {
 		if (facebookSchedulePage == null)
 			facebookSchedulePage = new FacebookSchedulePage(driver);
 		return facebookSchedulePage;
+	}
+
+	public ViewFacebookPage viewFacebookPage() {
+		if (viewFacebookPage == null)
+			viewFacebookPage = new ViewFacebookPage(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("ViewFacebookPage.pageUrl"));
+		return viewFacebookPage;
 	}
 }

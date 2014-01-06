@@ -27,9 +27,10 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
-public class FacebookContentPage {
+public class FacebookContentPage extends BasePage {
 
 	
 	@FindBy(css = "span[data-target='account'] select")
@@ -86,9 +87,9 @@ public class FacebookContentPage {
 
 	@FindBy(css = "div:nth-child(2)>a:nth-of-type(1)")
 	private WebElement contentTab;
-
-	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
-	private WebElement scheduleTab;
+	
+	@FindBy(css = "div:nth-child(2) input[id='scheduleDatePicker']")
+	public WebElement dateBox;
 
 	private WebDriver driver;
 	private String pageUrl;
@@ -96,6 +97,7 @@ public class FacebookContentPage {
 	//define the constructor
 	 
 	public FacebookContentPage(WebDriver driver, String pageUrl) {
+		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
@@ -121,12 +123,6 @@ public class FacebookContentPage {
 		contentTab.click();
 	}
 
-	/***
-	 * This method is added to navigate to Schedule Tab
-	 */
-	public void navigateToScheduleTab() {
-		scheduleTab.click();
-	}
 
 	/**
 	 * 
@@ -135,16 +131,15 @@ public class FacebookContentPage {
 	 * @author sangeetap
 	 * 
 	 */
-	public String fillFacebookContent() {
+	public boolean fillFacebookContent() {
 		enterFacebookName();
-		selectCampaign();
+		//selectCampaign();
 		selectFacebookAccount();
 		selectPage();
 		enterFacebookContent();
-		String FbId = saveFacebookContent();
-		return FbId;
+		return saveFacebookContent();		
 	}
-
+	
 	/***
 	 * This method is added to select the Facebook page
 	 * 
@@ -233,9 +228,10 @@ public class FacebookContentPage {
 	 * @return getMaserId - return generated Facebook matster id
 	 */
 
-	public String saveFacebookContent() {
+	private boolean saveFacebookContent() {
 		savebutton.click();
-		return getMasterId();
+		getRibbonText(10);
+		return stepCompleted(1, 10);		
 	}
 
 	/***
@@ -244,10 +240,7 @@ public class FacebookContentPage {
 	 * @return getMaserId - return generated Facebook master id
 	 */
 
-	public String getMasterId() {
-		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(nameTextBox),
-				this.driver, 20);
+	public String getMasterId() {		
 		String loginUrl = driver.getCurrentUrl();
 		String jobNum = driver.getCurrentUrl()
 				.substring(loginUrl.lastIndexOf("#") + 1)

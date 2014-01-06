@@ -35,7 +35,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	private WebElement dateBox;
 
 	@FindBy(css = "button[id = 'save']")
-	private WebElement saveSchedule;
+	private WebElement saveScheduleButton;
 
 	@FindBy(css = "div:nth-child(3) button.social-enable")
 	private WebElement enable;
@@ -62,9 +62,9 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	private WebElement contentTab;
 
 	@FindBy(css = "input[id = 'scheduleNow']")
-	private WebElement scheduleImmediately;
+	private WebElement scheduleImmediatelyButton;
 
-	@FindBy(css = "table.ui-datepicker-calendar tbody tr td a")
+	@FindBy(css = "table.ui-datepicker-calendar tbody tr td")
 	public List<WebElement> tds;
 
 	private WebDriver driver;
@@ -161,7 +161,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	 * This method is added to save schedule
 	 */
 	public void saveSchedule() {
-		saveSchedule.click();
+		saveScheduleButton.click();
 	}
 
 	/***
@@ -178,7 +178,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	 */
 	public void scheduleImmediately() {
 		setDateTime();
-		scheduleImmediately.click();
+		scheduleImmediatelyButton.click();
 		saveSchedule();
 	}
 

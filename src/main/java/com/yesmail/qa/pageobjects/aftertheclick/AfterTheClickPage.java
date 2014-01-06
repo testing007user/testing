@@ -22,17 +22,14 @@ import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class AfterTheClickPage {
 
-	/*
-	 * ##########################################################################
-	 * 
-	 * After the click page web element allocation
-	 * ################################
-	 * ##########################################
-	 */
+	 
+	// After the click page web element allocation
+	 
 
 	@FindBy(css = "button.roleCell-newRoleButton")
 	private WebElement createRoleBtn;
@@ -68,25 +65,14 @@ public class AfterTheClickPage {
 
 	private String pageUrl;
 
-	/*
-	 * ##########################################################################
-	 * define the constructor
-	 * ###################################################
-	 * #######################
-	 */
-
+	 // define the constructor
+	 
 	public AfterTheClickPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
-	}// end of constructor
+	}
 
-	/*
-	 * ##########################################################################
-	 * define required methods
-	 * ##################################################
-	 * ########################
-	 */
 
 	public AfterTheClickPage load() {
 		driver.navigate().to(PagesHelper.URL + pageUrl);
@@ -133,9 +119,11 @@ public class AfterTheClickPage {
 				if (strContent.equalsIgnoreCase(strPageRoleName)) {
 					createNewTagBtn.click();
 					tagNameTextBox.clear();
-					tagNameTextBox.sendKeys("TagName1");
+					String strTagName = Utils.getUniqueName("Tag_Name_",30);
+					tagNameTextBox.sendKeys(strTagName);
 					tagNoteTextBox.clear();
-					tagNoteTextBox.sendKeys("TagNote1");
+					String strTagNote = Utils.getUniqueName("Tag_Note_",30);
+					tagNoteTextBox.sendKeys(strTagNote);
 					saveNoteBtn.click();
 					break;
 				}
