@@ -60,7 +60,7 @@ public class LoginTest {
 
 	}
 
-	//@Test(timeOut = 5000000)
+	@Test(timeOut = 5000000,invocationCount = 4,threadPoolSize = 4)
 	public void testing() {
 		System.out.println(Utils.getResources(this, "Test 12 March 2013.zip"));
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
@@ -73,9 +73,7 @@ public class LoginTest {
 		String MasterName = pof.emailEnvelopePage().createEnvelope();
 		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
 		
-		pof.emailContentPage().navigateToContentTab();		
-
-		pof.emailContentPage().isLoaded();
+		pof.emailContentPage().load().isLoaded();		
 		String masterId = pof.emailContentPage().getMasterId();
 		System.out.println(masterId);
 		a.assertTrue(pof.emailContentPage().uploadFile(),
@@ -104,11 +102,11 @@ public class LoginTest {
 
 		a.assertTrue(pof.countsPage().verifyStatusOnCountsPage(masterId, "Finished")," verifying status Master ID "+masterId+ " on Counts Page");
 		
-		pof.yahooPage().load().isLoaded();
+		/*pof.yahooPage().load().isLoaded();
 		pof.yahooPage().clickMailLink();
 		pof.yahooPage().loginToYahoo();
 		pof.yahooPage().clickInbox();
-		pof.yahooPage().findEmail(MasterName, 5);
+		pof.yahooPage().findEmail(MasterName, 5);*/
 		
 		
 		/*PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
@@ -126,7 +124,7 @@ public class LoginTest {
 		pof.dataAttributesPage().saveAttribute();
 		a.assertTrue(pof.dataAttributesPage().searchAttribute(attributeName),"searching attribute");
 		a.assertTrue(pof.dataAttributesPage().deleteAttribute(attributeName),"deleting the attribute");	*/	
-		
+		a.assertAll();
 
 	}
 
@@ -140,7 +138,7 @@ public class LoginTest {
 		pof.afterTheClickPage().createNewTag("input.tagName");
 	}
 
-	 @Test(groups="testStatus",timeOut=30000000)
+//	 @Test(groups="testStatus",timeOut=30000000)
 	public void testStatus() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		pof.loginPage().load().isLoaded();
@@ -155,7 +153,7 @@ public class LoginTest {
 		pof.viewTweetsPage().verifyTweetMasterStatus(strTweetId, "PUBLISHED");
 	}
 	 
-	 @Test(groups="testStatus1232",timeOut=50000000)
+//	 @Test(groups="testStatus1232",timeOut=50000000)
 	 public void test1232(){
 		 PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		 pof.loginPage().load().isLoaded();

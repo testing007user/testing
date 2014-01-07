@@ -11,10 +11,6 @@
  *    
  */
 package com.yesmail.qa.pageobjects.email;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +19,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 /***
  * 
@@ -92,10 +89,16 @@ public class EmailContentPage extends EmailBase {
 	 * This method is added to verify page load.
 	 */
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(emailContent),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(emailContent),
 				driver, 50))
-			throw new FrameworkException(this.getClass().getName()
-					+ " is not loaded in 50 seconds");
+		{
+			driver.navigate().refresh();
+			if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(emailContent),
+					driver, 50))
+				throw new FrameworkException(this.getClass().getName()
+						+ " is not loaded in 50 seconds");
+		}
+			
 	}
 
 	/***

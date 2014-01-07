@@ -22,10 +22,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
@@ -91,10 +92,10 @@ public class ViewEmailPage extends BasePage {
 		int retryCount = 0;
 		long startTime = System.currentTimeMillis() / 1000;
 		long stopTime = startTime + 300;
-
+		Reporter.log("Check Status:"+expectedStatus+" for JOB ID:"+jobId,true);
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
 			DriverUtility.waitFor(
-					ExpectedConditions.elementToBeClickable(tableBody), driver,
+					ExpectedConditionExtended.elementToBeClickable(tableBody), driver,
 					30);
 
 			for (index = 0; index < trCollections.size(); index++) {
@@ -120,7 +121,7 @@ public class ViewEmailPage extends BasePage {
 			}
 			driver.navigate().refresh();
 			DriverUtility.waitFor(
-					ExpectedConditions.elementToBeClickable(tableBody), driver,
+					ExpectedConditionExtended.elementToBeClickable(tableBody), driver,
 					30);
 		}
 		return expStatus;

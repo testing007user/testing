@@ -18,6 +18,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -245,7 +247,8 @@ public class EmailEnvelopePage extends EmailBase {
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
-		getRibbonText(10);
+		Reporter.log("Ribbon Text for EnvelopePage is:"+getRibbonText(10),true);
+		
 		return masterName;		
 	}
 

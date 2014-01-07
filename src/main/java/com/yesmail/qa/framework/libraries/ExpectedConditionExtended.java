@@ -18,10 +18,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import com.yesmail.qa.framework.DriverUtility;
+
 /***
- * Class having function similar to ExpcectedConditions class in Selenium
- * Support Should be used in DriverUtility.waitFor method
+ * Class having function similar to {@link ExpectedConditions} class in Selenium
+ * Support  package.Should be used in DriverUtility.waitFor method
+ * Assumption of the methods in this class is that they all will be used in WebDriverWait
+ * as we are not catching NoSuchElementException
+ * ,If at all Custom FluentWait is the be used then catch {@link NoSuchElementException}
  * 
+ * .Method are used in {@link DriverUtility} 
  * @author kapilag
  * 
  */
@@ -36,10 +42,11 @@ public class ExpectedConditionExtended {
 	public static ExpectedCondition<WebElement> elementToBeClickable(
 			final WebElement element) {
 		return new ExpectedCondition<WebElement>() {
-			public ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions
-					.visibilityOf(element);
+			 
 
 			public WebElement apply(WebDriver driver) {
+				ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions
+						.visibilityOf(element);
 				WebElement element = visibilityOfElement.apply(driver);
 				try {
 					if (element != null && element.isEnabled()) {
@@ -54,7 +61,7 @@ public class ExpectedConditionExtended {
 
 			@Override
 			public String toString() {
-				return "element to be clickable: " + element;
+				return "Element is not enabled";
 			}
 		};
 	}
@@ -139,18 +146,20 @@ public class ExpectedConditionExtended {
 		};
 	}
 
-	public static List<ExpectedCondition<WebElement>> elementToBeClickable(
+	/*public static List<ExpectedCondition<WebElement>> elementToBeClickable(
 			final WebElement... element) {
 		List<ExpectedCondition<WebElement>> returnList = new ArrayList<ExpectedCondition<WebElement>>();
 
 		for (final WebElement element1 : element) {
 			ExpectedCondition<WebElement> e = new ExpectedCondition<WebElement>() {
-				public ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions
-						.visibilityOf(element1);
+				
 
 				public WebElement apply(WebDriver driver) {
-					WebElement element = visibilityOfElement.apply(driver);
+					
 					try {
+						ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions
+								.visibilityOf(element1);
+						WebElement element = visibilityOfElement.apply(driver);
 						if (element != null && element.isEnabled()) {
 							return element;
 						} else {
@@ -170,7 +179,7 @@ public class ExpectedConditionExtended {
 		}
 		return returnList;
 	}
-
+*/
 	/***
 	 * This method accepts n number of WebElements and check for clickability
 	 * if any of the WebElement is not clickable will return false
@@ -186,11 +195,9 @@ public class ExpectedConditionExtended {
 			final StringBuilder sb = new StringBuilder();
 			public Boolean apply(WebDriver driver) {
 				for (WebElement w : elements) {
-				ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions.visibilityOf(w);
-				WebElement w1 = visibilityOfElement.apply(driver);
-					
 					try {
-						
+						ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions.visibilityOf(w);
+						WebElement w1 = visibilityOfElement.apply(driver);
 						if ( w1 != null && w1.isEnabled()) {
 							statusList.add(true);
 						} else {
@@ -219,5 +226,36 @@ public class ExpectedConditionExtended {
 			}
 		};
 	}
+	
+	public static ExpectedCondition<Boolean> elementToBeClickable(
+			final List<WebElement> elements) {
+		final List<Boolean> statusList = new ArrayList<Boolean>();
+		return new ExpectedCondition<Boolean>() {
+			 
+				
+			public Boolean apply(WebDriver driver) {
+				
+				for(WebElement w:elements)
+				{
+				try {
+					if (w != null && w.isEnabled() && w.isDisplayed()) {
+						statusList.add(true);
+					} else {
+						return null;
+					}
+				} catch (StaleElementReferenceException e) {
+					return null;
+				}
+				}
+				return statusList.size() == elements.size()?true:false;
+			}
+
+			@Override
+			public String toString() {
+				return "One of the Element is not clickable:";
+			}
+		};
+	}
+
 
 }

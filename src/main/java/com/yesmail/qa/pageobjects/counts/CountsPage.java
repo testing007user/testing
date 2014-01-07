@@ -26,6 +26,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class CountsPage {
@@ -113,6 +114,7 @@ public class CountsPage {
 					ExpectedConditions.elementToBeClickable(tableBody), driver,
 					30);
 			for (index = 0; index < trCollections.size(); index++) {
+				DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(jobIdTds), driver, 20);
 				if (jobIdTds.get(index).getText().equalsIgnoreCase(masterId)) {
 					jobFound = true;
 					WebElement statusCol = driver

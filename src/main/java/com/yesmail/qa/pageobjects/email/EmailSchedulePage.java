@@ -24,6 +24,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 
 public class EmailSchedulePage extends EmailBase {
@@ -193,14 +194,14 @@ public class EmailSchedulePage extends EmailBase {
 				ExpectedConditions.elementToBeClickable(enableBtn), driver, 10);
 		enableBtn.click();
 		if (DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(confirmBtn), driver, 5) != null)
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 5) != null)
 			confirmBtn.click();
 		if (DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(confirmBtn), driver, 5) != null)
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 5) != null)
 			confirmBtn.click();
 
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(disableBtn), driver, 5);
+				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 5);
 	}
 
 	/***
