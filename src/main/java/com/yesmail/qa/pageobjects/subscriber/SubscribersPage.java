@@ -168,7 +168,7 @@ public class SubscribersPage {
 
 		if (null == DriverUtility.waitFor(ExpectedConditions
 				.elementToBeClickable(createNewSubscriberButton), driver, 50))
-			throw new FrameworkException(FacebookContentPage.class.getName()
+			throw new FrameworkException(SubscribersPage.class.getName()
 					+ " is not loaded in 50 seconds");
 
 	}
