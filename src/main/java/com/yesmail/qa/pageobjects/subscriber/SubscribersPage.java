@@ -1,50 +1,52 @@
-package com.yesmail.qa.pageobjects.subscriber;
 /** File Name: SubscribersPage.java  
  * Description: This Java Class is 
  * used to create new Subscriber and search for the exisiting subscribers by userId/First name/Last Name/mobile number/
  * email/postal code/Distribution List fields
  *  
- * Author: Sangeeta Pote 
+ * @author sangeetap
  * Version: Draft 1.0 
- * Date: 22/11/2013 
+ * Date: 16 December 2013 
  * Version History 
+ * Version name Updated By Reason / Comments
  * version: 1.1 Updated for below changes 
  * 1.Please check below elements 
-private String cssTemplateForDataAttributes = ".attributePanel"; 
-private String cssForSearchResults = "DataTables_Table_0"; 
-private String cssForSearchResultHeaders = ".dataTables_scrollHead"; 
-private String subscriberEmails = "#DataTables_Table_0 tbody tr td:nth-of-type(3)"; 
+ private String cssTemplateForDataAttributes = ".attributePanel"; 
+ private String cssForSearchResults = "DataTables_Table_0"; 
+ private String cssForSearchResultHeaders = ".dataTables_scrollHead"; 
+ private String subscriberEmails = "#DataTables_Table_0 tbody tr td:nth-of-type(3)"; 
 
-These needs to be define as Webelements. 
+ These needs to be define as Webelements. 
 
-2.Please use .equals() for string comparison 
+ 2.Please use .equals() for string comparison 
 
- * Version name Updated By Reason / Comments */
+ */
 
+package com.yesmail.qa.pageobjects.subscriber;
 
+import java.util.List;
 import java.util.UUID;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
+import com.yesmail.qa.pageobjects.facebook.FacebookContentPage;
 
 public class SubscribersPage {
 
 	// ** Variable declaration section
 
-
-	private  WebDriver driver;
+	private WebDriver driver;
 	private String pageUrl;
 
 	/** Element locator section */
-	
-	@FindBy(css = "button[class='ym-btn ym-btn-secondary alternative create']")
+
+	@FindBy(css = "div.btn-group button.ym-btn")
 	private WebElement createNewSubscriberButton;
 
 	@FindBy(css = "input[id='searchUserId']")
@@ -74,7 +76,14 @@ public class SubscribersPage {
 	@FindBy(css = "button[class='ym-btn clear']")
 	private WebElement clearButton;
 
-	// * Crate New Subscriber Webelement
+	@FindBys({ @FindBy(css = "tbody > tr > td:nth-of-type(3)") })
+	private List<WebElement> searchedSubscriberEmail;
+
+	@FindBy(css = "div[data-target='subscriberTable']")
+	private WebElement subscriberTable;
+
+	@FindBy(css = "div[data-target=subscriberDetails]")
+	private WebElement subscriberDetailsSection;
 
 	@FindBy(id = "inputReferral")
 	private WebElement subscribedCheckBox;
@@ -130,16 +139,15 @@ public class SubscribersPage {
 	@FindBy(css = ".attributePanel")
 	private WebElement cssTemplateForDataAttributes;
 
-	@FindBy(css ="DataTables_Table_0")
+	@FindBy(css = "DataTables_Table_0")
 	private WebElement cssForSearchResults;
 
-	@FindBy(css = ".dataTables_scrollHead" )
+	@FindBy(css = ".dataTables_scrollHead")
 	private WebElement cssForSearchResultHeaders;
 
-	@FindBy(css="#DataTables_Table_0 tbody tr td:nth-of-type(3)")
+	@FindBy(css = "#DataTables_Table_0 tbody tr td:nth-of-type(3)")
 	private WebElement subscriberEmails;
 
-	
 	/**
 	 * Constructor section
 	 * 
@@ -148,85 +156,139 @@ public class SubscribersPage {
 	public SubscribersPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
 		this.pageUrl = pageUrl;
-		PageFactory.initElements(this.driver, this);
-	//	load();
-	//	isLoaded();
-	}
-	
-	public void load()
-	{
-		driver.get(PagesHelper.URL+ pageUrl);
-		
-	}
-	
-	public void isLoaded()
-	{
-	
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(createNewSubscriberButton),driver,50))
-			throw new FrameworkException(this.getClass().getName()
-					+ " is not loaded in 50 seconds ");
+		PageFactory.initElements(driver, this);
 	}
 
-	
+	public SubscribersPage load() {
+		driver.navigate().to(PagesHelper.URL + pageUrl);
+		return this;
+	}
+
+	public void isLoaded() {
+
+		if (null == DriverUtility.waitFor(ExpectedConditions
+				.elementToBeClickable(createNewSubscriberButton), driver, 50))
+			throw new FrameworkException(FacebookContentPage.class.getName()
+					+ " is not loaded in 50 seconds");
+
+	}
+
 	/***
-	 * This method is added to search specific susbciber by User Id/ First Name /Last Name/Mobile Number/Email/Distribution List... 
-	 * @param (names = "label", description = "field label to")
-	 * @param (names = "textToEnter")
+	 * This method is added to fill user id
 	 * 
-	 * @author Sangeeta Pote
-	 * @since Completed on 22th Nov 2013
+	 * @author sangeetap
 	 */
-	public void enterTextForSearch(String label, String textToEnter) {
+	public void fillUserId() {
+		userIdInput.clear();
+		userIdInput.sendKeys("236703");
+	}
+
+	/***
+	 * This method is added to fill first name
+	 * 
+	 * @author sangeetap
+	 */
+	public void fillFirstName() {
 		clearButton.click();
-		if (label.equalsIgnoreCase("User Id"))
-			userIdInput.sendKeys(textToEnter);
-		else if (label.equalsIgnoreCase("First Name"))
-			firstNameInput.sendKeys(textToEnter);
-		else if (label.equalsIgnoreCase("Last Name"))
-			lastNameInput.sendKeys(textToEnter);
-		else if (label.equalsIgnoreCase(" Mobile Number"))
-			mobileNumberInput.sendKeys(textToEnter);
-		else if (label == "Email")
-			emailInput.sendKeys(textToEnter);
-		else if (label.equalsIgnoreCase("Distribution List"))
-			secondaryListDropDown.click();
+		firstNameInput.sendKeys("sangeeta");
+	}
+
+	/***
+	 * This method is added to fill last name
+	 * 
+	 * @author sangeetap
+	 */
+	public void fillLastName() {
+		clearButton.click();
+		firstNameInput.sendKeys("Last Name");
+	}
+
+	/***
+	 * This method is added to fill mobile number
+	 * 
+	 * @author sangeetap
+	 */
+	public void fillMobile() {
+		clearButton.click();
+		mobileNumberInput.sendKeys("1234566734");
+	}
+
+	/***
+	 * This method is added to fill email
+	 * 
+	 * @author sangeetap
+	 */
+	public void fillEmail() {
+		clearButton.click();
+		String strSubscriberEmail = "postqa" + UUID.randomUUID() + "@yahoo.com";
+		emailInput.sendKeys(strSubscriberEmail);
+	}
+
+	/***
+	 * This method is added to fill postal code
+	 * 
+	 * @author sangeetap
+	 */
+	public void fillPostalCode() {
+		clearButton.click();
+		postalCodeInput.sendKeys("123457");
+	}
+
+	/***
+	 * This method is added to select distribution list
+	 */
+	public void selectDistributionList(String option) {
+		DriverUtility.selectDropDown(secondaryListDropDown, option, 2);
+	}
+
+	/**
+	 * This method is added to click on search button
+	 */
+	public void clickSearchButton() {
 		searchButton.click();
 	}
 
-	
 	/***
-	 * This method is added to click on the 'Create New Subscriber' button to takes to 
-	 * create new subscriber page
+	 * This method is added to search subscriber by Email
 	 * 
-	 * @author Sangeeta Pote
-	 * @since Completed on 22th Nov 2013
+	 * @param (subscriberEmail)
+	 * @return true-subscriber found/ false-subscriber not found
+	 * @author sangeetap
 	 */
-	public void clickCreateNewSubscriberbtn() {
-		//DriverUtility.waitforElementDisplay(driver, createNewSubscriberButton, 20,"clickCreateNewSubscriberbtn :" +createNewSubscriberButton.toString()  );
-		createNewSubscriberButton.click();
-		//PageFactory.initElements(driver, this);
+	public boolean searchSubscriber(String subscriberEmail) {
+
+		DriverUtility.waitforElementDisplay(driver, subscriberTable, 10);
+		for (WebElement emailfound : searchedSubscriberEmail) {
+			if (emailfound.getText().equals(subscriberEmail))
+				break;
+		}
+		return true;
 	}
 
-	
 	/***
-	 * This method is added to save New Subscriber
+	 * This method is added to save/create New Subscriber
 	 * 
-	 * @author Sangeeta Pote
-	 * @since Completed on 22th Nov 2013
-	 */
-	public void saveNewSubscriber() {
-
-		String subscriberEmail = "postqa" + UUID.randomUUID() + "@yahoo.com";
+	 * @author sangeetap
+	 **/
+	public boolean CreateNewSubscriber() {
+		createNewSubscriberButton.click();
+		DriverUtility.waitforElementDisplay(driver, subscriberDetailsSection,
+				20);
+		String strNameEmail = Utils.getUniqueName("postqa", 25);
+		String subscriberEmail = strNameEmail + "@yahoo.com";
 		emailForNewSubscriber.sendKeys(subscriberEmail);
 		firstNameForNewSubscriber.sendKeys("First Name");
 		lastNameForNewSubscriber.sendKeys("Last Name");
 		postalCodeForNewSubscriber.sendKeys("123456");
 		htmlEmailTypeRadioForNewSubscriber.click();
-		// Need to get value from PagesHelper for DivisionMembership and
-		// Division Subscription fields
-		divisionMembershipForNewSubscriber.sendKeys("marketing");
-		divisionSubscriptionForNewSubscriber.sendKeys("marketing");
+		DriverUtility.selectDropDown(divisionMembershipForNewSubscriber,
+				PagesHelper.EMAIL_DIVISION, 1);
+		DriverUtility.selectDropDown(divisionSubscriptionForNewSubscriber,
+				PagesHelper.EMAIL_DIVISION, 1);
+
 		saveButton.click();
+		DriverUtility.waitforElementDisplay(driver, subscriberTable, 10);
+		return searchSubscriber(subscriberEmail);
 	}
 
 }
