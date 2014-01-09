@@ -130,7 +130,6 @@ public class EmailEnvelopePage extends EmailBase {
 	 * 
 	 * @author sangeetap
 	 */
-
 	private void fillEnvName() {		
 		nameTextBox.clear();
 		nameTextBox.sendKeys(masterName);
@@ -159,8 +158,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 */
 	private void selectCampaign(String campaignType) {
 		DriverUtility.selectDropDown(campaignDropDown,
-				PagesHelper.EMAIL_CAMPAIGN_NAME, 1);
-		// DriverUtility.selectDropDown(campaignDropDown, "None", 1);
+				PagesHelper.EMAIL_CAMPAIGN_NAME, 1);		
 
 		if (PagesHelper.EMAIL_CAMPAIGN_NAME.equalsIgnoreCase("Create New...")) {
 			campaignNewCampaignName.clear();
@@ -241,14 +239,13 @@ public class EmailEnvelopePage extends EmailBase {
 	public String createEnvelope() {
 		fillEnvName();
 		selectCampaign("Create New...");
-		selectDivision();
-		fillfromName();
+		selectDivision();		
 		fillSubject();
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
+		fillfromName();
 		saveEnvelope.click();
-		Reporter.log("Ribbon Text for EnvelopePage is:"+getRibbonText(10),true);
-		
+		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>");		
 		return masterName;		
 	}
 
@@ -285,10 +282,9 @@ public class EmailEnvelopePage extends EmailBase {
 				ExpectedConditions.elementToBeClickable(xmlUploadPath), driver,
 				10);
 
-		xmlUploadPath.sendKeys("abc");// Need to change the path
+		xmlUploadPath.sendKeys(Utils.getResources(this, "fileName"));// Replace File Name with Actual.
 		submitxmlUploadLinkBTN.click();
-		return stepCompleted(1, 10);
-
+		return stepCompleted(1, 10);		
 	}
 
 	/***

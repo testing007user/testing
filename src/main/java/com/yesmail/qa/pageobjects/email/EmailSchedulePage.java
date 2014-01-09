@@ -21,6 +21,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
@@ -180,8 +181,8 @@ public class EmailSchedulePage extends EmailBase {
 	 * @return step completed Icon present(True/False)
 	 */
 	public boolean saveScheduleButton() {
-		saveSchedule.click();
-		getRibbonText(10);
+		saveSchedule.click();		
+		Reporter.log("Ribbon Text for SchedulePage is: "+getRibbonText(10)+"<br>");
 		return stepCompleted(4, 10);
 	}
 
@@ -189,7 +190,7 @@ public class EmailSchedulePage extends EmailBase {
 	 * This method is added to click enable button after saving.
 	 * 
 	 */
-	public void enableAndConfirmSchedule() {
+	public boolean enableAndConfirmSchedule() {
 		DriverUtility.waitFor(
 				ExpectedConditions.elementToBeClickable(enableBtn), driver, 10);
 		enableBtn.click();
@@ -200,8 +201,8 @@ public class EmailSchedulePage extends EmailBase {
 				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 5) != null)
 			confirmBtn.click();
 
-		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 5);
+		return(DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 5) != null);
 	}
 
 	/***

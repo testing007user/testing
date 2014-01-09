@@ -21,8 +21,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
@@ -76,7 +79,7 @@ public class HomePage extends BasePage {
 	}
 
 	public boolean isLoaded() {
-			if(null == DriverUtility.waitFor(elementToBeClickable(searchTextBox), driver, 50))
+			if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(searchTextBox), driver, 50))
 			{
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");

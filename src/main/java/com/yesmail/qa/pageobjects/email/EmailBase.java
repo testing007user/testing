@@ -26,13 +26,7 @@ public class EmailBase extends BasePage {
 	private WebDriver driver;
 
 	// Page Elements for EmailBase class
-
-	@FindBy(css = ".icon.icon-chevron-down")
-	private WebElement iconDropdown;
-
-	@FindBy(css = "div:nth-of-type(4) > div > ul > li:nth-of-type(1) > a")
-	private WebElement emailEnvelopePage;
-
+	
 	@FindBy(css = "a.mvt-ico-content")
 	private WebElement contentTab;
 
@@ -40,10 +34,7 @@ public class EmailBase extends BasePage {
 	private WebElement scheduleTab;
 
 	@FindBy(css = "a.mvt-ico-target")
-	private WebElement targetTab;
-
-	@FindBy(css = ".mvt-step.complete")
-	private WebElement mvtCompleteIcon;
+	private WebElement targetTab;	
 
 	// Constructor section
 	public EmailBase(WebDriver driver) {

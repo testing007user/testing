@@ -16,11 +16,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
-
 
 public class YahooPage extends BasePage {
 
@@ -48,7 +49,7 @@ public class YahooPage extends BasePage {
 	@FindBy(css = ".list-view-items-page")
 	private WebElement inboxList;
 
-	//constructor.
+	// constructor.
 	public YahooPage(WebDriver driver, String pageUrl) {
 		super(driver);
 		this.driver = driver;
@@ -116,16 +117,20 @@ public class YahooPage extends BasePage {
 
 	/**
 	 * This method is added to search email from given master name.
+	 * 
 	 * @param : MasterName
 	 * @param : Time to wait for required email (in minutes)
 	 * @return : MailFound(True/false)
 	 */
-	public boolean findEmail(String MasterName, int waitTime) {
+	private boolean findEmail(String MasterName, int waitTime) {
 		boolean masterNameFound = false;
 		long startTime = System.currentTimeMillis() / 1000;
 		long stopTime = startTime + (waitTime * 60);
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
+			DriverUtility
+					.waitFor(ExpectedConditionExtended
+							.elementToBeClickable(fromElement), driver, 20);
 			for (WebElement mail : fromElement) {
 				if (mail.getText().equalsIgnoreCase(MasterName)) {
 					masterNameFound = true;
@@ -140,7 +145,26 @@ public class YahooPage extends BasePage {
 					ExpectedConditions.elementToBeClickable(inboxList), driver,
 					30);
 		}
+		if (!masterNameFound)
+			Reporter.log("MasterName: " + MasterName
+					+ " not found after waiting for " + waitTime
+					+ " minutes<br>");
 		return masterNameFound;
+	}
+
+	/**
+	 * This method is added to search email from given master name.
+	 * 
+	 * @param : MasterName
+	 * @param : Time to wait for required email (in minutes)
+	 * @return : MailFound(True/false)
+	 */
+	public boolean verifyEmailOnYahoo(String masterName, int waitTime) {
+		load().isLoaded();
+		clickMailLink();
+		loginToYahoo();
+		clickInbox();
+		return findEmail(masterName, waitTime);
 	}
 
 }
