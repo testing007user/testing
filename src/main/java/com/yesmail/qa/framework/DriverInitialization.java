@@ -48,8 +48,9 @@ public class DriverInitialization implements IInvokedMethodListener {
 		}
 
 		if (method.isTestMethod()) {
-			// intialize AssertMap to be used in downstream threads,if not done
+			// intialize AssertMap & m_error to be used in downstream threads,if not done
 			// will produce unexpected output
+			SAssert.m_errors.get();
 			SAssert.assertMap.get();
 			if (Driver.getDriver() == null) {
 				Driver.setDriverValue();

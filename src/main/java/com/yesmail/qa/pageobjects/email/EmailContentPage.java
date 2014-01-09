@@ -17,6 +17,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
@@ -160,7 +162,8 @@ public class EmailContentPage extends EmailBase {
 		uploadAssetsButton.click();
 		DriverUtility.waitFor(
 				ExpectedConditions.elementToBeClickable(htmlContent), driver,
-				10);
+				30);		
+		Reporter.log("Ribbon Text for ContentPage is: "+getRibbonText(10)+"<br>");		
 		return stepCompleted(2,10);
 
 	}

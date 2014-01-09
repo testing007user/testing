@@ -24,6 +24,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
@@ -149,8 +150,8 @@ public class EmailTargetPage extends EmailBase {
 		if (segmentHeaderText.getText().equalsIgnoreCase(attributeName)) {
 			segmentInputTextBox.sendKeys(attributeValue);
 
-			saveGetCount.click();
-			getRibbonText(10);
+			saveGetCount.click();			
+			Reporter.log("Ribbon Text for TargetPage is: "+getRibbonText(10)+"<br>");
 		}
 		return stepCompleted(3, 10);
 	}

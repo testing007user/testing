@@ -11,10 +11,11 @@
 
 
 	<test name="New_E8_Automation_Test" preserve-order="true"
-		parallel="methods" thread-count="1">
+		parallel="methods" thread-count="2">		
 		<classes>
 			<class name="com.yesmail.qa.test.configuration.ConfigurationClass"></class>
-			<class name="com.yesmail.qa.test.dummytest.LoginTest"></class>
+			<!--<class name="com.yesmail.qa.test.dummytest.LoginTest"></class>-->
+			<class name="com.yesmail.qa.test.tests.EmailTest"></class>			
 		</classes>
 	</test>
 

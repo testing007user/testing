@@ -33,6 +33,9 @@ public class PagesHelper {
 	public static final String EMAIL_DIVISION = prop.getValue("email.division");
 	public static final String EMAIL_CAMPAIGN_NAME = prop.getValue("email.campaign");
 	public static final String EMAIL_ENCODING_TYPE = prop.getValue("email.encodingtype");
+	public static final String EMAIL_ATTR_NAME = prop.getValue("email.attribute.name");
+	public static final String EMAIL_ATTR_VALUE = prop.getValue("email.attribute.value");
+	public static final String EMAIL_SUBSCRITPION_STATUS = prop.getValue("email.subscription.status");
 
 	//Added For MultiVariate
        public final static String MULTIVARIATE_SETUP_NAME = prop.getValue("multivariate.setuppage.name");
@@ -82,4 +85,6 @@ public class PagesHelper {
     	public final static String STATUSPUBLISHED = "published";
     	public final static String STATUSHALTED = "halted";
     	public final static String STATUSDISABLED= "disabled";
+    	public final static String STATUSFINISHED= "finished";
+		
 }
