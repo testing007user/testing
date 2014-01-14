@@ -17,7 +17,7 @@ public class TweetTest {
 	
 	SAssert a = new SAssert(); 
 	
-	 @Test(testName = "createTweetsMaster", description = "Create a Tweet & enable the same", timeOut = 500000, groups ="BAT,DEMO")
+	 @Test(testName = "createTweetsMaster", description = "Create a Tweet & enable the same", timeOut = 500000, groups ={"BAT","Tweet"})
 		public void createTweetsMaster() {
 
 			PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
@@ -39,7 +39,7 @@ public class TweetTest {
 
 		}
 
-		@Test(testName = "verifyTweetsStatus", description = "Verifying the status of Tweets", timeOut = 500000, groups ="BAT,DEMO", dependsOnMethods = {"createTweetsMaster"})
+		@Test(testName = "verifyTweetsStatus", description = "Verifying the status of Tweets", timeOut = 500000, groups ={"BAT","Tweet"}, dependsOnMethods = {"createTweetsMaster"})
 		public void verifyTweetsStatus() {
 
 			PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());

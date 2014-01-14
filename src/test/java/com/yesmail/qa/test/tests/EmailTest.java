@@ -20,7 +20,7 @@ public class EmailTest {
 	
 	SAssert a = new SAssert(); 
 	
-	@Test(testName = "createMaster", description = "Creating a Master & enabling the same", timeOut = 500000, enabled = true, groups = {"BAT","DEMO"})
+	@Test(testName = "createMaster", description = "Creating a Master & enabling the same", timeOut = 500000, enabled = true, groups = {"BAT","DEMO","Email"})
 	public void createMaster() {
 				
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
@@ -57,7 +57,7 @@ public class EmailTest {
 		
 	}
 	
-	@Test(testName = "verifyMaster", dependsOnMethods = {"createMaster"}, description = "Verifying Master Status on Listing Page", timeOut = 500000, enabled = true, groups = {"BAT","DEMO"})
+	@Test(testName = "verifyMaster", dependsOnMethods = {"createMaster"}, description = "Verifying Master Status on Listing Page", timeOut = 500000, enabled = true, groups = {"BAT","DEMO","Email"})
 	public void verifyMaster() {
 		
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
@@ -72,7 +72,7 @@ public class EmailTest {
 		a.assertAll();
 	}
 	
-	@Test(testName = "VerifyEmailOnYahoo", dependsOnMethods = {"verifyMaster"}, description = "Verifying Email from Master on Yahoo", timeOut = 500000, enabled = true, groups= {"YAHOO","BAT"})
+	@Test(testName = "VerifyEmailOnYahoo", dependsOnMethods = {"verifyMaster"}, description = "Verifying Email from Master on Yahoo", timeOut = 500000, enabled = true, groups= {"YAHOO","Email"})
 	public void VerifyEmailOnYahoo() {
 		
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());

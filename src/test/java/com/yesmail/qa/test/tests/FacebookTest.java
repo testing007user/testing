@@ -16,7 +16,7 @@ public class FacebookTest {
 	SAssert a = new SAssert();
 	String facebookMasterId = null;
 	
-	 @Test(testName = "createFacebookMaster", description = "Create a Facebook Master & enable the same", timeOut = 500000, groups ="BAT,DEMO")
+	 @Test(testName = "createFacebookMaster", description = "Create a Facebook Master & enable the same", timeOut = 500000, groups = {"BAT","Facebook"})
 		public void createFacebookMaster() {
 
 			PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());

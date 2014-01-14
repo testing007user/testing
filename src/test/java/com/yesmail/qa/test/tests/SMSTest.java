@@ -17,7 +17,7 @@ public class SMSTest {
 	
 SAssert a = new SAssert(); 
 	
-	@Test(testName = "createSmsMaster", description = "Creating a Sms Master & enabling the same", timeOut = 500000, enabled = true, groups = {"BAT","DEMO"})
+	@Test(testName = "createSmsMaster", description = "Creating a Sms Master & enabling the same", timeOut = 500000, enabled = true, groups = {"BAT","SMS"})
 	public void createSmsMaster() {
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
 		pof.loginPage().load().isLoaded();
@@ -48,7 +48,7 @@ SAssert a = new SAssert();
 	
 	}
 	
-	@Test(testName = "verifySmsMaster", dependsOnMethods = {"createSmsMaster"}, description = "Verifying Master Status on Listing Page", timeOut = 500000, enabled = true, groups = {"BAT","DEMO"})
+	@Test(testName = "verifySmsMaster", dependsOnMethods = {"createSmsMaster"}, description = "Verifying Master Status on Listing Page", timeOut = 500000, enabled = true, groups = {"BAT","SMS"})
 	public void verifySmsMaster() {
 		
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());

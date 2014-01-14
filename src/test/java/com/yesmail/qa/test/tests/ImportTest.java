@@ -18,7 +18,7 @@ public class ImportTest {
 	
 	SAssert a = new SAssert(); 
 	
-	@Test(testName = "ImportSubscriber", description = "Importing Subscriber", timeOut = 500000, enabled = true, groups = {"BAT","DEMO"})
+	@Test(testName = "ImportSubscriber", description = "Importing Subscriber", timeOut = 500000, enabled = true, groups = {"BAT","Import"})
 	public void ImportSubscriber() {		
 		
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
