@@ -69,7 +69,7 @@ public class LoginTest {
 		pof.emailEnvelopePage().load().isLoaded();
 
 				
-		String MasterName = pof.emailEnvelopePage().createEnvelope();
+		//String MasterName = pof.emailEnvelopePage().createEnvelope();
 		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
 		
 		pof.emailContentPage().load().isLoaded();		
