@@ -189,7 +189,7 @@ public class FacebookSchedulePage extends BasePage {
 	public boolean enableandConfirmFacebook() {
 		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(enableButton), driver, 20);
 		enableButton.click();
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirmButton), driver, 20);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirmButton), driver, 30);
 		confirmButton.click();
 		return(DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
 		

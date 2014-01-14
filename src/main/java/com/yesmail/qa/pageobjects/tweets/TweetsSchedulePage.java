@@ -173,7 +173,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	public boolean enableandConfirmTweet() {
 		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(enable), driver, 20);
 		enable.click();
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirm), driver, 20);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirm), driver, 30);
 		confirm.click();
 		return(DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
 		

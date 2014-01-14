@@ -244,7 +244,8 @@ public class EmailEnvelopePage extends EmailBase {
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		fillfromName();
 		saveEnvelope.click();
-		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>");		
+		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>");
+		nameTextBox.click();
 		return masterName;		
 	}
 

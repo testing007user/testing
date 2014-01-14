@@ -18,6 +18,8 @@ import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class SmsContentPage extends SmsBasePage {
@@ -65,7 +67,7 @@ public class SmsContentPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(contentText),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(contentText),
 				driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
