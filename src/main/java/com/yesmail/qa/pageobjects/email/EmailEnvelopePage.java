@@ -170,8 +170,7 @@ public class EmailEnvelopePage extends EmailBase {
 				String StrDesc = Utils.getUniqueName("test_campaign_type");
 				StrDesc = StrDesc.substring(0, StrDesc.length() - 20);
 				newCampaignNewTypeTextBox.sendKeys(StrDesc);
-			}
-			System.out.println();
+			}			
 			newCampaignCreateButton.click();
 
 		}

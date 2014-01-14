@@ -20,10 +20,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class SmsTargetPage extends SmsBasePage {
 
@@ -31,17 +31,11 @@ public class SmsTargetPage extends SmsBasePage {
 
 	private WebDriver driver;
 
-	@FindBy(css = ".targetActions button:nth-of-type(2)")
-	private WebElement targetbutton;
-
 	@FindBy(css = ".segment_group>div:nth-of-type(2)>div:nth-of-type(2) select")
 	private WebElement subStatusDropdown;
 
 	@FindBy(css = ".targetActions button:nth-of-type(2)")
 	private WebElement saveGetCount;
-
-	@FindBy(css = ".targetActions button:nth-of-type(1)")
-	private WebElement saveTarget;
 
 	@FindBy(css = "input.clearable")
 	private WebElement attributeFilterInput;
@@ -49,36 +43,17 @@ public class SmsTargetPage extends SmsBasePage {
 	@FindBys({ @FindBy(css = ".m-attributesList") })
 	private List<WebElement> attributeList;
 
-	@FindBy(css = "input.string-value")
-	private WebElement emailSegMentInput;
-
-	// All segment header
-	@FindBy(css = "div.header")
-	private WebElement segmentHeader;
-
-	// Has Mobile number locators
-	@FindBy(css = "n0e0")
-	private WebElement hasMobileNumber;
-
 	@FindBy(css = "div#n0e0 select>option:nth-child(2)")
 	private WebElement selectYesDropDown;
 
 	@FindBy(css = "div#n0e0 span")
 	private WebElement selectedYesDropDown;
 
-	@FindBy(css = "div#n0e0 i")
-	private WebElement iconRemoveEle;
-
-	@FindBy(css = "div#e0")
-	private WebElement requiredSegmentEle;
-
-	// Has Email and Subscription status segment css
 	@FindBy(css = "div.segments div:nth-child(2).segment")
 	private WebElement segmentE1;
 
-	// Has Email and Subscription status segment header css
-	@FindBy(css = "div.segments div:nth-child(2).ui-draggable>div.header")
-	private WebElement segmentE1Header;
+	@FindBy(css = "input.string-value")
+	private WebElement segmentInputTextBox;
 
 	@SuppressWarnings("unused")
 	private String pageUrl;
@@ -97,124 +72,118 @@ public class SmsTargetPage extends SmsBasePage {
 
 	}
 
-	public void load() {
-
+	public SmsTargetPage load() {
 		navigateToTarget();
+		return this;
 	}
-	
-	public void isLoaded()
-	{
-		if(null == DriverUtility.waitFor(elementToBeClickable(attributeFilterInput), driver, 50))
-		{
+
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.
+				elementToBeClickable(attributeFilterInput), driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
 	}
 
-	/***
-	 * This enum selectAttrSMS class is added to list attribute to be searched
+	/**
+	 * This method is added to select the subscription status drop down value
+	 * 
+	 * @param subscription
+	 *            status
 	 */
-	public enum SELECT_SMS_ATTRIBUTE {
-		eMail, attrString
+	public void selectSubscriptionStatus(String subscription) {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(subStatusDropdown),
+				driver, 10);
+		DriverUtility.selectDropDown(subStatusDropdown, subscription, 1);
 	}
 
 	/**
-	 * This method is added to select the SMS subscription status drop down
-	 * value
+	 * This method is added to select the filter value from attribute list
 	 * 
-	 * @param element
-	 * @param visibleText
-	 * @param defaultIndex
+	 * @param selectAttribute
+	 * 
 	 */
-	public void selectSubscriptionStatus() {
-		DriverUtility.selectDropDown(subStatusDropdown, "subscribed", 1);// get
-																			// from
-																			// pagesHelper
-	}
-
-	public String filterSelect(SELECT_SMS_ATTRIBUTE selectAttrSMS) {
-		DriverUtility.waitforElementDisplay(driver, attributeFilterInput, 10);
+	private void filterSelect(String selectAttribute) {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(attributeFilterInput),
+				driver, 20);
 		int i = 1;
-		attributeFilterInput.sendKeys(selectAttrSMS.toString());
-		attributeList.size();
+		attributeFilterInput.sendKeys(selectAttribute);
 
 		for (WebElement elementToClick : attributeList) {
 			elementToClick = driver.findElement(By
 					.cssSelector("div.mAttr:nth-child(" + i + ")"));
-			if ((elementToClick.getText()).equalsIgnoreCase(selectAttrSMS
-					.toString())) {
+			if ((elementToClick.getText().trim())
+					.equalsIgnoreCase(selectAttribute)) {
 				Actions inputClick = new Actions(driver);
 				inputClick.doubleClick(elementToClick).perform();
 				break;
 			} else
 				i++;
 		}
-		DriverUtility.waitforElementDisplay(driver, segmentE1, 10);
-		return (selectAttrSMS.toString());
 	}
 
 	/**
-	 * This method is added to check the Has Mobile Number option as yes / no
-	 * 
-	 * @param check
-	 *            - retrun true/false if yes/no
+	 * This method is added to check the has Email option as yes / no
 	 * 
 	 * @return true/false
 	 */
+	public boolean hasMobileNumberCheck() {
 
-	public boolean selectMobileAsYes() {
-		DriverUtility.waitforElementDisplay(driver, selectedYesDropDown, 20);
-
-		if (null == DriverUtility.waitFor(ExpectedConditionExtended
-				.invisibilityOfElementLocated(selectedYesDropDown), driver, 10)) {
+		if (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(selectedYesDropDown),
+				driver, 20) != null) {
 			return true;
 		} else {
-			DriverUtility.selectDropDown(selectYesDropDown, "Yes", 1);
-			return true;
+			if (DriverUtility.waitFor(
+					ExpectedConditionExtended.elementToBeClickable(selectYesDropDown),
+					driver, 10) != null)
+				DriverUtility.selectDropDown(selectYesDropDown, "Yes", 1);
 		}
+		return true;
 	}
 
 	/***
 	 * This mehtod added to get the count for the target attribute
 	 * 
+	 * @param - attribute Name, attribute Value, Subscription Status
 	 * @author sangeetap
 	 */
+	public boolean clickSaveGetCount(String attributeName,
+			String attributeValue, String subscriptionStatus) {
+		// To do - For other attribute type values.
+		selectSubscriptionStatus(subscriptionStatus);
+		filterSelect(attributeName);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(segmentE1), driver, 10);
 
-	public void clickSaveGetCount(SELECT_SMS_ATTRIBUTE selectAttrSMS,
-			String textToEnter) {
-		String strAttString;
-		boolean segmentInput = false;
-		int j;
-		DriverUtility.waitforElementDisplay(driver, segmentE1, 10);
-		selectSubscriptionStatus();
-		strAttString = filterSelect(selectAttrSMS);
-		DriverUtility.waitforElementDisplay(driver, segmentE1, 30);
-
-		for (j = 2; j < 5; j++) {
-
-			WebElement segmentHeaderText = driver.findElement(By
-					.cssSelector("div.segments div:nth-child(" + j
-							+ ").ui-draggable>div.header"));
-			if (segmentHeaderText.getText().equalsIgnoreCase(strAttString)) {
-
-				switch (selectAttrSMS) {
-				case eMail:
-					emailSegMentInput.sendKeys(textToEnter);// //get from
-					segmentInput = true; // pagesHelper
-					break;
-				case attrString:
-					emailSegMentInput.sendKeys(textToEnter);// //get from
-					segmentInput = true;
-					break; // pagesHelper
-				default:
-					break;
-				}
-			}
-		}
-		if (segmentInput)
+		WebElement segmentHeaderText = driver
+				.findElement(By
+						.cssSelector("div.segments div:nth-child(2).ui-draggable>div.header"));
+		if (segmentHeaderText.getText().equalsIgnoreCase(attributeName)) {
+			segmentInputTextBox.sendKeys(attributeValue);
 
 			saveGetCount.click();
+			Reporter.log("Ribbon Text for TargetPage is: " + getRibbonText(10)
+					+ "<br>");
+		}
+		return stepCompleted(3, 10);
+	}
+	
+	/***
+	 * This method will return the job number
+	 * 
+	 * @author sangeetap
+	 */
+	public String getMasterId() {
+		String strloginUrl = driver.getCurrentUrl();
+		
+		String jobNum = driver.getCurrentUrl().substring(
+				strloginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
+		
+		return jobNum;
 	}
 
 }

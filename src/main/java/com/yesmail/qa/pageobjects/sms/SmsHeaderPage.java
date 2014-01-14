@@ -13,6 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
@@ -83,9 +85,8 @@ public class SmsHeaderPage extends SmsBasePage {
 	 * @author sangeetap
 	 */
 	private void fillSMSMasterName() {
-
-		// waitForRibbonToClose();
-		smsName.sendKeys(Utils.getUniqueName("SMS"));
+		
+		smsName.sendKeys(Utils.getUniqueName(PagesHelper.SMS_MASTER_NAME));
 	}
 
 	/***
@@ -104,22 +105,17 @@ public class SmsHeaderPage extends SmsBasePage {
 	 * @author sangeetap
 	 */
 	public void selectCampaign() {
-		DriverUtility.selectDropDown(campaign, "campaignName", 1); // get from
-																	// pagesHelper
+		DriverUtility.selectDropDown(campaign, PagesHelper.SMS_CAMPAIGN, 1);
 
-		if ("campaignName".equalsIgnoreCase("Create New...")) {
-			// DriverUtility.selectDropDown(campaignDropDown,PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME,
-			// 1);
+		if (PagesHelper.SMS_CAMPAIGN_NAME.equalsIgnoreCase("Create New...")) {
 			campaignNewCampaignName.clear();
-			String strName = Utils.getUniqueName("campaignNewName");// get from
-																	// pagesHelper
+			String strName = Utils.getUniqueName(PagesHelper.SMS_CAMPAIGN_NAME);
 			strName = strName.substring(0, strName.length() - 20);
 			campaignNewCampaignName.sendKeys(strName);
 			if (newCampaignTypeSelect.toString().equalsIgnoreCase(
 					("Create New..."))) {
-				String strDesc = Utils.getUniqueName("newStr", 20);// get from
-																	// pagesHelper
-				// strDesc = strDesc.substring(0, StrDesc.length() - 20);
+				String strDesc = Utils.getUniqueName(
+						PagesHelper.SMS_CAMPAIGN_NAME, 20);
 				newCampaignNewTypeTextBox.sendKeys(strDesc);
 				newCampaignCreateButton.click();
 			}
@@ -130,27 +126,11 @@ public class SmsHeaderPage extends SmsBasePage {
 	/***
 	 * This method added to click on save button
 	 * 
-	 * @return -return the generated masterid
 	 */
-	private String saveHeader() {
-
+	private void saveHeader() {
 		saveButton.click();
-		return getMasterId();
-	}
-
-	/***
-	 * This method will return the job number
-	 * 
-	 * @author sangeetap
-	 */
-
-	public String getMasterId() {
-		String strloginUrl = driver.getCurrentUrl();
-		
-		String jobNum = driver.getCurrentUrl().substring(
-				strloginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
-		
-		return jobNum;
+		Reporter.log("Ribbon text after creating the SMS Header: "
+				+ getRibbonText(20) + "<br>");
 	}
 
 	/**
@@ -158,13 +138,11 @@ public class SmsHeaderPage extends SmsBasePage {
 	 * 
 	 * @author sangeetap
 	 */
-
-	public void saveSmsHeader(String visibleShortCode) {
-		//
+	public boolean saveSmsHeader(String visibleShortCode) {
 		fillSMSMasterName();
 		selectShortcode(visibleShortCode);
 		saveHeader();
-
+		return stepCompleted(1, 20);
 	}
 
 }

@@ -118,13 +118,15 @@ public class PageObjectFactory {
 					driver,
 					XMLParser
 							.readComponentValueFromXML("ImportHomePage.pageUrl"));
-
 		return importHomePage;
 	}
 
 	public Import importPage() {
 		if (importPage == null)
-			importPage = new Import(driver);
+			importPage = new Import(
+					driver,
+					XMLParser
+							.readComponentValueFromXML("ImportHomePage.pageUrl"));
 		return importPage;
 	}
 

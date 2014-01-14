@@ -15,9 +15,13 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
@@ -39,11 +43,8 @@ public class SmsSchedulePage extends SmsBasePage {
 	@FindBy(css = "div:nth-child(1) span input[name='startHour']")
 	public WebElement hourTextBox;
 
-	@FindBy(css = "div:nth-child(1) span input[name='startMinute'])")
+	@FindBy(css = "input[name='startMinute']")
 	public WebElement minuteTextBox;
-
-	@FindBy(css = "div.ym-emailSchedule>div:nth-child(1)>div.alert")
-	public WebElement confirm;
 
 	@FindBy(css = "div:nth-child(1) span div input[value='am']")
 	public WebElement amRadioButton;
@@ -60,11 +61,20 @@ public class SmsSchedulePage extends SmsBasePage {
 	@FindBy(css = "table.ui-datepicker-calendar tbody tr td")
 	public List<WebElement> tds;
 
+	@FindBys({ @FindBy(css = "table.ui-datepicker-calendar td a") })
+	private List<WebElement> dateList;
+
 	private WebDriver driver;
 
 	@SuppressWarnings("unused")
 	private String pageUrl;
 
+	@FindBy(css = ".confirm")
+	private WebElement confirmBtn;
+
+	@FindBy(css = ".btn-danger")
+	private WebElement disableBtn;
+	
 	/**
 	 * Initializing Constructor
 	 */
@@ -77,9 +87,9 @@ public class SmsSchedulePage extends SmsBasePage {
 
 	}
 
-	public void isLoaded() {	
-		if(null == DriverUtility.waitFor(elementToBeClickable(dateBox), driver, 50))
-		{
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(elementToBeClickable(dateBox),
+				driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
@@ -93,22 +103,23 @@ public class SmsSchedulePage extends SmsBasePage {
 	}
 
 	/***
-	 * This method is added to insert date
+	 * This method is added to Insert Formatted Date.
+	 * 
+	 * @return
 	 */
-
-	public void insertDate() {
-		DriverUtility.waitforElementDisplay(driver, dateBox, 10);
+	private void insertDate() {
 		Calendar cal = new GregorianCalendar();
 		int dateOne = cal.get(Calendar.DATE);
 		String month_Day = "" + dateOne;
 		dateBox.clear();
 		dateBox.click();
-		for (WebElement td : tds) {
-			if (td.getText().equals(month_Day)) {
-				if (td.getAttribute("class").contains("ui-datepicker-today")) {
-					td.click();
-					break;
-				}
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(dateList),
+				driver, 20);
+		for (WebElement date : dateList) {
+			if (date.getText().equals(month_Day)) {
+				date.click();
+				break;
 			}
 		}
 	}
@@ -119,7 +130,6 @@ public class SmsSchedulePage extends SmsBasePage {
 	 */
 
 	public void enterCurrentHour() {
-
 		hourTextBox.clear();
 		hourTextBox.sendKeys(Utils.getHourString());
 	}
@@ -128,7 +138,6 @@ public class SmsSchedulePage extends SmsBasePage {
 	 * This method is added to enter the current minutes
 	 */
 	public void enterCurrentMinutes() {
-
 		minuteTextBox.clear();
 		minuteTextBox.sendKeys(Utils.getMinuteString());
 	}
@@ -148,7 +157,6 @@ public class SmsSchedulePage extends SmsBasePage {
 	 */
 
 	public void setDateTime() {
-
 		insertDate();
 		DriverUtility.waitforElementDisplay(driver, hourTextBox, 5);
 		enterCurrentHour();
@@ -168,15 +176,20 @@ public class SmsSchedulePage extends SmsBasePage {
 	}
 
 	/**
-	 * Clicking on "confirm" button on Popup
+	 * Clicking on "Enable" and "confirm" button.
 	 * 
 	 * @author sangeetap
 	 */
-
-	public void enableButtonAndConfirm() {
-
+	public boolean enableButtonAndConfirm() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(enableBtn), driver, 10);
 		enableBtn.click();
-		confirm.click();
+		DriverUtility
+				.waitFor(ExpectedConditionExtended.elementToBeClickable(confirmBtn),
+						driver, 10);
+		confirmBtn.click();
+		return(DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30)!= null);
 	}
 
 	/**
@@ -184,10 +197,12 @@ public class SmsSchedulePage extends SmsBasePage {
 	 * 
 	 * @author sangeetap
 	 */
-	public void scheduleSMSMaster() {
+	public boolean scheduleSMSMaster() {
 		setDateTime();
-		saveScheduleButton();
-		enableButtonAndConfirm();
+		saveScheduleButton();		
+		Reporter.log("Ribbon Text for SchedulePage is: " + getRibbonText(20)
+				+ "<br>");
+		return stepCompleted(4, 10);
 
 	}
 }

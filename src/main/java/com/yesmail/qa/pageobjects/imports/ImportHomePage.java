@@ -17,11 +17,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Reporter;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
@@ -32,19 +30,11 @@ public class ImportHomePage extends BasePage {
 	 */
 	private WebDriver driver;
 	private String pageUrl;
+	
 
-	@FindBy(css = "select[data-id='type']")
-	private WebElement typeDropDown;
-
-	// Owned by WebElement locator
 	@FindBy(css = "select[data-id='owner']")
-	private WebElement ownedByDropDown;
+	private WebElement ownedByDropDown;	
 
-	// Status by WebElement locator
-	@FindBy(css = "select[data-id='status']")
-	private WebElement statusByDropDown;
-
-	// Requested by WebElement locator
 	@FindBy(css = "select[data-id='period']")
 	private WebElement requestedByDropDown;
 
@@ -58,25 +48,24 @@ public class ImportHomePage extends BasePage {
 	private WebElement tableBody;
 
 	// Constructor section
-
 	public ImportHomePage(WebDriver driver, String pageUrl) {
 		super(driver);
 		this.driver = driver;
 		this.pageUrl = pageUrl;
-	
+
 		PageFactory.initElements(driver, this);
 
 	}
 
 	public ImportHomePage load() {
-		driver.navigate().to(PagesHelper.URL+pageUrl);
+		driver.navigate().to(PagesHelper.URL + pageUrl);
 		return this;
 	}
 
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditions.visibilityOfElementLocated(By
-						.cssSelector(".dataTable tbody")), driver, 50)) {
+				ExpectedConditionExtended.elementToBeClickable(tableBody),
+				driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
@@ -86,33 +75,15 @@ public class ImportHomePage extends BasePage {
 	 * This method is added to search the import by Type, Ownedby, Status,
 	 * Requested options
 	 * 
-	 * @param searchTypeEle
-	 *            : Type to select from Type drop down
-	 * @param label
-	 *            : select type label to match
 	 * @param defaultIndex
 	 *            : select defaultIndex option if given search string does not
 	 *            present.
 	 * @author sangeetap
 	 */
-
-	public enum IMPORTS_HOME_DROPDOWN {
-		TYPE, OWNDE_BY, STATUS, REQUESTED
-	}
-
-	public void selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN whichDropDown,String visibleText) {
-		switch (whichDropDown) {
-		case OWNDE_BY:
-			DriverUtility.selectDropDown(ownedByDropDown, visibleText, 1);
-			break;
-		case REQUESTED:
-			DriverUtility.selectDropDown(requestedByDropDown,
-					visibleText, 1);
-		default:
-			throw new FrameworkException(whichDropDown.toString()+" is not mapped for selection in method");
-		}
-		DriverUtility.waitforElementDisplay(driver, tableBody, 40);
-
+	public void selectDropDownOnImportPage() {
+		DriverUtility.selectDropDown(ownedByDropDown, "Me", 1);
+		DriverUtility.selectDropDown(requestedByDropDown,
+				"Within the last 24 hours", 1);
 	}
 
 	/***
@@ -124,22 +95,20 @@ public class ImportHomePage extends BasePage {
 	 *            - status of import job FINISHED/ERROR
 	 * @return
 	 */
-	public boolean verifyStatusImportPage(String jobId, String expectedStatus) {
-		selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN.OWNDE_BY,"Me");
-		selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN.REQUESTED,"Within the last 24 hours");
+	public boolean verifyStatusOnImportPage(String jobId, String expectedStatus) {
+		selectDropDownOnImportPage();
 		int index;
 		boolean jobFound = false;
 		boolean expStatus = false;
 		int retryCount = 0;
 		long startTime = System.currentTimeMillis() / 1000;
-		Reporter.log("startTime = " + startTime,true);
 		long stopTime = startTime + 300;
-		Reporter.log("stopTime = " + stopTime,true);
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
-			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
+			DriverUtility.waitFor(
+					ExpectedConditionExtended.elementToBeClickable(jobIdTds),
+					driver, 30);
 			for (index = 0; index < trCollections.size(); index++) {
-
 				if (jobIdTds.get(index).getText().equalsIgnoreCase(jobId)) {
 					jobFound = true;
 					WebElement statusCol = driver
@@ -161,9 +130,10 @@ public class ImportHomePage extends BasePage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitforElementDisplay(driver, tableBody, 40);
-			selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN.OWNDE_BY,"Me");
-			selectDropDownOnImportPage(IMPORTS_HOME_DROPDOWN.REQUESTED,"Within the last 24 hours");
+			DriverUtility.waitFor(
+					ExpectedConditionExtended.elementToBeClickable(jobIdTds),
+					driver, 30);
+			selectDropDownOnImportPage();
 		}
 		return expStatus;
 	}

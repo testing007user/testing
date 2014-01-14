@@ -1,0 +1,3 @@
+eMail|firstname|lastname
+shruti.gadadabc@yesmail.com|Shruti111|Gadad
+sangeeta.pote@yesmail.com|Sangeeta|Pote

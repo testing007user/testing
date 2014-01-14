@@ -19,9 +19,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class ViewFacebookPage {
@@ -45,7 +45,6 @@ public class ViewFacebookPage {
 	private WebDriver driver;
 
 	// Constructor
-
 	public ViewFacebookPage(WebDriver driver, String pageUrl) {
 
 		this.driver = driver;
@@ -55,12 +54,7 @@ public class ViewFacebookPage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility
-				.waitFor(
-						ExpectedConditions
-								.elementToBeClickable(By
-										.cssSelector("div.ym-page-content header form select")),
-						driver, 50))
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(tableBody), driver, 30))				
 			throw new FrameworkException(ViewFacebookPage.class.getName()
 					+ "is not loaded");
 
@@ -95,7 +89,6 @@ public class ViewFacebookPage {
 	 */
 	public boolean verifyFacebookMasterStatus(String jobId,
 			String expectedStatus) {
-		// selectViewType("All Facebook masters");
 		int index;
 		boolean jobFound = false;
 		boolean expStatus = false;
@@ -107,7 +100,8 @@ public class ViewFacebookPage {
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
 
-			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
+			DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(trCollections), driver, 30);
 
 			for (index = 0; index < trCollections.size(); index++) {
 
@@ -131,11 +125,9 @@ public class ViewFacebookPage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitforElementDisplay(driver, tableBody, 40);
-			selectViewType("All Facebook masters");
+			DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(trCollections), driver, 30);
 		}
 		return expStatus;
 	}
-
-} // end of ViewFacebookPage class
-
+}
