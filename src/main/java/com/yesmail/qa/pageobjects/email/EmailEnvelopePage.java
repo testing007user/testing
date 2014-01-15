@@ -170,8 +170,7 @@ public class EmailEnvelopePage extends EmailBase {
 				String StrDesc = Utils.getUniqueName("test_campaign_type");
 				StrDesc = StrDesc.substring(0, StrDesc.length() - 20);
 				newCampaignNewTypeTextBox.sendKeys(StrDesc);
-			}
-			System.out.println();
+			}			
 			newCampaignCreateButton.click();
 
 		}
@@ -245,7 +244,8 @@ public class EmailEnvelopePage extends EmailBase {
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		fillfromName();
 		saveEnvelope.click();
-		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>");		
+		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>");
+		nameTextBox.click();
 		return masterName;		
 	}
 

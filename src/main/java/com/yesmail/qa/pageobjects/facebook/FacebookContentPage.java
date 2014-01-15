@@ -23,21 +23,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
-import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class FacebookContentPage extends BasePage {
 
-	
 	@FindBy(css = "span[data-target='account'] select")
 	private WebElement accountDropDown;
-
-	@FindBy(css = ".m-facebookContent>div:nth-of-type(1) select")
-	private WebElement campaignDropDown;
 
 	@FindBy(id = "message")
 	private WebElement messageTextBox;
@@ -52,50 +48,20 @@ public class FacebookContentPage extends BasePage {
 	@FindBy(id = "savePost")
 	private WebElement savebutton;
 
-	@FindBy(id = "preview")
-	private WebElement previewPost;
-
-	@FindBy(id = "linkUrl")
-	private WebElement linkURL;
-
-	@FindBy(id = "linkName")
-	private WebElement linkName;
-
-	@FindBy(id = "thumbnailUrl")
-	private WebElement thumbNailUrl;
-
-	@FindBy(id = "caption")
-	private WebElement caption;
-
-	@FindBy(id = "description")
-	private WebElement desCription;
-
-	@FindBy(css = "input.span3")
-	private WebElement campaignNewCampaignName;
-
-	@FindBy(css = "select.span3>option:nth-of-type(2)")
-	private WebElement newCampaignTypeSelect;
-
-	@FindBy(css = "input.span2")
-	private WebElement newCampaignNewTypeTextBox;
-
-	@FindBy(css = "button.btn:nth-child(2)")
-	private WebElement newCampaignCreateButton;
-
 	@FindBy(css = "#pages option[selected='selected']")
 	private WebElement defaultPageSelected;
 
 	@FindBy(css = "div:nth-child(2)>a:nth-of-type(1)")
 	private WebElement contentTab;
-	
+
 	@FindBy(css = "div:nth-child(2) input[id='scheduleDatePicker']")
 	public WebElement dateBox;
 
 	private WebDriver driver;
 	private String pageUrl;
 
-	//define the constructor
-	 
+	// define the constructor
+
 	public FacebookContentPage(WebDriver driver, String pageUrl) {
 		super(driver);
 		this.driver = driver;
@@ -123,7 +89,6 @@ public class FacebookContentPage extends BasePage {
 		contentTab.click();
 	}
 
-
 	/**
 	 * 
 	 * *This method is added to fill and save the Facebook contents
@@ -133,13 +98,12 @@ public class FacebookContentPage extends BasePage {
 	 */
 	public boolean fillFacebookContent() {
 		enterFacebookName();
-		//selectCampaign();
 		selectFacebookAccount();
 		selectPage();
 		enterFacebookContent();
-		return saveFacebookContent();		
+		return saveFacebookContent();
 	}
-	
+
 	/***
 	 * This method is added to select the Facebook page
 	 * 
@@ -160,52 +124,16 @@ public class FacebookContentPage extends BasePage {
 	 * 
 	 */
 
-	public void selectFacebookAccount() {
+	private void selectFacebookAccount() {
 		DriverUtility.selectDropDown(accountDropDown,
 				PagesHelper.FACEBOOK_ACCOUNT, 2);
-	}
-
-	/***
-	 * This method is added to select campaign from drop down, if 'Create New'
-	 * option selected it will create a new campaign
-	 * 
-	 * @author sangeetap
-	 */
-	public void selectCampaign() {
-		DriverUtility.waitforElementDisplay(driver, campaignDropDown, 20);
-		DriverUtility.selectDropDown(campaignDropDown,
-				PagesHelper.FACEBOOK_CONTENT_CAMPAIGN_NAME, 2);
-
-		if (PagesHelper.FACEBOOK_CONTENT_CAMPAIGN_NAME
-				.equalsIgnoreCase("Create New...")) {
-			campaignNewCampaignName.clear();
-			String strName = Utils
-					.getUniqueName(PagesHelper.FACEBOOK_CONTENT_NAME);
-			Utils.getUniqueName(strName);
-			campaignNewCampaignName.sendKeys(strName);
-
-			/***
-			 * No option currently avaliable in type drop down so added comment
-			 * to below code
-			 */
-
-			/*
-			 * if(newCampaignTypeSelect.toString().equalsIgnoreCase(
-			 * ("Create New..."))) { String StrDesc = Utils
-			 * .getUniqueName(PagesHelper.FACEBOOK_CONTENT_DESC); StrDesc =
-			 * StrDesc.substring(0, StrDesc.length() - 20);
-			 * newCampaignNewTypeTextBox.sendKeys(StrDesc);
-			 */
-			newCampaignCreateButton.click();
-		}
-
 	}
 
 	/***
 	 * This method is added to enter the Facebook message content
 	 */
 
-	public void enterFacebookContent() {
+	private void enterFacebookContent() {
 		String strMsgName = PagesHelper.FACEBOOK_CONTENT_NAME
 				+ UUID.randomUUID();
 		messageTextBox.clear();
@@ -216,7 +144,7 @@ public class FacebookContentPage extends BasePage {
 	 * This method is added to enter the Facebook post name
 	 */
 
-	public void enterFacebookName() {
+	private void enterFacebookName() {
 		String strFbName = Utils.getUniqueName(PagesHelper.FACEBOOK_NAME, 25);
 		nameTextBox.clear();
 		nameTextBox.sendKeys(strFbName);
@@ -230,23 +158,8 @@ public class FacebookContentPage extends BasePage {
 
 	private boolean saveFacebookContent() {
 		savebutton.click();
-		getRibbonText(10);
-		return stepCompleted(1, 10);		
+		 Reporter.log("Ribbon text for facebook content page :"+getRibbonText(10)+"<br>");
+		return stepCompleted(1, 10);
 	}
 
-	/***
-	 * This method is added to get the generated Facebook master id
-	 * 
-	 * @return getMaserId - return generated Facebook master id
-	 */
-
-	public String getMasterId() {		
-		String loginUrl = driver.getCurrentUrl();
-		String jobNum = driver.getCurrentUrl()
-				.substring(loginUrl.lastIndexOf("#") + 1)
-				.replaceAll("[^0-9]", "");
-		return jobNum;
-	}
-
-} // end of FacebookContentPage class
-
+}

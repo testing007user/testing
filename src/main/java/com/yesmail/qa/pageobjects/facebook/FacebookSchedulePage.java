@@ -18,14 +18,15 @@ package com.yesmail.qa.pageobjects.facebook;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 
@@ -66,20 +67,22 @@ public class FacebookSchedulePage extends BasePage {
 	@FindBy(css = "table.ui-datepicker-calendar tbody tr td")
 	public List<WebElement> tds;
 
-	@FindBy(css = "a[href = '#facebook/schedule']")
-	private WebElement schedule;
-
 	@FindBy(css = "input[id = 'scheduleNow']")
 	private WebElement scheduleImmediatelyButton;
-
-	@FindBy(css = "div.alert-success")
-	private WebElement alertSuccessMsg;
 
 	@FindBy(css = "button.social-disable")
 	private WebElement disableButton;
 
 	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
 	private WebElement scheduleTab;
+	
+	@FindBy(css = ".workflow-master-btn.btn-mini.social-disable.btn-danger")
+	public WebElement disableBtn;
+	
+	@FindBy(id = "scheduleNowFields")
+	private WebElement scheduleNowFields;
+	
+	
 
 	private WebDriver driver;
 
@@ -93,8 +96,8 @@ public class FacebookSchedulePage extends BasePage {
 	} // end of constructor
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(ExpectedConditions
-				.elementToBeClickable(By.id("scheduleNowFields")), driver, 50))
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(scheduleNowFields), driver, 50))
 			throw new FrameworkException(FacebookSchedulePage.class.getName()
 					+ " is not loaded");
 	}
@@ -151,7 +154,7 @@ public class FacebookSchedulePage extends BasePage {
 	/***
 	 * This method is to set am/pm
 	 */
-	public void setAmPm() {
+	private void setAmPm() {
 		if (Utils.getMeriDian().equals("am"))
 			amRadioButton.click();
 		else
@@ -162,7 +165,7 @@ public class FacebookSchedulePage extends BasePage {
 	 * This method is added to set Date and Time
 	 */
 
-	public void setDateTime() {
+	private void setDateTime() {
 
 		insertDate();
 		enterCurrentHour();
@@ -173,26 +176,25 @@ public class FacebookSchedulePage extends BasePage {
 	/***
 	 * This method is added to save schedule
 	 */
-	public boolean saveSchedule() {
+	private boolean saveSchedule() {
 
 		saveScheduleButton.click();
-		getRibbonText(10);
-		return stepCompleted(2, 10);
+		Reporter.log("Ribbon Text after saving schedule :"+getRibbonText(20)+"<br>");
+		return stepCompleted(2, 20);
 	}
-
+	
 	/***
-	 * This method is added to enable and confirm the Facebook post
+	 * This method is added to enable and confirm the Facebook Post
 	 */
-	public void enableFacebook() {
-		/*
-		 * DriverUtility.waitFor(
-		 * ExpectedConditions.elementToBeClickable(enableButton), driver, 50);
-		 */
+	public boolean enableandConfirmFacebook() {
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(enableButton), driver, 20);
 		enableButton.click();
-		DriverUtility.waitforElementDisplay(driver, confirmButton, 30);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirmButton), driver, 30);
 		confirmButton.click();
-
+		return(DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
+		
 	}
+	
 
 	/***
 	 * This method is added to schedule post immediately
@@ -200,21 +202,30 @@ public class FacebookSchedulePage extends BasePage {
 	public void scheduleImmediately() {
 		scheduleImmediatelyButton.click();
 		saveSchedule();
-		DriverUtility.waitforElementDisplay(driver, disableButton, 30);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(disableButton),driver,30);
 	}
 
 	/***
 	 * This method is added to schedule post on specific time /later
 	 */
-	public void scheduleMaster() {
+	public boolean scheduleMaster() {
 
 		setDateTime();
-		saveSchedule();
-		enableFacebook();
+		return saveSchedule();
+	}
 
+	/***
+	 * This method is added to get the generated Facebook master id
+	 * 
+	 * @return getMaserId - return generated Facebook master id
+	 */
+
+	public String getMasterId() {
+		String loginUrl = driver.getCurrentUrl();
+		String jobNum = driver.getCurrentUrl()
+				.substring(loginUrl.lastIndexOf("#") + 1)
+				.replaceAll("[^0-9]", "");
+		return jobNum;
 	}
 
 }
-
-// end of FacebookSchedulePage class
-

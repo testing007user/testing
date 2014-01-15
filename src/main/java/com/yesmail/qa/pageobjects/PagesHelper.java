@@ -70,6 +70,7 @@ public class PagesHelper {
    	
      //Added for Tweets
      	public final static String TWEETS_CONTENT_NAME=prop.getValue("tweets.content.name");
+     	public static final String TWITTER_ACCOUNT = prop.getValue("twitter.account");
 
      	//Added for HomePage
     	public final static String HOME_COMPANY_SELECT=prop.getValue("home.company.name");
@@ -77,8 +78,17 @@ public class PagesHelper {
 
     	
     	//Added for SMS
-    	
+    	public static final String SMS_MASTER_NAME = prop.getValue("sms.master.name");
+    	public final static String SMS_CAMPAIGN_NAME = prop.getValue("sms.campaign.name");
+    	public final static String SMS_CAMPAIGN = prop.getValue("sms.campaign");
     	public final static String SMSVIEWBY = "All active email masters";
+    	public static final String SMS_SHORTCODE = prop.getValue("sms.shortcode");
+    	public static final String SMS_MOBILENUMBER = prop.getValue("sms.mobilenumber");
+    	public static final String SMS_CONTENT_USERID = prop.getValue("sms.content.userid");
+    	public static final String SMS_CONTENT = prop.getValue("sms.content");
+    	public static final String SMS_ATTR_NAME = prop.getValue("sms.attribute.name");
+    	public static final String SMS_ATTR_VALUE = prop.getValue("sms.attribute.value");
+    	public static final String SMS_SUBSCRITPION_STATUS = prop.getValue("sms.subscription.status");
 
     	public final static String STATUSENABLED = "enabled";
     	public final static String STATUSDELIVERED = "delivered";	
@@ -86,5 +96,13 @@ public class PagesHelper {
     	public final static String STATUSHALTED = "halted";
     	public final static String STATUSDISABLED= "disabled";
     	public final static String STATUSFINISHED= "finished";
+    	
+    	//Import
+		public final static String IMPORT_PAGE_TITLE = "Yesmail Enterprise: Import Data";
+		
+		
+		
+		
+		
 		
 }

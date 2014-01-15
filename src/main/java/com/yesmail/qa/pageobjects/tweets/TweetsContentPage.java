@@ -23,10 +23,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
-import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
@@ -43,26 +43,11 @@ public class TweetsContentPage extends BasePage{
 	private WebElement contentTextBox;
 
 	@FindBy(css = "form#tweetContentForm button")
-	private WebElement saveButton;
-
-	@FindBy(css = "form#tweetContentForm p label a")
-	private WebElement bitUrl;
+	private WebElement saveButton;	
 
 	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
 	private WebElement scheduleTab;
-
-	@FindBy(css = "input[id = 'shorten_url']")
-	private WebElement bitUrlTextBox;
-
-	@FindBy(css = "div.unauth_capsule")
-	private WebElement shortenedURL;
-
-	@FindBy(css = "input[id = 'shorten_btn']")
-	private WebElement shortenBTN;
-
-	@FindBy(css = "div[id = 'notification_center']")
-	private WebElement errorMsgBox;
-
+	
 	private WebDriver driver;
 	private String pageUrl;
 
@@ -92,6 +77,7 @@ public class TweetsContentPage extends BasePage{
 	 * This method is added to navigate to schedule page
 	 */
 	public void navigateToScheduleTab() {
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(scheduleTab), driver, 50);
 		scheduleTab.click();
 	}
 
@@ -113,7 +99,7 @@ public class TweetsContentPage extends BasePage{
 	 *            - message string name
 	 */
 
-	public void enterTweetsContent(String msgName) {
+	public void enterTweetsContent() {
 		String strMsgName = PagesHelper.TWEETS_CONTENT_NAME + UUID.randomUUID();
 		contentTextBox.clear();
 		contentTextBox.sendKeys(strMsgName);
@@ -126,7 +112,7 @@ public class TweetsContentPage extends BasePage{
 	 */
 	public boolean saveTweetContent() {
 		saveButton.click();
-		getRibbonText(10);
+		Reporter.log("Ribbon Text for TweetContent is:"+getRibbonText(10)+"<br>",true);
 		return stepCompleted(1, 10);
 		
 	}
@@ -136,29 +122,15 @@ public class TweetsContentPage extends BasePage{
 	 * 
 	 * @param twitterAccount
 	 *            - account need to be selected
-	 * @return tweetId - created tweet id
+	 * @return 
 	 */
-	public boolean createTweet(String twitterAccount) {
-		String msgName = Utils.getUniqueName("Tweets_");
+	public boolean createTweet(String twitterAccount) {		
 		selectTwitterAccount(twitterAccount);
-		enterTweetsContent(msgName);
+		enterTweetsContent();
 		return saveTweetContent();
-		
-	}
+		}
 
-	/***
-	 * This method is added to get the generated tweet id
-	 * 
-	 * @return getMaserId - generated tweet id
-	 */
-
-	public String getMasterId() {
-				String loginUrl = driver.getCurrentUrl();
-		String jobNum = driver.getCurrentUrl()
-				.substring(loginUrl.lastIndexOf("#") + 1)
-				.replaceAll("[^0-9]", "");
-		return jobNum;
-	}
+	
 
 } // end of TweetsContentPage class
 

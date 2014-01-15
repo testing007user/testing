@@ -21,51 +21,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
 public class ViewTweetsPage {
 
 	// View Tweet page web element allocation
-
-	@FindBy(css = "button[data-id = 'create']")
-	private WebElement createViewButton;
-
-	@FindBy(css = "a[data-id = 'LIST']")
-	private WebElement theList;
-
-	@FindBy(css = "a[data-id = 'CALENDAR']")
-	private WebElement theCalender;
-
-	@FindBy(css = "th[class = 'sorting_desc']")
-	private WebElement lastModified;
-
-	@FindBy(css = "th[class = 'sorting']")
-	private WebElement publishTime;
-
-	@FindBy(css = "input[name = 'viewName']")
-	private WebElement viewNameTextBox;
-
-	@FindBy(css = "button[data-action = 'saveView']")
-	private WebElement saveViewButton;
-
-	@FindBy(css = "input[name = 'viewName']")
-	private WebElement viewName;
-
-	@FindBy(css = "select.sortBy")
-	private WebElement selectSortBy;
-
-	@FindBy(css = "select[class = 'input-large viewType']")
-	private WebElement selectDisplayAs;
-
-	@FindBy(css = "select.displayedItems")
-	private WebElement selectShow;
-
-	@FindBy(css = "select[class = 'filtersSelect']")
-	private WebElement selectFiltering;
-
 	@FindBy(css = "div.ym-page-content header form select")
 	private WebElement allTwitterMasterDropDown;
 
@@ -92,12 +55,7 @@ public class ViewTweetsPage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility
-				.waitFor(
-						ExpectedConditions
-								.elementToBeClickable(By
-										.cssSelector("div.ym-page-content header form select")),
-						driver, 30))
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(tableBody), driver,30))
 			throw new FrameworkException(ViewTweetsPage.class.getName()
 					+ "is not loaded");
 
@@ -134,7 +92,7 @@ public class ViewTweetsPage {
 	 */
 
 	public boolean verifyTweetMasterStatus(String jobId, String expectedStatus) {
-		// selectViewType("All Twitter masters");
+		
 		int index;
 		boolean jobFound = false;
 		boolean expStatus = false;
@@ -146,7 +104,7 @@ public class ViewTweetsPage {
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
 
-			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
+			DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(trCollections),driver, 30);
 
 			for (index = 0; index < trCollections.size(); index++) {
 
@@ -170,8 +128,7 @@ public class ViewTweetsPage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitforElementDisplay(driver, tableBody, 40);
-			selectViewType("All Twitter masters");
+			DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(trCollections),driver, 30);			
 		}
 		return expStatus;
 	}

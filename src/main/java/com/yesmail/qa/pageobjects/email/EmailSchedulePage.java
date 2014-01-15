@@ -195,14 +195,14 @@ public class EmailSchedulePage extends EmailBase {
 				ExpectedConditions.elementToBeClickable(enableBtn), driver, 10);
 		enableBtn.click();
 		if (DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 5) != null)
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 10) != null)
 			confirmBtn.click();
 		if (DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 5) != null)
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 10) != null)
 			confirmBtn.click();
 
 		return(DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 5) != null);
+				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
 	}
 
 	/***

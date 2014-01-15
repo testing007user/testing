@@ -87,7 +87,7 @@ public class PropertyMapping implements IProperty {
 			value = propertiesValue.get(key.toString());
 			return value;
 		} catch (NullPointerException e) {
-			return null;
+			throw new FrameworkException("Value for key: "+ key +" not specified in properties file");
 		}
 	}
 

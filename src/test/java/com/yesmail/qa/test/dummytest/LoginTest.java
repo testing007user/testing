@@ -1,6 +1,5 @@
 package com.yesmail.qa.test.dummytest;
 
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.testng.annotations.Test;
 import com.yesmail.qa.pageobjects.*;
 import com.yesmail.qa.test.configuration.XMLParser;
@@ -70,7 +69,7 @@ public class LoginTest {
 		pof.emailEnvelopePage().load().isLoaded();
 
 				
-		String MasterName = pof.emailEnvelopePage().createEnvelope();
+		//String MasterName = pof.emailEnvelopePage().createEnvelope();
 		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
 		
 		pof.emailContentPage().load().isLoaded();		
@@ -146,7 +145,7 @@ public class LoginTest {
 		pof.homePage().isLoaded();
 		pof.tweetsContentPage().load().isLoaded();
 		a.assertTrue(pof.tweetsContentPage().createTweet("magellanGmail"),"creating tweet content");
-		String strTweetId = pof.tweetsContentPage().getMasterId();
+		String strTweetId = pof.tweetsSchedulePage().getMasterId();
 		pof.tweetsSchedulePage().load().isLoaded();
 		pof.tweetsSchedulePage().scheduleTweet();
 		pof.viewTweetsPage().load().isLoaded();
@@ -163,7 +162,7 @@ public class LoginTest {
 		 a.assertTrue(pof.facebookContentPage().fillFacebookContent(),"fill facebook content");		 
 		 pof.facebookSchedulePage().navigateToScheduleTab();
 		 pof.facebookSchedulePage().isLoaded();
-		 String masterId = pof.facebookContentPage().getMasterId();
+		 String masterId = pof.facebookSchedulePage().getMasterId();
 		 pof.facebookSchedulePage().scheduleMaster();
 		 pof.viewFacebookPage().load().isLoaded();
 		 pof.viewFacebookPage().verifyFacebookMasterStatus(masterId, "PUBLISHED");

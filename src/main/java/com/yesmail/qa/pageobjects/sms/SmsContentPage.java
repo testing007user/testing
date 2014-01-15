@@ -10,13 +10,16 @@
 
 package com.yesmail.qa.pageobjects.sms;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class SmsContentPage extends SmsBasePage {
@@ -26,9 +29,6 @@ public class SmsContentPage extends SmsBasePage {
 	 */
 
 	private WebDriver driver;
-
-	@FindBy(id = "btn_textMessageContent")
-	private WebElement contentTab;
 
 	@FindBy(css = "div.m-sms-content-edit textarea[name='content']")
 	private WebElement contentText;
@@ -51,9 +51,6 @@ public class SmsContentPage extends SmsBasePage {
 	@FindBy(id = "preview")
 	private WebElement previewBtn;
 
-	@FindBy(css = "div:nth-child(3).previewContent")
-	private WebElement previewContenttextBox;
-
 	@SuppressWarnings("unused")
 	private String pageUrl;
 
@@ -70,8 +67,8 @@ public class SmsContentPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if(null == DriverUtility.waitFor(elementToBeClickable(contentText), driver, 50))
-		{
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(contentText),
+				driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
@@ -81,18 +78,6 @@ public class SmsContentPage extends SmsBasePage {
 	public SmsContentPage load() {
 		navigateToContent();
 		return this;
-	}
-
-	/***
-	 * This method is added to save the SMS content
-	 * 
-	 * @param mastername
-	 */
-
-	public void saveContent(String textToEnterInContent) {
-		contentText.sendKeys(textToEnterInContent);
-		saveContent.click();
-
 	}
 
 	/**
@@ -116,17 +101,20 @@ public class SmsContentPage extends SmsBasePage {
 	 * @param mobileNumber
 	 * @author sangeetap
 	 */
-	public void previewWithMobileNumber(String textToEnterInContent,
-			String smsUserID, String smsMobileNo) {
+	public boolean saveContent(String textToEnterInContent, String smsUserID,
+			String smsMobileNo) {
 		DriverUtility.waitforElementDisplay(driver, contentText, 10);
 		contentText.clear();
 		contentText.sendKeys(textToEnterInContent);
 		saveContent.click();
+		Reporter.log("Ribbon Text for Content Page is : " + getRibbonText(20)
+				+ "<br>");
 		previewTab.click();
 		userId.sendKeys(smsUserID);
 		previewid.sendKeys(smsMobileNo);
 		previewBtn.click();
 		testButton.click();
+		return stepCompleted(2, 20);
 	}
 
 }
