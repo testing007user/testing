@@ -47,6 +47,7 @@ public class EmailBase extends BasePage {
 	 * Navigate to Email Content page
 	 */
 	public void navigateToContentTab() {
+		contentTab.isDisplayed();
 		contentTab.click();
 	}
 

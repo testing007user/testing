@@ -54,11 +54,16 @@ public class BasePage {
 	 */
 	public String getRibbonText(int timeToWaitInSeconds)
 	{
-		if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(ribbonMessage,ribbonStatus), driver, timeToWaitInSeconds))
+		try{
+		if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(ribbonMessage), driver, timeToWaitInSeconds))
 			return null;
 		String returnMessage = ribbonStatus.getText()+"_"+ribbonMessage.getText();
 		return returnMessage;
-		
+		}
+		catch(Exception ex)
+		{
+			return "Selenium didn't catch ribbon text";
+		}
 	}
 	
 	/***
