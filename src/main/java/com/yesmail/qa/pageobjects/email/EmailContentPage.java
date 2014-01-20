@@ -16,7 +16,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
@@ -44,7 +43,7 @@ public class EmailContentPage extends EmailBase {
 	@FindBy(id = "contentUpload")
 	private WebElement uploadButton;
 
-	@FindBy(id = "fileupload")
+	@FindBy(id = "file-upload")
 	private WebElement uploadformTextField;
 
 	@FindBy(xpath = "//div[@class='modal fade in']//div[3]/button[2]")
@@ -135,7 +134,7 @@ public class EmailContentPage extends EmailBase {
 			sourceButton.click();
 
 			DriverUtility.waitFor(
-					ExpectedConditions.elementToBeClickable(textSourceBox),
+					ExpectedConditionExtended.elementToBeClickable(textSourceBox),
 					driver, 10);
 
 			if (driver instanceof JavascriptExecutor) {
@@ -161,7 +160,7 @@ public class EmailContentPage extends EmailBase {
 				"Test 12 March 2013.zip"));
 		uploadAssetsButton.click();
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(htmlContent), driver,
+				ExpectedConditionExtended.elementToBeClickable(htmlContent), driver,
 				30);		
 		Reporter.log("Ribbon Text for ContentPage is: "+getRibbonText(10)+"<br>");		
 		return stepCompleted(2,10);

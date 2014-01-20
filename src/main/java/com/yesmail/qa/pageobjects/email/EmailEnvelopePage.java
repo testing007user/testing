@@ -13,15 +13,16 @@
 package com.yesmail.qa.pageobjects.email;
 
 import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
 
@@ -119,7 +120,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 */
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(nameTextBox), driver,
+				ExpectedConditionExtended.elementToBeClickable(nameTextBox), driver,
 				50))
 			throw new FrameworkException(EmailEnvelopePage.class.getName()
 					+ " is not loaded");
@@ -192,7 +193,7 @@ public class EmailEnvelopePage extends EmailBase {
 	private void fillSubject() {
 		subjectLine.clear();
 		subjectPersonalizeButton.click();
-		DriverUtility.waitFor(ExpectedConditions
+		DriverUtility.waitFor(ExpectedConditionExtended
 				.elementToBeClickable(subjectPersonalizeDropdown), driver, 10);
 
 		selectSubjectPersonalization("firstName");
@@ -279,7 +280,7 @@ public class EmailEnvelopePage extends EmailBase {
 	public boolean uploadXml() {
 		xmlUploadLink.click();
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(xmlUploadPath), driver,
+				ExpectedConditionExtended.elementToBeClickable(xmlUploadPath), driver,
 				10);
 
 		xmlUploadPath.sendKeys(Utils.getResources(this, "fileName"));// Replace File Name with Actual.

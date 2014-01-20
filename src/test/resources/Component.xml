@@ -142,7 +142,7 @@
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
 	<page name="Yahoo">
-		<pageUrl>www.yahoomail.com</pageUrl>
+		<pageUrl>http://www.yahoomail.com</pageUrl>
 		<E7Url>http://e7.qatest.aws.p0.com</E7Url>
 	</page>
 	<page name="Admin">

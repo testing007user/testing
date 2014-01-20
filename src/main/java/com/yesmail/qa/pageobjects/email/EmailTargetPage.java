@@ -12,22 +12,20 @@
  */
 package com.yesmail.qa.pageobjects.email;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.DriverUtility.CLICK_STRATEGY;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
 public class EmailTargetPage extends EmailBase {
 
@@ -85,7 +83,7 @@ public class EmailTargetPage extends EmailBase {
 	 * This method is added to verify whether page is loaded.
 	 */
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(segments),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(segments),
 				driver, 50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
@@ -99,7 +97,7 @@ public class EmailTargetPage extends EmailBase {
 	 */
 	public void selectSubscriptionStatus(String subscription) {
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(subStatusDropdown),
+				ExpectedConditionExtended.elementToBeClickable(subStatusDropdown),
 				driver, 10);
 		DriverUtility.selectDropDown(subStatusDropdown, subscription, 1);
 	}
@@ -112,7 +110,7 @@ public class EmailTargetPage extends EmailBase {
 	 */
 	public void filterSelect(String selectAttribute) {
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(attributeFilterInput),
+				ExpectedConditionExtended.elementToBeClickable(attributeFilterInput),
 				driver, 10);
 		int i = 1;
 		attributeFilterInput.sendKeys(selectAttribute);
@@ -122,8 +120,7 @@ public class EmailTargetPage extends EmailBase {
 					.cssSelector("div.mAttr:nth-child(" + i + ")"));
 			if ((elementToClick.getText().trim())
 					.equalsIgnoreCase(selectAttribute)) {
-				Actions inputClick = new Actions(driver);
-				inputClick.doubleClick(elementToClick).perform();
+				DriverUtility.doubleClick(elementToClick, driver,CLICK_STRATEGY.USING_ACTION);
 				break;
 			} else
 				i++;
@@ -131,7 +128,7 @@ public class EmailTargetPage extends EmailBase {
 	}
 
 	/***
-	 * This mehtod added to get the count for the target attribute
+	 * This method added to get the count for the target attribute
 	 * 
 	 * @param - attribute Name, attribute Value, Subscription Status
 	 * @author sangeetap
@@ -142,7 +139,7 @@ public class EmailTargetPage extends EmailBase {
 		selectSubscriptionStatus(subscriptionStatus);
 		filterSelect(attributeName);
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(segmentE1), driver, 10);
+				ExpectedConditionExtended.elementToBeClickable(segmentE1), driver, 10);
 
 		WebElement segmentHeaderText = driver
 				.findElement(By
@@ -164,12 +161,12 @@ public class EmailTargetPage extends EmailBase {
 	public boolean hasEmailCheck() {
 
 		if (DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(selectedYesDropDown),
+				ExpectedConditionExtended.elementToBeClickable(selectedYesDropDown),
 				driver, 10) != null) {
 			return true;
 		} else {
 			if (DriverUtility.waitFor(
-					ExpectedConditions.elementToBeClickable(hasEmailDropDown),
+					ExpectedConditionExtended.elementToBeClickable(hasEmailDropDown),
 					driver, 10) != null)
 				DriverUtility.selectDropDown(hasEmailDropDown, "Yes", 1);
 		}

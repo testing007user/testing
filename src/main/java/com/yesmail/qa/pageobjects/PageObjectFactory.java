@@ -296,7 +296,8 @@ public class PageObjectFactory {
 
 	public YahooPage yahooPage() {
 		if (yahooPage == null)
-			yahooPage = new YahooPage(driver, "http://www.yahoo.com/");
+			yahooPage = new YahooPage(driver,XMLParser
+					.readComponentValueFromXML("Yahoo.pageUrl"));
 		return yahooPage;
 
 	}

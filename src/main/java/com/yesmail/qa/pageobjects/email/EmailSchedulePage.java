@@ -20,7 +20,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import com.yesmail.qa.framework.DriverUtility;
@@ -114,7 +113,7 @@ public class EmailSchedulePage extends EmailBase {
 	 */
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(dateBox), driver, 50))
+				ExpectedConditionExtended.elementToBeClickable(dateBox), driver, 50))
 			throw new FrameworkException(EmailEnvelopePage.class.getName()
 					+ " is not loaded");
 	}
@@ -192,7 +191,7 @@ public class EmailSchedulePage extends EmailBase {
 	 */
 	public boolean enableAndConfirmSchedule() {
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(enableBtn), driver, 10);
+				ExpectedConditionExtended.elementToBeClickable(enableBtn), driver, 10);
 		enableBtn.click();
 		if (DriverUtility.waitFor(
 				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 10) != null)

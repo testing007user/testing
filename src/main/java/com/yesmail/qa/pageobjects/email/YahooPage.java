@@ -15,7 +15,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
@@ -36,9 +35,6 @@ public class YahooPage extends BasePage {
 
 	@FindBy(css = "button[id='.save']")
 	private WebElement signInBtn;
-
-	@FindBy(css = "a > em[title='Mail']")
-	private WebElement mailLink;
 
 	@FindBy(css = ".inbox-label")
 	private WebElement inboxLink;
@@ -72,20 +68,11 @@ public class YahooPage extends BasePage {
 	 */
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(mailLink), driver, 10))
+				ExpectedConditionExtended.elementToBeClickable(userNameTxtBox), driver, 10))
 			throw new FrameworkException(YahooPage.class.getName()
 					+ " is not loaded");
 
-	}
-
-	/**
-	 * This method is added to click Mail link.
-	 * 
-	 */
-	public void clickMailLink() {
-		mailLink.click();
-
-	}
+	}	
 
 	/**
 	 * This method is added to login into Yahoo.
@@ -93,7 +80,7 @@ public class YahooPage extends BasePage {
 	 */
 	public void loginToYahoo() {
 		DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(userNameTxtBox),
+				ExpectedConditionExtended.elementToBeClickable(userNameTxtBox),
 				driver, 10);
 		userNameTxtBox.clear();
 		userNameTxtBox.sendKeys(PagesHelper.YAHOO_USERNAME);
@@ -107,13 +94,13 @@ public class YahooPage extends BasePage {
 	 * 
 	 */
 	public void clickInbox() {
-		DriverUtility.waitFor(ExpectedConditions.visibilityOf(inboxLink),
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(inboxLink),
 				driver, 10);
 		inboxLink.click();
-		DriverUtility.waitFor(ExpectedConditions.visibilityOf(inboxList),
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(inboxList),
 				driver, 10);
 
-	}
+	}	
 
 	/**
 	 * This method is added to search email from given master name.
@@ -122,34 +109,37 @@ public class YahooPage extends BasePage {
 	 * @param : Time to wait for required email (in minutes)
 	 * @return : MailFound(True/false)
 	 */
-	private boolean findEmail(String MasterName, int waitTime) {
-		boolean masterNameFound = false;
+	private boolean findEmail(String searchText,
+			int waitTime) {
+		boolean searchFound = false;
 		long startTime = System.currentTimeMillis() / 1000;
 		long stopTime = startTime + (waitTime * 60);
-
-		while (System.currentTimeMillis() / 1000 <= stopTime) {
+			
 			DriverUtility
-					.waitFor(ExpectedConditionExtended
-							.elementToBeClickable(fromElement), driver, 20);
-			for (WebElement mail : fromElement) {
-				if (mail.getText().equalsIgnoreCase(MasterName)) {
-					masterNameFound = true;
+			.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(fromElement), driver, 20);
+			
+			while (System.currentTimeMillis() / 1000 <= stopTime) {
+
+				for (WebElement mail : fromElement) {
+					if (mail.getText().equalsIgnoreCase(searchText)) {
+						searchFound = true;
+						break;
+					}
+				}
+				if (searchFound) {
 					break;
 				}
+				driver.navigate().refresh();
+				DriverUtility.waitFor(ExpectedConditionExtended
+						.elementToBeClickable(fromElement), driver, 30);
 			}
-			if (masterNameFound) {
-				break;
-			}
-			driver.navigate().refresh();
-			DriverUtility.waitFor(
-					ExpectedConditions.elementToBeClickable(inboxList), driver,
-					30);
-		}
-		if (!masterNameFound)
-			Reporter.log("MasterName: " + MasterName
+				if (!searchFound)
+			Reporter.log("search Text: " + searchText
 					+ " not found after waiting for " + waitTime
 					+ " minutes<br>");
-		return masterNameFound;
+
+		return searchFound;
 	}
 
 	/**
@@ -159,12 +149,12 @@ public class YahooPage extends BasePage {
 	 * @param : Time to wait for required email (in minutes)
 	 * @return : MailFound(True/false)
 	 */
-	public boolean verifyEmailOnYahoo(String masterName, int waitTime) {
-		load().isLoaded();
-		clickMailLink();
+	public boolean verifyEmailOnYahoo(String searchText,
+			int waitTime) {
+		load().isLoaded();	
 		loginToYahoo();
 		clickInbox();
-		return findEmail(masterName, waitTime);
+		return findEmail(searchText,waitTime);
 	}
 
 }

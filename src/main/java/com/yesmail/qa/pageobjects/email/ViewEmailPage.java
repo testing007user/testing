@@ -12,7 +12,6 @@
  */
 package com.yesmail.qa.pageobjects.email;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class ViewEmailPage extends BasePage {
 	 * This method is added to verify whether page is loaded.
 	 */
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(tableBody),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(tableBody),
 				driver, 50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");

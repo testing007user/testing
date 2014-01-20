@@ -45,11 +45,9 @@ public class ExpectedConditionExtended {
 			 
 
 			public WebElement apply(WebDriver driver) {
-				ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions
-						.visibilityOf(element);
-				WebElement element = visibilityOfElement.apply(driver);
+				
 				try {
-					if (element != null && element.isEnabled()) {
+					if (element.isDisplayed() && element.isEnabled()) {
 						return element;
 					} else {
 						return null;
@@ -196,9 +194,8 @@ public class ExpectedConditionExtended {
 			public Boolean apply(WebDriver driver) {
 				for (WebElement w : elements) {
 					try {
-						ExpectedCondition<WebElement> visibilityOfElement = ExpectedConditions.visibilityOf(w);
-						WebElement w1 = visibilityOfElement.apply(driver);
-						if ( w1 != null && w1.isEnabled()) {
+					
+						if ( w.isDisplayed() && w.isEnabled()) {
 							statusList.add(true);
 						} else {
 							statusList.add(false);
