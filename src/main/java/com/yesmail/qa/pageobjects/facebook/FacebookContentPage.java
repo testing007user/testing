@@ -16,16 +16,14 @@
 package com.yesmail.qa.pageobjects.facebook;
 
 import java.util.UUID;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
@@ -38,7 +36,7 @@ public class FacebookContentPage extends BasePage {
 	@FindBy(id = "message")
 	private WebElement messageTextBox;
 
-	@FindBy(css = ".m-facebookContent>div:nth-of-type(1) input#name")
+	@FindBy(id = "name")
 	private WebElement nameTextBox;
 
 	// @FindBy(id="pages")
@@ -71,7 +69,7 @@ public class FacebookContentPage extends BasePage {
 
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditions.elementToBeClickable(By.id("name")), driver,
+				ExpectedConditionExtended.elementToBeClickable(nameTextBox), driver,
 				50))
 			throw new FrameworkException(FacebookContentPage.class.getName()
 					+ " is not loaded");

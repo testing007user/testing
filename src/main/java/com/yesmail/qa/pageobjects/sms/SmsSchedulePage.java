@@ -18,12 +18,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
 
 public class SmsSchedulePage extends SmsBasePage {
 
@@ -88,7 +87,7 @@ public class SmsSchedulePage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(dateBox),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(dateBox),
 				driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
@@ -158,7 +157,6 @@ public class SmsSchedulePage extends SmsBasePage {
 
 	public void setDateTime() {
 		insertDate();
-		DriverUtility.waitforElementDisplay(driver, hourTextBox, 5);
 		enterCurrentHour();
 		enterCurrentMinutes();
 		setAmPm();

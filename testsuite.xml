@@ -11,7 +11,7 @@
 
 
 	<test name="New_E8_Automation_Test" preserve-order="true"
-		parallel="methods" thread-count="3">		
+		parallel="methods" thread-count="4">		
 		<classes>
 			<class name="com.yesmail.qa.test.configuration.ConfigurationClass"></class>
 			<!--<class name="com.yesmail.qa.test.dummytest.LoginTest"></class>-->

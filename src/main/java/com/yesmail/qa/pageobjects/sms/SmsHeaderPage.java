@@ -14,12 +14,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class SmsHeaderPage extends SmsBasePage {
 
@@ -71,7 +70,7 @@ public class SmsHeaderPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(smsName),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(smsName),
 				driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
