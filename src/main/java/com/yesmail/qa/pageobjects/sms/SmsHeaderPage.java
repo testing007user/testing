@@ -141,6 +141,8 @@ public class SmsHeaderPage extends SmsBasePage {
 		fillSMSMasterName();
 		selectShortcode(visibleShortCode);
 		saveHeader();
+		Reporter.log("Ribbon Text for Content Page is : " + getRibbonText(20)
+				+ "<br>");
 		return stepCompleted(1, 20);
 	}
 
