@@ -11,8 +11,10 @@ package com.yesmail.qa.pageobjects.email;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import com.yesmail.qa.pageobjects.BasePage;
 
 /***
@@ -22,7 +24,7 @@ import com.yesmail.qa.pageobjects.BasePage;
  */
 public class EmailBase extends BasePage {
 
-	@SuppressWarnings("unused")
+	
 	private WebDriver driver;
 
 	// Page Elements for EmailBase class
@@ -47,7 +49,9 @@ public class EmailBase extends BasePage {
 	 * Navigate to Email Content page
 	 */
 	public void navigateToContentTab() {
-		contentTab.isDisplayed();
+		//Below is work around for selenium issue https://code.google.com/p/selenium/issues/detail?id=6112
+		Actions actions = new Actions(driver);
+		actions.moveToElement(contentTab).perform();
 		contentTab.click();
 	}
 
