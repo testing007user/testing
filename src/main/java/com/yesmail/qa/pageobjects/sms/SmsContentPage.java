@@ -64,11 +64,13 @@ public class SmsContentPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(contentText),
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(saveContent),
 				driver, 50)) {
-
-			throw new FrameworkException(this.getClass().getName()
-					+ " is not loaded in 50 seconds");
+			navigateToContent();
+			if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(saveContent),
+					driver, 50))
+				throw new FrameworkException(this.getClass().getName()
+						+ " is not loaded in 50 seconds");			
 		}
 	}
 
