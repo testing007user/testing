@@ -18,9 +18,11 @@ package com.yesmail.qa.pageobjects.facebook;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
 
@@ -64,8 +66,8 @@ public class FacebookSchedulePage extends BasePage {
 	@FindBy(css = "//div[@class='datePickerNextButton datePickerNextButton-up']")
 	public WebElement month;
 
-	@FindBy(css = "table.ui-datepicker-calendar tbody tr td")
-	public List<WebElement> tds;
+	@FindBys({@FindBy(css = "table.ui-datepicker-calendar td a")})
+	public List<WebElement> tds;	
 
 	@FindBy(css = "input[id = 'scheduleNow']")
 	private WebElement scheduleImmediatelyButton;
@@ -122,7 +124,7 @@ public class FacebookSchedulePage extends BasePage {
 		dateBox.click();
 		for (WebElement td : tds) {
 			if (td.getText().equals(month_Day)) {
-				if (td.getAttribute("class").contains("ui-datepicker-today")) {
+				if (td.getAttribute("class").contains("ui-state-highlight")) {
 					td.click();
 					break;
 				}
@@ -189,8 +191,11 @@ public class FacebookSchedulePage extends BasePage {
 	public boolean enableandConfirmFacebook() {
 		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(enableButton), driver, 20);
 		enableButton.click();
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirmButton), driver, 30);
+		
+		if (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(confirmButton), driver, 10) != null)
 		confirmButton.click();
+		
 		return(DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
 		
 	}

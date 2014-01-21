@@ -77,7 +77,7 @@ public class EmailTest {
 		
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 		Reporter.log("Verifying Email from Master : "+masterName+" <br>",true);
-		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName, 1),"Verifying Email on yahoo from Master :"+masterName);
+		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName, 4),"Verifying Email on yahoo from Master :"+masterName);
 		a.assertAll();
 	}
 	

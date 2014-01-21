@@ -45,7 +45,7 @@ SAssert a = new SAssert();
 		
 		Reporter.log("Enabling and confirming on schedule Page <br>",true);
 		a.assertTrue(pof.smsSchedulePage().enableButtonAndConfirm(),"Enabling and Confirming Sms Schedule");
-	
+		a.assertAll();
 	}
 	
 	@Test(testName = "verifySmsMaster", dependsOnMethods = {"createSmsMaster"}, description = "Verifying Master Status on Listing Page", timeOut = 500000, enabled = true, groups = {"BAT","SMS"})
