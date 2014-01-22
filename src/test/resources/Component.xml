@@ -68,7 +68,7 @@
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
 	<page name="RequestReport">
-		<pageUrl>#reports/new</pageUrl>
+		<pageUrl>#report/new</pageUrl>
 		<lblPageTitle>Yesmail Interactive Suite</lblPageTitle>
 	</page>
 	<page name="Subscribers">

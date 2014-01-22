@@ -17,9 +17,10 @@
 			<!--<class name="com.yesmail.qa.test.dummytest.LoginTest"></class>-->
 			<class name="com.yesmail.qa.test.tests.EmailTest"></class>
 			<class name="com.yesmail.qa.test.tests.ImportTest"></class>
-		<class name="com.yesmail.qa.test.tests.SMSTest"></class>
+			<class name="com.yesmail.qa.test.tests.SMSTest"></class>
 			 <class name="com.yesmail.qa.test.tests.TweetTest"></class>
-			<class name="com.yesmail.qa.test.tests.FacebookTest"></class>					
+			<class name="com.yesmail.qa.test.tests.FacebookTest"></class>
+			<class name="com.yesmail.qa.test.tests.ReportTest"></class>					
 		</classes>
 	</test>
 

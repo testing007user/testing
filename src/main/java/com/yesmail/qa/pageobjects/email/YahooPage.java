@@ -68,7 +68,7 @@ public class YahooPage extends BasePage {
 	 */
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(userNameTxtBox), driver, 10))
+				ExpectedConditionExtended.elementToBeClickable(userNameTxtBox), driver, 50))
 			throw new FrameworkException(YahooPage.class.getName()
 					+ " is not loaded");
 
@@ -119,8 +119,7 @@ public class YahooPage extends BasePage {
 			.waitFor(ExpectedConditionExtended
 					.elementToBeClickable(fromElement), driver, 20);
 			
-			while (System.currentTimeMillis() / 1000 <= stopTime) {
-
+			while (System.currentTimeMillis() / 1000 <= stopTime) {				
 				for (WebElement mail : fromElement) {
 					if (mail.getText().equalsIgnoreCase(searchText)) {
 						searchFound = true;

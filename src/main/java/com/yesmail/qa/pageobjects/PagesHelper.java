@@ -26,6 +26,7 @@ public class PagesHelper {
 	public final static String YAHOO_USERNAME = prop.getValue("yahooUserName");
 	public final static String YAHOO_PASSWORD = prop.getValue("yahooPassword");
 
+	public static final String EMAIL_MMID = prop.getValue("email.mmid");
 	public final static String EMAIL_MASTER = prop.getValue("email.master");
 	public final static String URL = prop.getValue("URL");
 	public final static String USERNAME = prop.getValue("USERNAME");
@@ -36,6 +37,9 @@ public class PagesHelper {
 	public static final String EMAIL_ATTR_NAME = prop.getValue("email.attribute.name");
 	public static final String EMAIL_ATTR_VALUE = prop.getValue("email.attribute.value");
 	public static final String EMAIL_SUBSCRITPION_STATUS = prop.getValue("email.subscription.status");
+	public static final String EMAIL_USERID = prop.getValue("email.userid");
+	public static final String EMAIL_GROUP_NAME = prop.getValue("email.group.name");
+
 
 	//Added For MultiVariate
        public final static String MULTIVARIATE_SETUP_NAME = prop.getValue("multivariate.setuppage.name");
@@ -89,6 +93,10 @@ public class PagesHelper {
     	public static final String SMS_ATTR_NAME = prop.getValue("sms.attribute.name");
     	public static final String SMS_ATTR_VALUE = prop.getValue("sms.attribute.value");
     	public static final String SMS_SUBSCRITPION_STATUS = prop.getValue("sms.subscription.status");
+    	public static final String SMSSHORTCODE = prop.getValue("sms.subscription.status");
+    	public static final String SMSMESSAGECONTENT = prop.getValue("sms.content");
+		public static final String SMSUSERID = prop.getValue("sms.userid");
+		public static final String SMSMOBILENUMBER = prop.getValue("sms.mobilenumber");
 
     	public final static String STATUSENABLED = "enabled";
     	public final static String STATUSDELIVERED = "delivered";	
@@ -99,6 +107,14 @@ public class PagesHelper {
     	
     	//Import
 		public final static String IMPORT_PAGE_TITLE = "Yesmail Enterprise: Import Data";
+		
+		//Report
+		public final static String REPORT_TYPE = prop.getValue("report.type");
+		public final static String REPORT_VIEW =  prop.getValue("report.view");
+		
+	
+		
+		
 		
 		
 		

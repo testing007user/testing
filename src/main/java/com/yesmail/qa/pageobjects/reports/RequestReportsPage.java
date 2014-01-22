@@ -19,17 +19,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class RequestReportsPage extends BasePage {
 
+	
+	private WebDriver driver;
+	private String pageUrl;
 	/**
 	 * Initializing Page objects
 	 */
@@ -43,23 +44,11 @@ public class RequestReportsPage extends BasePage {
 	@FindBy(css = "#mainContentArea div:nth-child(3) select.mailingViewSelect")
 	private WebElement viewBy;
 
-	@FindBy(css = "button#selectAll")
-	private WebElement selectAllButton;
-
 	@FindBy(css = "table.dataTable tr:nth-of-type(1) td input")
 	private WebElement firstRowCheckBox;
 
-	@FindBy(name = "viewName")
-	private WebElement veiwNameTextBox;
-
 	@FindBy(css = "div:nth-child(2) button:nth-of-type(2).moveRight")
 	private WebElement singleSelectbtn;
-
-	@FindBy(css = "div:nth-child(1) select.crossTabSelect")
-	private WebElement crosstabCheckBox;
-
-	@FindBy(css = "label.radio:nth-of-type(2) input[name=runNow]")
-	private WebElement scheduleReportRadioButton;
 
 	@FindBy(css = "label.radio:nth-of-type(1) input[name=runNow]")
 	private WebElement runReportNowRadioButton;
@@ -71,16 +60,7 @@ public class RequestReportsPage extends BasePage {
 	private WebElement requestReportButton;
 
 	@FindBys({ @FindBy(css = "select.availableOptions") })
-	private List<WebElement> attributesList;
-
-	@FindBy(css = "div:nth-child(3)>button:nth-of-type(3)")
-	private WebElement viewSaveBtnCreateNew;
-
-	@FindBy(xpath = "//a[@href='#reports']")
-	private WebElement reportLink;
-
-	@FindBy(css = "table.ui-datepicker-calendar tbody td a.ui-state-highlight")
-	private WebElement calenderTodaysDate;
+	private List<WebElement> attributesList;	
 
 	@FindBys({ @FindBy(css = "table.ui-datepicker-calendar tbody td") })
 	private List<WebElement> calenderTableCol;
@@ -99,10 +79,9 @@ public class RequestReportsPage extends BasePage {
 
 	@FindBy(css = "div:nth-child(4) input.message")
 	private WebElement messageId;
-
-	private WebDriver driver;
-
-	private String pageUrl;
+	
+	@FindBy(css = "tbody > tr:nth-of-type(1) > td:nth-of-type(2).sorting_1")
+	private WebElement reportId;	
 
 	/**
 	 * Initializing Constructor
@@ -120,12 +99,12 @@ public class RequestReportsPage extends BasePage {
 		return this;
 	}
 
-	public void isLoaded() {
-		ExpectedCondition<WebElement> condition = elementToBeClickable(reportTypeDropDown);
-		if (null == DriverUtility.waitFor(condition, driver, 50)) {
+	public void isLoaded() {		
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(reportTypeDropDown), driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
 		}
+		
 	}
 
 	/**
@@ -147,7 +126,7 @@ public class RequestReportsPage extends BasePage {
 
 	public void selectMailingView(String visibleText) {
 		DriverUtility.selectDropDown(viewBy, visibleText, 0);
-		DriverUtility.waitforElementDisplay(driver, tableMasterIDMailingView,
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(tableMasterIDMailingView),driver,
 				30);
 		firstRowCheckBox.click();
 	}
@@ -234,8 +213,27 @@ public class RequestReportsPage extends BasePage {
 		selectMailingView(visibleTextMailingView);
 		selectAttributes(attributeText);
 		runReportNowRadioButton.click();
-		requestReportButton.click();
+		clickRequestReport();
 		return getMasterId();
+	}
+
+	/**
+	 * This method is added to click on Request Report Button
+	 * 
+	 * @author sangeetap	 
+	 */
+	public void clickRequestReport(){
+		requestReportButton.click();	
+	}
+	
+	/**
+	 * This method is added to get the report Id
+	 * @return - reportId
+	 * @author sangeetap	 
+	 */
+	public String getReportId(){
+		return(reportId.getText());
+		
 	}
 
 	/***

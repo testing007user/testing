@@ -35,7 +35,6 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import com.yesmail.qa.pageobjects.facebook.FacebookContentPage;
 
 public class SubscribersPage {
 
@@ -54,9 +53,6 @@ public class SubscribersPage {
 
 	@FindBy(css = "input[id='searchFirstName']")
 	private WebElement firstNameInput;
-
-	@FindBy(css = "input[id='searchLastName']")
-	private WebElement lastNameInput;
 
 	@FindBy(id = "searchMobile")
 	private WebElement mobileNumberInput;
@@ -85,9 +81,6 @@ public class SubscribersPage {
 	@FindBy(css = "div[data-target=subscriberDetails]")
 	private WebElement subscriberDetailsSection;
 
-	@FindBy(id = "inputReferral")
-	private WebElement subscribedCheckBox;
-
 	@FindBy(id = "inputEmail")
 	private WebElement emailForNewSubscriber;
 
@@ -103,50 +96,14 @@ public class SubscribersPage {
 	@FindBy(id = "inputEmailTypeHtml")
 	private WebElement htmlEmailTypeRadioForNewSubscriber;
 
-	@FindBy(id = "inputEmailTypeText")
-	private WebElement textEmailTypeRadioForNewSubscriber;
-
-	@FindBy(id = "inputMobile")
-	private WebElement mobileNumberForNewSubscriber;
-
 	@FindBy(id = "divisionMembership")
 	private WebElement divisionMembershipForNewSubscriber;
 
 	@FindBy(id = "divisionSubscription")
 	private WebElement divisionSubscriptionForNewSubscriber;
 
-	@FindBy(id = "mobileMembership")
-	private WebElement mobileMembershipForNewSubscriber;
-
-	@FindBy(id = "mobileSubscription")
-	private WebElement mobileSubscriptionForNewSubscriber;
-
 	@FindBy(css = "button[class='ym-btn ym-btn-primary save pull-right']")
-	private WebElement saveButton;
-
-	@FindBy(css = "button[class='ym-btn cancel pull-right']")
-	private WebElement cancelButton;
-
-	@FindBy(css = "form div:nth-child(1) span:nth-of-type(1)")
-	private WebElement lastModifiedTime;
-
-	@FindBy(css = "form div:nth-child(1) span:nth-of-type(2)")
-	private WebElement lastSubscribedTime;
-
-	@FindBy(css = "form div:nth-child(1) span:nth-of-type(3)")
-	private WebElement lastUnsubscribedTime;
-
-	@FindBy(css = ".attributePanel")
-	private WebElement cssTemplateForDataAttributes;
-
-	@FindBy(css = "DataTables_Table_0")
-	private WebElement cssForSearchResults;
-
-	@FindBy(css = ".dataTables_scrollHead")
-	private WebElement cssForSearchResultHeaders;
-
-	@FindBy(css = "#DataTables_Table_0 tbody tr td:nth-of-type(3)")
-	private WebElement subscriberEmails;
+	private WebElement saveButton;	
 
 	/**
 	 * Constructor section

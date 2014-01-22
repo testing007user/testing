@@ -117,8 +117,10 @@ public class SmsSchedulePage extends SmsBasePage {
 				driver, 20);
 		for (WebElement date : dateList) {
 			if (date.getText().equals(month_Day)) {
-				date.click();
-				break;
+				if (date.getAttribute("class").contains("ui-state-highlight")) {
+					date.click();					
+					break;
+				}
 			}
 		}
 	}

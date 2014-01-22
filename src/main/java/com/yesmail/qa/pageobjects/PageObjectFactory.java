@@ -14,6 +14,7 @@ import com.yesmail.qa.pageobjects.counts.CountsPage;
 import com.yesmail.qa.pageobjects.email.EmailContentPage;
 import com.yesmail.qa.pageobjects.email.EmailEnvelopePage;
 import com.yesmail.qa.pageobjects.email.EmailSchedulePage;
+import com.yesmail.qa.pageobjects.email.EmailSummaryPage;
 import com.yesmail.qa.pageobjects.email.EmailTargetPage;
 import com.yesmail.qa.pageobjects.email.ViewEmailPage;
 
@@ -92,6 +93,7 @@ public class PageObjectFactory {
 	private FacebookContentPage facebookContentPage;
 	private FacebookSchedulePage facebookSchedulePage;
 	private ViewFacebookPage viewFacebookPage;
+	private EmailSummaryPage emailSummaryPage;
 
 	private YahooPage yahooPage;
 
@@ -386,5 +388,12 @@ public class PageObjectFactory {
 					XMLParser
 							.readComponentValueFromXML("ViewFacebookPage.pageUrl"));
 		return viewFacebookPage;
+	}
+	
+	public EmailSummaryPage emailSummaryPage() {
+		if (emailSummaryPage == null)
+			emailSummaryPage = new EmailSummaryPage(
+					driver);
+		return emailSummaryPage;
 	}
 }

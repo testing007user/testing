@@ -46,6 +46,9 @@ public class ImportHomePage extends BasePage {
 
 	@FindBy(css = ".dataTable tbody")
 	private WebElement tableBody;
+	
+	@FindBy(css = "tbody > tr > td:nth-of-type(5).selectable")
+	private List<WebElement> filterByMe;
 
 	// Constructor section
 	public ImportHomePage(WebDriver driver, String pageUrl) {
@@ -82,6 +85,7 @@ public class ImportHomePage extends BasePage {
 	 */
 	public void selectDropDownOnImportPage() {
 		DriverUtility.selectDropDown(ownedByDropDown, "Me", 1);
+		DriverUtility.verifyListFilteredBy(driver, filterByMe, "Me");
 		DriverUtility.selectDropDown(requestedByDropDown,
 				"Within the last 24 hours", 1);
 	}

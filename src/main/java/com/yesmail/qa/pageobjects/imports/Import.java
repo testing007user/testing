@@ -269,7 +269,7 @@ public class Import extends BasePage {
 	private void createNewMap() {
 		Reporter.log("Creating New Map<br>");
 		editMapBtn.click();
-		DriverUtility.waitforElementDisplay(driver, associtatMapBtn, 20);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(associtatMapBtn), driver, 30);
 		for (WebElement option : optionFileColumns) {
 			option.click();
 			for (WebElement option1 : optionSubscriberAttributesDataType) {

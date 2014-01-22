@@ -95,7 +95,7 @@ public class EmailSchedulePage extends EmailBase {
 	public EmailSchedulePage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-		
+
 		PageFactory.initElements(driver, this);
 
 	}
@@ -113,7 +113,8 @@ public class EmailSchedulePage extends EmailBase {
 	 */
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(dateBox), driver, 50))
+				ExpectedConditionExtended.elementToBeClickable(dateBox),
+				driver, 50))
 			throw new FrameworkException(EmailEnvelopePage.class.getName()
 					+ " is not loaded");
 	}
@@ -132,8 +133,10 @@ public class EmailSchedulePage extends EmailBase {
 
 		for (WebElement date : dateList) {
 			if (date.getText().equals(month_Day)) {
-				date.click();
-				break;
+				if (date.getAttribute("class").contains("ui-state-highlight")) {
+					date.click();
+					break;
+				}
 			}
 		}
 	}
@@ -180,8 +183,9 @@ public class EmailSchedulePage extends EmailBase {
 	 * @return step completed Icon present(True/False)
 	 */
 	public boolean saveScheduleButton() {
-		saveSchedule.click();		
-		Reporter.log("Ribbon Text for SchedulePage is: "+getRibbonText(10)+"<br>");
+		saveSchedule.click();
+		Reporter.log("Ribbon Text for SchedulePage is: " + getRibbonText(10)
+				+ "<br>", true);
 		return stepCompleted(4, 10);
 	}
 
@@ -191,17 +195,21 @@ public class EmailSchedulePage extends EmailBase {
 	 */
 	public boolean enableAndConfirmSchedule() {
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(enableBtn), driver, 10);
+				ExpectedConditionExtended.elementToBeClickable(enableBtn),
+				driver, 10);
 		enableBtn.click();
 		if (DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 10) != null)
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn),
+				driver, 10) != null)
 			confirmBtn.click();
 		if (DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(confirmBtn), driver, 10) != null)
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn),
+				driver, 10) != null)
 			confirmBtn.click();
 
-		return(DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
+		return (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(disableBtn),
+				driver, 30) != null);
 	}
 
 	/***
@@ -309,6 +317,28 @@ public class EmailSchedulePage extends EmailBase {
 				break;
 			}
 		}
+	}
+
+	/***
+	 * This method is added to get the Scheduled Date and Time
+	 * 
+	 * @return : Scheduled date and time in required format
+	 */
+	public String scheduleDateTime() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(dateBox),
+				driver, 20);
+		String amPm = null;
+		String date = dateBox.getAttribute("value");
+		String hour = hourElement.getAttribute("value");
+		String minutes = minute.getAttribute("value");
+		if (am.isSelected()) {
+			amPm = "AM";
+		} else {
+			amPm = "PM";
+		}
+		return (date + " " + hour + ":" + minutes + ":00" + " " + amPm);
+
 	}
 
 }

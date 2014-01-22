@@ -60,6 +60,25 @@ SAssert a = new SAssert();
 		pof.viewSmsPage().load().isLoaded();				
 		a.assertTrue(pof.viewSmsPage().verifySmsStatus(masterId,PagesHelper.STATUSDELIVERED), "Verifying Master ID "+ masterId +" status on View Sms Page");		
 		a.assertAll();
-	}
+	}	
+	
+	@Test(testName = "smsSinglePreview", description = "Verify SMS  preview ", timeOut = 500000, enabled = true, groups = { "SMSSINGLEPREVIEW"})
+	 public void smsSinglePreview() 
+	 {
+	  PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
+	  pof.loginPage().load().isLoaded();
+	  pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
+	  pof.homePage().isLoaded();
+	  
+	  Reporter.log("Loading Sms Header Page <br>",true);
+	  pof.smsHeaderPage().load().isLoaded();
+	  pof.smsHeaderPage().saveSmsHeader(PagesHelper.SMSSHORTCODE);
+	  a.assertTrue(pof.smsHeaderPage().stepCompleted(1, 10),"Create SMS Header");
+	  
+	  Reporter.log("Loading Sms Content Page <br>",true);
+	  pof.smsContentPage().load().isLoaded();	  
+	  a.assertTrue(pof.smsContentPage().previewWithMobileNumber(PagesHelper.SMSMESSAGECONTENT, PagesHelper.SMSUSERID,PagesHelper.SMSMOBILENUMBER),"Create SMS Content Preview Mobile");
+	  a.assertAll();
+	 }
 
 }

@@ -81,5 +81,97 @@ public class EmailTest {
 		a.assertAll();
 	}
 	
+	@Test(testName = "singlePreviewEmail", description = "Verifying Single Preview on Email", timeOut = 500000, enabled = true, groups = {"BAT","DEMO","Email","Preview"})
+	public void singlePreviewEmail() {
+		
+		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
+		pof.loginPage().load().isLoaded();
+		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
+		pof.homePage().isLoaded();
+		
+		Reporter.log("Creating Email Envelope Page <br>",true);		
+		pof.emailEnvelopePage().load().isLoaded();		
+		masterName = pof.emailEnvelopePage().createEnvelope();
+		Reporter.log("Envelope Created with Master Name: "+masterName+"<br>",true);
+		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
+		
+		Reporter.log("Creating Email Content Page <br>",true);
+		pof.emailContentPage().load().isLoaded();
+		Reporter.log("Uploading Email Content <br>",true);
+		a.assertTrue(pof.emailContentPage().uploadFile(),"Uploading email Content");		
+		pof.emailContentPage().selectSinglePreview();	
+		
+		Reporter.log("Verifying Email on Yahoo <br>",true);
+		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName,5),"Verify Email on Yahoo");		
+		a.assertAll();
+		
+	}
+	
+	@Test(testName = "groupPreviewEmail", description = "Verifying Group Preview on Email", timeOut = 500000, enabled = true, groups = {"BAT","DEMO","Email","Preview"})
+	public void groupPreviewEmail() {
+		
+		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
+		pof.loginPage().load().isLoaded();
+		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
+		pof.homePage().isLoaded();
+		
+		Reporter.log("Creating Email Envelope Page <br>",true);		
+		pof.emailEnvelopePage().load().isLoaded();		
+		masterName = pof.emailEnvelopePage().createEnvelope();
+		Reporter.log("Envelope Created with Master Name: "+masterName+"<br>",true);
+		a.assertTrue(pof.emailEnvelopePage().stepCompleted(1, 10),"Creating email envelope page");
+		
+		Reporter.log("Creating Email Content Page <br>",true);
+		pof.emailContentPage().load().isLoaded();
+		Reporter.log("Uploading Email Content <br>",true);
+		a.assertTrue(pof.emailContentPage().uploadFile(),"Uploading email Content");		
+		pof.emailContentPage().selectGroupPreview();	
+		
+		Reporter.log("Verifying Email on Yahoo <br>",true);
+		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName, 5),"Verify Email on Yahoo");		
+		a.assertAll();
+	}
+	
+	
+	@Test(testName = "emailSummary", description = "Verifying Email Summary", timeOut = 500000, enabled = true, groups = {"BAT","DEMO","Email"})
+	public void emailSummary() {		
+		String envelopeDivision = null;
+		String envelopeEncoding = null;
+		String envelopeFromName = null;
+		String targetCount = null;
+		String scheduledDateTime = null;	
+		
+		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());		
+		pof.loginPage().load().isLoaded();
+		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
+		pof.homePage().isLoaded();
+		
+		Reporter.log("Loading Email Envelope Page <br>",true);		
+		pof.emailEnvelopePage().load(PagesHelper.EMAIL_MMID).isLoaded();
+		envelopeDivision = pof.emailEnvelopePage().envelopeDivision();
+		envelopeEncoding = pof.emailEnvelopePage().envelopeEncoding();
+		envelopeFromName = pof.emailEnvelopePage().envelopeFromName();
+		
+		Reporter.log("Loading Email Target Page <br>",true);		
+		pof.emailTargetPage().load().isLoaded();		
+		targetCount = pof.emailTargetPage().targetCount();
+		
+		Reporter.log("Loading Email Schedule Page <br>",true);
+		pof.emailSchedulePage().load();
+		scheduledDateTime = pof.emailSchedulePage().scheduleDateTime();
+		
+		Reporter.log("Loading Email Summary Page <br>",true);
+		pof.emailSummaryPage().load().isLoaded();	
+		
+		a.assertEquals(targetCount,pof.emailSummaryPage().targetCount(),"Verifying Target Count");
+		a.assertEquals(scheduledDateTime,pof.emailSummaryPage().scheduledStartDate(),"Verifying Scheduled Start Date");
+		a.assertEquals(envelopeDivision, pof.emailSummaryPage().envelopeDivision(),"Verifying Envelope Division");
+		a.assertEquals(envelopeEncoding, pof.emailSummaryPage().envelopeEncoding(),"Verifying Envelope Encoding");
+		a.assertTrue(pof.emailSummaryPage().envelopeFromText().contains(envelopeFromName),"Verifying Envelope FromName");		
+		a.assertTrue(pof.emailSummaryPage().verifyContentSection(),"Verifying Content Section");
+		a.assertTrue(pof.emailSummaryPage().verifySqlSection(),"Verifying Targeting SQL Section");			
+		a.assertAll();
+	}	
+	
 	
 }

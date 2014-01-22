@@ -21,11 +21,14 @@ import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.BasePage;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class ReportsPage extends BasePage {
+	
+	private WebDriver driver;
+	private String pageUrl;
 
 	/**
 	 * Initializing Page objects
@@ -37,29 +40,26 @@ public class ReportsPage extends BasePage {
 	@FindBy(css = "#mainContentArea div:nth-child(3) select[name='ownerSelect']")
 	private WebElement ownerSelectDropDown;
 
-	@FindBy(css = "#mainContentArea div:nth-child(3) select[name='statusSelect']")
-	private WebElement statusSelectDropDown;
-
 	@FindBy(css = "#mainContentArea div:nth-child(3) select[name='requestedSelect']")
 	private WebElement requestedSelectDropDown;
 
 	@FindBy(css = "#mainContentArea div:nth-child(2) button")
 	private WebElement requestNewReportButton;
-	
-	@FindBys({@FindBy(css = "table tbody tr td:nth-child(1)") })
-	private List<WebElement> jobIdTds;
-	
-	@FindBys({@FindBy(css = "table tbody tr td:nth-child(4) span") })
-	private List<WebElement> currentStatusTds;
 
 	@FindBys({ @FindBy(css = "div:nth-child(2) table tbody tr") })
 	private List<WebElement> trCollections;
+	
+	@FindBys({ @FindBy(css = "table tbody tr td:nth-child(2)") })
+	private List<WebElement> messageIdTds;
 
 	@FindBy(css = ".dataTable tbody")
 	private WebElement tableBody;
+	
+	@FindBy(css = "tbody > tr > td:nth-of-type(3).selectable")
+	private List<WebElement> filterByType;
 
-	private WebDriver driver;
-	private String pageUrl;
+	@FindBy(css = "tbody > tr > td:nth-of-type(5).selectable")
+	private List<WebElement> filterByMe;	
 
 	/**
 	 * Initializing Constructor
@@ -77,7 +77,7 @@ public class ReportsPage extends BasePage {
 	
 		if (null == DriverUtility
 				.waitFor(
-						elementToBeClickable(typeSelectDropDown),
+						ExpectedConditionExtended.elementsToBeClickable(tableBody),
 						driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
@@ -92,16 +92,6 @@ public class ReportsPage extends BasePage {
 	}
 
 	/***
-	 * This is the enum define for report option
-	 * 
-	 * @author sangeetap
-	 * 
-	 */
-	public enum REPORTS_DROPDOWN {
-		TYPE, OWNED_BY, STATUS, REQUESTED
-	}
-
-	/***
 	 * This method is added to search the Reports by Type,owned by, Status
 	 * ,requested options
 	 * 
@@ -109,81 +99,30 @@ public class ReportsPage extends BasePage {
 	 * 
 	 */
 
-	public void selectDropDownOnReportsPage(REPORTS_DROPDOWN selectDropDown,
-			String TextValue) {
-		WebElement targetElement = null;
-		switch (selectDropDown) {
-		case TYPE:
-			targetElement = typeSelectDropDown;
-			break;
-		case OWNED_BY:
-			targetElement = ownerSelectDropDown;
-			break;
-		case STATUS:
-			targetElement = statusSelectDropDown;
-			break;
-		case REQUESTED:
-			targetElement = requestedSelectDropDown;
-			break;
-		}
-		DriverUtility.selectDropDown(targetElement, TextValue, 1);
-
-	}
+	public void selectDropDownOnReportsPage() {
+		DriverUtility.selectDropDown(typeSelectDropDown,
+				PagesHelper.REPORT_TYPE, 1);
+		DriverUtility.verifyListFilteredBy(driver, filterByType,
+				PagesHelper.REPORT_TYPE);
+		DriverUtility.selectDropDown(ownerSelectDropDown, "Me", 1);
+		DriverUtility.verifyListFilteredBy(driver, filterByMe, "Me");
+		DriverUtility.selectDropDown(requestedSelectDropDown,
+				"Within the Last 24 Hours", 1);		
+	}	
 	
 	
-	/**
-	 * This method is added to select the report type Delivery and Response from Type
-	 * drop down.
-	 * 
-	 * @param typeOption
-	 *            - text to select type option
-	 */
-	public void selectViewType(String typeOption) {
-
-		DriverUtility
-				.selectDropDown(typeSelectDropDown, typeOption, 0);
-		DriverUtility.waitforElementDisplay(driver, tableBody, 30);
-	}
-
 	/***
-	 * This method is added to find the job number of the current generated report by status requested.
-	 * @param currentStatus - generated report current status 
-	 * @return - report job id
-	 */
-	public String getReportId(String currentStatus)
-	{
-		
-		String reportId = null;
-	
-		for (int index = 0; index < trCollections.size(); index++) 
-
-			{
-
-			if (currentStatusTds.get(index).getText().equalsIgnoreCase(currentStatus)) {
-				
-				WebElement jobIdCol = driver
-						.findElement(By
-								.cssSelector("div:nth-child(2) table tbody tr> td:nth-of-type(1)"));
-				reportId= jobIdCol.getText();
-					break;
-				}
-		}
-				
-		return reportId;
-	}
-
-	/***
-	 * This method is added to verify the status of the created report type Delivery and Response
+	 * This method is added to verify the status of the created report type
+	 * Delivery and Response
 	 * 
 	 * @param jobId
-	 *            - created report id 
+	 *            - created report id
 	 * @param expectedStatus
 	 *            - expected status of the created report
 	 * @return
 	 */
 
-	public boolean verifyReportsStatus(String jobId, String expectedStatus) {
-		// selectViewType("Delivery and Response");
+	public boolean verifyReportsStatus(String reportId, String expectedStatus) {
 		int index;
 		boolean jobFound = false;
 		boolean expStatus = false;
@@ -195,11 +134,12 @@ public class ReportsPage extends BasePage {
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
 
-			DriverUtility.waitforElementDisplay(driver, tableBody, 30);
+			DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(trCollections),driver,30);
 
 			for (index = 0; index < trCollections.size(); index++) {
 
-				if (jobIdTds.get(index).getText().equalsIgnoreCase(jobId)) {
+				if (messageIdTds.get(index).getText()
+						.equalsIgnoreCase(reportId)) {
 					jobFound = true;
 					WebElement statusCol = driver
 							.findElement(By
@@ -219,11 +159,11 @@ public class ReportsPage extends BasePage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitforElementDisplay(driver, tableBody, 40);
-			selectViewType("Delivery and Response");
+			DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(tableBody),driver,40);			
+			selectDropDownOnReportsPage();
 		}
 		return expStatus;
-	}
+	}	
 
 	/***
 	 * This method is added to navigate to the request new report page

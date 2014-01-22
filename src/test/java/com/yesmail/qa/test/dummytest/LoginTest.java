@@ -160,7 +160,7 @@ public class LoginTest {
 		 pof.homePage().isLoaded();
 		 pof.facebookContentPage().load().isLoaded();
 		 a.assertTrue(pof.facebookContentPage().fillFacebookContent(),"fill facebook content");		 
-		 pof.facebookSchedulePage().navigateToScheduleTab();
+		 //pof.facebookSchedulePage().navigateToScheduleTab();
 		 pof.facebookSchedulePage().isLoaded();
 		 String masterId = pof.facebookSchedulePage().getMasterId();
 		 pof.facebookSchedulePage().scheduleMaster();

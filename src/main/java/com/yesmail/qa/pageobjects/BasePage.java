@@ -11,6 +11,7 @@ package com.yesmail.qa.pageobjects;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -78,5 +79,20 @@ public class BasePage {
 				return false;
 			return true;
 		 }
+	
+	/***
+	 * This method is added to get the selected text from disabled dropDown	 
+	 * @author kapilag
+	 * @param element : DropDown WebElement
+	 * @param driver : Driver
+	 * @return : selected text
+	 */
+		public static String disabledSelectBoxText(WebElement element,WebDriver driver)
+		{
+		 Long i = (Long) ((JavascriptExecutor) driver).executeScript("return arguments[0].selectedIndex", element);
+		 String val = (String)((JavascriptExecutor) driver).executeScript("return arguments[0].options["+i+"].text", element);
+		
+		 return val;
+		}
 
 }

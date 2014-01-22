@@ -107,9 +107,9 @@ public class FacebookSchedulePage extends BasePage {
 	/***
 	 * This method is added to navigate to Schedule Tab
 	 */
-	public void navigateToScheduleTab() {
+	public FacebookSchedulePage load() {
 		scheduleTab.click();
-		DriverUtility.waitforElementDisplay(driver, dateBox, 30);
+		return this;
 	}
 
 	/***
@@ -129,8 +129,7 @@ public class FacebookSchedulePage extends BasePage {
 					break;
 				}
 			}
-		}
-		DriverUtility.waitforElementDisplay(driver, dateBox, 20);
+		}	
 	}
 
 	/***

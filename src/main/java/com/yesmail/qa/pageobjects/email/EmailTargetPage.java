@@ -57,6 +57,9 @@ public class EmailTargetPage extends EmailBase {
 
 	@FindBy(css = "input.string-value")
 	private WebElement segmentInputTextBox;
+	
+	@FindBy(css = "span.count-status")
+	private WebElement countStatus;
 
 
 	/**
@@ -171,6 +174,19 @@ public class EmailTargetPage extends EmailBase {
 				DriverUtility.selectDropDown(hasEmailDropDown, "Yes", 1);
 		}
 		return true;
+	}
+	
+	/**
+	 * This method is added to get the target Count
+	 * 
+	 * @return Target Count
+	 */
+	public String targetCount() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(countStatus),
+				driver, 20);
+		String[] targetTime = countStatus.getText().split(": ");
+		return targetTime[1].split(" ")[0];
 	}
 
 }

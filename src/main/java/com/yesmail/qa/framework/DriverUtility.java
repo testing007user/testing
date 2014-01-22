@@ -9,6 +9,8 @@
 package com.yesmail.qa.framework;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
@@ -29,8 +31,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.google.common.base.Stopwatch;
 import com.yesmail.qa.framework.configuration.CommandLineArgs;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
 /***
  * Only Selenium WebDriver Related Utility function
@@ -292,6 +296,53 @@ public class DriverUtility {
 			}
 		}
 	}
+	
+	/***
+	 * Verifying whether the list is filtered by filter element
+	 * 
+	 * @param driver
+	 * @param list
+	 *            : List of webElements
+	 * @param filteredBy
+	 *            : filter by String
+	 * 
+	 * @return: status(true/false)
+	 */
+	public static boolean verifyListFilteredBy(WebDriver driver,
+			List<WebElement> list, String filteredBy) {
+		List<Boolean> statusList = new ArrayList<Boolean>();
+		boolean result = false;
+		int i = 1;
+
+		while (i <= 3) {
+			try {
+				DriverUtility.waitFor(
+						ExpectedConditionExtended.elementToBeClickable(list),
+						driver, 30);
+				statusList.clear();
+				for (WebElement element : list) {
+					if (element.getText().equalsIgnoreCase(filteredBy)) {
+						statusList.add(true);
+					} else {
+						statusList.add(false);
+					}
+				}
+				if (statusList.contains(false)) {
+					result = false;
+				} else {
+					result = true;
+					break;
+				}
+
+			} catch (ElementNotFoundException e) {
+			} catch (StaleElementReferenceException e) {
+			}
+
+			i++;
+		}
+		return result;
+	}
+	
 	
 	
 	

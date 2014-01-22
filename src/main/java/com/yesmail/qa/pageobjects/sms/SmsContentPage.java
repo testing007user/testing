@@ -48,6 +48,9 @@ public class SmsContentPage extends SmsBasePage {
 	@FindBy(id = "preview")
 	private WebElement previewBtn;
 
+	@FindBy(css = ".page div.alert-error")
+	private WebElement alertError;
+
 	@SuppressWarnings("unused")
 	private String pageUrl;
 
@@ -64,13 +67,15 @@ public class SmsContentPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(saveContent),
+		if (null == DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(saveContent),
 				driver, 50)) {
 			navigateToContent();
-			if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(saveContent),
-					driver, 50))
+			if (null == DriverUtility
+					.waitFor(ExpectedConditionExtended
+							.elementToBeClickable(saveContent), driver, 50))
 				throw new FrameworkException(this.getClass().getName()
-						+ " is not loaded in 50 seconds");			
+						+ " is not loaded in 50 seconds");
 		}
 	}
 
@@ -84,7 +89,8 @@ public class SmsContentPage extends SmsBasePage {
 	 * 
 	 * @author sangeetap
 	 */
-	public void previewWithUserid(String textToEnterInContent, String smsUserID) {
+	public boolean previewWithUserid(String textToEnterInContent,
+			String smsUserID) {
 
 		contentText.clear();
 		contentText.sendKeys(textToEnterInContent);
@@ -92,6 +98,46 @@ public class SmsContentPage extends SmsBasePage {
 		previewTab.click();
 		userId.sendKeys(smsUserID);
 		testButton.click();
+		Reporter.log(" SMS Content User Id Test Ribben Text Message : <br>"
+				+ getRibbonText(10), true);
+		return (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(alertError),
+				driver, 20) == null);
+
+	}
+
+	/**
+	 * Sending the SMS preview to a Mobile number
+	 * 
+	 * @param mobileNumber
+	 * @author sangeetap
+	 */
+	public boolean previewWithMobileNumber(String textToEnterInContent,
+			String smsUserID, String smsMobileNo) {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(contentText),
+				driver, 20);
+		contentText.clear();
+		contentText.sendKeys(textToEnterInContent);
+		saveContent.click();
+		Reporter.log(" SMS Header Ribben Text Message : <br>"
+				+ getRibbonText(10));
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(previewTab),
+				driver, 20);
+		previewTab.click();
+		userId.sendKeys(smsUserID);
+		previewid.sendKeys(smsMobileNo);
+		previewBtn.click();
+		Reporter.log(" SMS Content Send Preview Ribben Text Message : <br>"
+				+ getRibbonText(10), true);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(testButton),
+				driver, 20);
+		return (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(alertError),
+				driver, 20) == null);
+
 	}
 
 	/**

@@ -36,7 +36,10 @@ public class EmailBase extends BasePage {
 	private WebElement scheduleTab;
 
 	@FindBy(css = "a.mvt-ico-target")
-	private WebElement targetTab;	
+	private WebElement targetTab;
+	
+	@FindBy(css = "a.mvt-ico-summary")
+	private WebElement summaryTab;	
 
 	// Constructor section
 	public EmailBase(WebDriver driver) {
@@ -67,6 +70,13 @@ public class EmailBase extends BasePage {
 	 */
 	public void navigateToScheduleTab() {
 		scheduleTab.click();
+	}
+	
+	/***
+	 * Navigate to Email Summary page
+	 */
+	public void navigateToSummaryTab() {
+		summaryTab.click();
 	}
 
 }

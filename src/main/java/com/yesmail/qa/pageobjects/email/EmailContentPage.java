@@ -11,6 +11,7 @@
  *    
  */
 package com.yesmail.qa.pageobjects.email;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,10 +23,12 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.PagesHelper;
+
 /***
  * 
  * @author kapilag
- *
+ * 
  */
 public class EmailContentPage extends EmailBase {
 
@@ -70,10 +73,31 @@ public class EmailContentPage extends EmailBase {
 	@FindBy(css = "html>body")
 	private WebElement htmlContent;
 
+	@FindBy(id = "emailPreviewModal")
+	private WebElement emailPreviewBtn;
+
+	@FindBy(css = "input[data-id='emailAddressInput']")
+	private WebElement emailAddressTextBox;
+
+	@FindBy(css = "input[value='singleAddress']")
+	private WebElement singleAddressRadioBtn;
+
+	@FindBy(css = "input[value='emailList']")
+	private WebElement emailListRadioBtn;
+
+	@FindBy(css = "input[data-id='userIdInput']")
+	private WebElement userIdTextBox;
+
+	@FindBy(css = "button[data-id='sendPreview']")
+	private WebElement sendPreviewBtn;
+
+	@FindBy(css = ".emailList>select")
+	private WebElement emailListDropdown;
+
 	public EmailContentPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
-		
+
 		PageFactory.initElements(driver, this);
 
 	}
@@ -90,16 +114,16 @@ public class EmailContentPage extends EmailBase {
 	 * This method is added to verify page load.
 	 */
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(emailContent),
-				driver, 50))
-		{
+		if (null == DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(emailContent),
+				driver, 50)) {
 			driver.navigate().refresh();
-			if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(emailContent),
-					driver, 50))
+			if (null == DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(emailContent), driver, 50))
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");
 		}
-			
+
 	}
 
 	/***
@@ -133,9 +157,8 @@ public class EmailContentPage extends EmailBase {
 
 			sourceButton.click();
 
-			DriverUtility.waitFor(
-					ExpectedConditionExtended.elementToBeClickable(textSourceBox),
-					driver, 10);
+			DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(textSourceBox), driver, 10);
 
 			if (driver instanceof JavascriptExecutor) {
 				((JavascriptExecutor) driver)
@@ -160,10 +183,11 @@ public class EmailContentPage extends EmailBase {
 				"Test 12 March 2013.zip"));
 		uploadAssetsButton.click();
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(htmlContent), driver,
-				30);		
-		Reporter.log("Ribbon Text for ContentPage is: "+getRibbonText(10)+"<br>");		
-		return stepCompleted(2,10);
+				ExpectedConditionExtended.elementToBeClickable(htmlContent),
+				driver, 30);
+		Reporter.log("Ribbon Text for ContentPage is: " + getRibbonText(10)
+				+ "<br>");
+		return stepCompleted(2, 10);
 
 	}
 
@@ -178,6 +202,47 @@ public class EmailContentPage extends EmailBase {
 				.substring(loginUrl.lastIndexOf("#") + 1)
 				.replaceAll("[^0-9]", "");
 		return jobNum;
+	}
+
+	/***
+	 * This method is added to select Single Email Preview.
+	 * 
+	 * @return - Single Preview Sent(True/False)
+	 */
+	public boolean selectSinglePreview() {
+		String ribbonText = null;
+		emailPreviewBtn.click();
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementsToBeClickable(singleAddressRadioBtn), driver, 30);
+		singleAddressRadioBtn.click();
+		emailAddressTextBox.sendKeys(PagesHelper.EMAIL_ATTR_VALUE);
+		userIdTextBox.sendKeys(PagesHelper.EMAIL_USERID);
+		sendPreviewBtn.click();
+		ribbonText = getRibbonText(20);
+		Reporter.log("Ribbon Text for Single Email Preview is: " + ribbonText,
+				true);
+		return (ribbonText != null);
+
+	}
+
+	/***
+	 * This method is added to select Group Email Preview.
+	 * 
+	 * @return - Group Preview Sent(True/False)
+	 */
+	public boolean selectGroupPreview() {
+		String ribbonText = null;
+		emailPreviewBtn.click();
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementsToBeClickable(emailListRadioBtn), driver, 30);
+		emailListRadioBtn.click();
+		DriverUtility.selectDropDown(emailListDropdown,
+				PagesHelper.EMAIL_GROUP_NAME, 0);
+		sendPreviewBtn.click();
+		ribbonText = getRibbonText(20);
+		Reporter.log("Ribbon Text for Group Email Preview is: " + ribbonText,
+				true);
+		return (ribbonText != null);
 	}
 
 }

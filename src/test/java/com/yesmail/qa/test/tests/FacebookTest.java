@@ -29,9 +29,9 @@ public class FacebookTest {
 			a.assertTrue(pof.facebookContentPage().fillFacebookContent(),"Creating Facebook Content Page");
 			
 			Reporter.log("Scheduling Facebook master <br>",true);
-			pof.tweetsSchedulePage().load().isLoaded();				
+			pof.facebookSchedulePage().load().isLoaded();				
 			facebookMasterId = pof.facebookSchedulePage().getMasterId();
-			Reporter.log("Generated Tweet master Id: "+facebookMasterId+"<br>",true);
+			Reporter.log("Generated Facebook master Id: "+facebookMasterId+"<br>",true);
 			a.assertTrue(pof.facebookSchedulePage().scheduleMaster(),"Scheduling Facebook Content");
 			a.assertTrue(pof.facebookSchedulePage().enableandConfirmFacebook(),"Enabling and Confirming the Facebook Schudule for Job Id: "+facebookMasterId);
 		

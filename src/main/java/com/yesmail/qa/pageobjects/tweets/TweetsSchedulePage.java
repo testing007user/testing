@@ -20,6 +20,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
@@ -61,8 +62,8 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	@FindBy(css = "input[id = 'scheduleNow']")
 	private WebElement scheduleImmediatelyButton;
 
-	@FindBy(css = "table.ui-datepicker-calendar tbody tr td")
-	public List<WebElement> tds;
+	@FindBys({ @FindBy(css = "table.ui-datepicker-calendar td a") })
+	private List<WebElement> dateList;
 
 	@FindBy(css = ".workflow-master-btn.btn-mini.social-disable.btn-danger")
 	public WebElement disableBtn;
@@ -101,11 +102,10 @@ public class TweetsSchedulePage extends TweetsContentPage {
 		String month_Day = "" + dateOne;
 		dateBox.clear();
 		dateBox.click();
-		for (WebElement td : tds) {
-			if (td.getText().equals(month_Day)) {
-				if (td.getAttribute("class").contains("ui-datepicker-today")) {
-					td.click();
-					DriverUtility.waitforElementDisplay(driver, dateBox, 50);
+		for (WebElement date : dateList) {
+			if (date.getText().equals(month_Day)) {
+				if (date.getAttribute("class").contains("ui-state-highlight")) {
+					date.click();					
 					break;
 				}
 			}

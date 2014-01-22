@@ -245,7 +245,7 @@ public class EmailEnvelopePage extends EmailBase {
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		fillfromName();
 		saveEnvelope.click();
-		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>");
+		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>",true);
 		nameTextBox.click();
 		return masterName;		
 	}
@@ -295,6 +295,46 @@ public class EmailEnvelopePage extends EmailBase {
 	private void selectSubjectPersonalization(String attribute) {
 		DriverUtility.selectDropDown(subjectPersonalizeDropdown, attribute, 1);
 		subjectPersonalizeInsertButton.click();
+	}
+	
+	/***
+	 * This method is added to load the page for masterId.
+	 * 
+	 * @param - MasterID
+	 */
+	public EmailEnvelopePage load(String masterId) {
+		driver.navigate().to(
+				PagesHelper.URL + "#email/" + masterId + "/envelope");
+		return this;
+	}
+
+	/***
+	 * This method is added to return the text for disabled envelope division.
+	 * 
+	 * @return - Selected Envelope Division
+	 */
+	public String envelopeDivision() {
+		return disabledSelectBoxText(divisionDropDown, driver);
+	}
+
+	/***
+	 * This method is added to return the selected text for disabled encoding
+	 * dropDown.
+	 * 
+	 * @return - Selected Encoding
+	 */
+	public String envelopeEncoding() {
+		return disabledSelectBoxText(encodingDropDown, driver);
+	}
+
+	/***
+	 * This method is added to return the selected text for disabled encoding
+	 * dropDown.
+	 * 
+	 * @return - Selected Encoding
+	 */
+	public String envelopeFromName() {
+		return fromTextBox.getText();
 	}
 
 }
