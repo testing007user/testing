@@ -49,6 +49,9 @@ public class SmsHeaderPage extends SmsBasePage {
 
 	@FindBy(css = "div.modal-footer>button:nth-of-type(2)")
 	private WebElement newCampaignCreateButton;
+	
+	@FindBy(id = "saveContent")
+	private WebElement saveContent;
 
 	private WebDriver driver;
 	private String pageUrl;
@@ -141,8 +144,8 @@ public class SmsHeaderPage extends SmsBasePage {
 		fillSMSMasterName();
 		selectShortcode(visibleShortCode);
 		saveHeader();
-		Reporter.log("Ribbon Text for Content Page is : " + getRibbonText(20)
-				+ "<br>");
+		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(saveContent),
+				driver, 30);//This is added as workaround for header page reload issue.
 		return stepCompleted(1, 20);
 	}
 
