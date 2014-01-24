@@ -10,8 +10,9 @@ import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 /***
  * This method is added to search the test and check the status of the
  * respective test
@@ -21,31 +22,21 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  */
 
 public class ViewTestPage {
+	
+	private WebDriver driver;
+	private String pageUrl;
 
 	@FindBy(css = "#mainContentArea div:nth-child(2) input")
-	private WebElement searchTestInut;
-
-	@FindBy(css = "#mainContentArea div:nth-child(1) select")
-	private WebElement viewSelectDropDown;
-
-	@FindBy(css = "table.dataTable>tbody>tr>td:nth-child(4)>span.status-disabled")
-	private WebElement statusDisabledButton;
-
-	@FindBy(css = "table.dataTable>tbody>tr>td:nth-child(4)>span.status-tests-generated")
-	private WebElement statusTestsGeneratedButton;
-
-	@FindBy(css = "table.dataTable>tbody>tr>td:nth-child(4)>span.status-completed")
-	private WebElement statusCompletedButton;
+	private WebElement searchTestInut;	
 
 	@FindBys({ @FindBy(css = "table.dataTable>tbody>tr>td") })
 	private List<WebElement> searchtable;
+	
+	@FindBy(css = ".dataTables_scrollHead [aria-label~='Id:']") 
+	private WebElement dataTable;
+	
+	
 
-	@FindBy(css = "table.dataTable>tbody>tr>td:nth-child(4)")
-	private WebElement statusCol;
-
-	private WebDriver driver;
-
-	private String pageUrl;
 
 	public ViewTestPage(WebDriver driver, String pageUrl) {
 		this.driver = driver;
@@ -62,7 +53,7 @@ public class ViewTestPage {
 	}
 	
 	public boolean isLoaded() {
-		if(null == DriverUtility.waitFor(visibilityOfElementLocated(By.cssSelector(".dataTables_scrollHead [aria-label~='Id:']")), driver, 50))
+		if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dataTable), driver, 50))
 		{
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");

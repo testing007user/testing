@@ -23,12 +23,12 @@ SAssert a = new SAssert();
 		pof.requestReportsPage().load().isLoaded();
 		pof.requestReportsPage().selectReportType(PagesHelper.REPORT_TYPE);
 		pof.requestReportsPage().selectMailingView(PagesHelper.REPORT_VIEW);
-		reportId = pof.requestReportsPage().getReportId();
+		reportId = pof.requestReportsPage().getReportId();		
 		pof.requestReportsPage().clickRequestReport();
 		Reporter.log("Report Generated for Id: "+reportId+"<br>");
 		
 		pof.reportsPage().isLoaded();
-		pof.reportsPage().selectDropDownOnReportsPage();
+		pof.reportsPage().selectDropDownOnReportsPage();		
 		a.assertTrue(pof.reportsPage().verifyReportsStatus(reportId, PagesHelper.STATUSFINISHED),"Verify Status of Report Id: "+reportId);				
 		
 	}

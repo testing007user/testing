@@ -32,6 +32,9 @@ public class SmsBasePage extends BasePage {
 	@FindBy(css = "div:nth-child(2) a:nth-of-type(4) span:nth-of-type(2)")
 	private WebElement scheduleTab;
 
+	@FindBy(css = "a.mvt-ico-summary")
+	private WebElement summaryTab;
+	
 	private WebDriver driver;
 
 	public SmsBasePage(WebDriver driver) {
@@ -65,6 +68,15 @@ public class SmsBasePage extends BasePage {
 	 */
 	public void navigateToSchedule() {
 		scheduleTab.click();
+	}
+	
+	/***
+	 * This method is added to navigate to Summary page
+	 * 
+	 * @author sangeetap
+	 */
+	public void navigateToSummary() {
+		summaryTab.click();
 	}
 
 }

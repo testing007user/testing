@@ -20,7 +20,8 @@
 			<class name="com.yesmail.qa.test.tests.SMSTest"></class>
 			 <class name="com.yesmail.qa.test.tests.TweetTest"></class>
 			<class name="com.yesmail.qa.test.tests.FacebookTest"></class>
-			<class name="com.yesmail.qa.test.tests.ReportTest"></class>					
+			<class name="com.yesmail.qa.test.tests.ReportTest"></class>		
+			<class name="com.yesmail.qa.test.tests.MvtTest"></class>					
 		</classes>
 	</test>
 

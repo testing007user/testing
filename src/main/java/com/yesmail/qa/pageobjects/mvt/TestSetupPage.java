@@ -22,7 +22,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import com.yesmail.qa.pageobjects.PagesHelper;
@@ -34,10 +33,10 @@ import com.yesmail.qa.framework.libraries.Utils;
 
 public class TestSetupPage extends MvtBase {
 
-	// Page Elements for Test Set up class
+	private WebDriver driver;
+	private String pageUrl;
 
-	@FindBy(css = "button[class='ym-btn ym-btn-secondary create-test']")
-	private WebElement createNewTestBtn;
+	// Page Elements for Test Set up class
 
 	@FindBy(id = "name")
 	private WebElement testName;
@@ -54,21 +53,17 @@ public class TestSetupPage extends MvtBase {
 	@FindBy(name = "isAutoSend")
 	private WebElement checkboxAutoSendWinningMessage;
 
-	@FindBy(css = ".input-large")
-	private WebElement successCriterionForAutoSend;
-
 	@FindBy(id = "saveTest")
 	private WebElement saveTestButton;
 
-	@FindBys({ @FindBy(css = ".dataTable>tbody>tr") })
-	private List<WebElement> mastersCreated;
+	@FindBys({ @FindBy(css = "div > div:nth-of-type(5) > div > table > tbody > tr > td:nth-of-type(1)") })
+	private List<WebElement> mastersIdCreatedSubContent;
 
-	@FindBy(css = ".modal-footer button:nth-of-type(2)")
-	private WebElement createTestBtn;
+	@FindBys({ @FindBy(css = "div > div:nth-of-type(4) > div > table > tbody > tr > td:nth-of-type(1)") })
+	private List<WebElement> mastersIdCreatedSubOrContent;
 
-	private WebDriver driver;
-	private String pageUrl;
-	
+	@FindBy(id = "saveEnvelope")
+	private WebElement saveEnvelopeButton;
 
 	// Constructor
 
@@ -78,21 +73,20 @@ public class TestSetupPage extends MvtBase {
 		this.pageUrl = pageUrl;
 		PageFactory.initElements(driver, this);
 	}
-	
-	
-	public TestSetupPage load()
-	{
-		Reporter.log("Navigating to -->Test Setup Page");
-		driver.navigate().to(PagesHelper.URL+pageUrl);
+
+	public TestSetupPage load() {
+		Reporter.log("Navigating to -->Test Setup Page<br>", true);
+		driver.navigate().to(PagesHelper.URL + pageUrl);
 		return this;
 	}
-	
-	public void isLoaded()
-	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(testName), driver, 50))
+
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(testName),
+				driver, 50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
-		
+
 	}
 
 	/***
@@ -101,9 +95,10 @@ public class TestSetupPage extends MvtBase {
 	 * @param testString
 	 */
 
-	private void fillName(String testString) {
+	private String fillName(String testString) {
 		testName.clear();
 		testName.sendKeys(testString);
+		return testString;
 	}
 
 	/***
@@ -128,28 +123,29 @@ public class TestSetupPage extends MvtBase {
 	 * @param checkUncheck
 	 *            Will take two value as input "true(check)" or "false(uncheck)"
 	 */
-	public String fillSetUpPage(CHECK_UNCHECK checkboxFlag,
-			boolean contentCheckBox, boolean autoSendcheck) {
-		fillName(Utils.getUniqueName(PagesHelper.MULTIVARIATE_SETUP_NAME,20));
-		fillDescription(Utils
-				.getUniqueName(PagesHelper.MULTIVARIATE_SETUP_DESC,20));
+	public boolean fillSetUpPage(CHECK_UNCHECK checkboxFlag,
+			boolean contentCheckBox, String autoSendcheck, String masterName) {
+		boolean autoSendCheck = false;
+		if (autoSendcheck.equalsIgnoreCase("True")) {
+			autoSendCheck = true;
+		}
+
+		Reporter.log("Filling TestSetUp Page:<br> ", true);
+		fillName(masterName);
+		fillDescription(Utils.getUniqueName(
+				PagesHelper.MULTIVARIATE_SETUP_DESC, 20));
 		DriverUtility.checkUncheckCheckBox(checkboxSubject, checkboxFlag);
 		checkUncheckCheckboxContent(contentCheckBox);
-		checkboxAutoSendWinningMessage(autoSendcheck);
-		selectCriterionAutoSend(PagesHelper.MULTIVARIATE_SETUP_AUTOSEND_CRITERIA);
-		String jobId = saveTest();
-		
-		return jobId;
-	}
-
-	/***
-	 * This method is added to save the Test on the Test Setup page
-	 */
-	public String saveTest() {
+		checkboxAutoSendWinningMessage(autoSendCheck);
 		saveTestButton.click();
-		Reporter.log("Ribbon Text Message for Test Setup Page is:"+getRibbonText(10),true);
-		return getMasterId();
+		Reporter.log("Ribbon Text Message for Test Setup Page is:"
+				+ getRibbonText(10) + "<br>", true);
 
+		// This is added as workaround for setup page reload issue.
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(saveEnvelopeButton), driver, 15);
+
+		return stepCompleted(1, 10);
 	}
 
 	/***
@@ -158,34 +154,16 @@ public class TestSetupPage extends MvtBase {
 	 */
 
 	public String getMasterId() {
-		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeDisabled(checkboxSubject), this.driver, 40);  
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeDisabled(checkboxSubject),
+				this.driver, 40);
 		String loginUrl = driver.getCurrentUrl();
-		  String jobNum = driver.getCurrentUrl().substring(
-		  loginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
-		  Reporter.log("Job Number is:"+jobNum,true);
-		  return jobNum;
-		 }
-
-	/**
-	 * This method is added to check /uncheck subject checkbox in Test Setup
-	 * 
-	 * @param checkUncheck
-	 *            input value will be either "check" or "uncheck"
-	 */
-
-	/*public void checkUncheckCheckboxSubject(boolean check)
-
-	{
-		boolean checkBoxSelected = checkboxSubject.isSelected();
-
-		if (checkBoxSelected) {
-			if (!(check))
-				checkboxSubject.click();
-		} else {
-			if (check)
-				checkboxSubject.click();
-		}
-	}*/
+		String jobNum = driver.getCurrentUrl()
+				.substring(loginUrl.lastIndexOf("#") + 1)
+				.replaceAll("[^0-9]", "");
+		Reporter.log("Job Number is:" + jobNum + "<br>", true);
+		return jobNum;
+	}
 
 	/**
 	 * This method is added to check /uncheck Content checkbox in Test Setup
@@ -227,18 +205,6 @@ public class TestSetupPage extends MvtBase {
 
 	}
 
-	/**
-	 * This Method select the visible text of the select criterion check box if
-	 * the option is not present then will select option 1 by default
-	 * 
-	 * @param option
-	 *            :Visible text of the Success Criterion for Auto Send drop down
-	 */
-	
-	private void selectCriterionAutoSend(String option) {
-		DriverUtility.selectDropDown(successCriterionForAutoSend, option, 1);
-	}
-
 	/***
 	 * This method is added return the number of masters created after
 	 * completion test generation
@@ -246,8 +212,38 @@ public class TestSetupPage extends MvtBase {
 	 * @return the number of masters created
 	 */
 
-	public int createdMastersCount() {
-		return (mastersCreated.size());
+	public int createdMastersCount(int multivariateCount) {
+		long startTime = System.currentTimeMillis() / 1000;
+		long stopTime = startTime + 300;
+		List<WebElement> masterIdTable;
+		int tableSize = 0;
+
+		if (multivariateCount > 2) {
+			masterIdTable = mastersIdCreatedSubContent;
+		} else {
+			masterIdTable = mastersIdCreatedSubOrContent;
+		}
+
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(masterIdTable),
+				driver, 20);
+		while (System.currentTimeMillis() / 1000 <= stopTime) {
+			if (masterIdTable.size() > 1) {
+				for (WebElement masterid : masterIdTable) {
+					Reporter.log("Generated Master IDs: " + masterid.getText()
+							+ "<br>");
+				}
+				tableSize = masterIdTable.size();
+				break;
+			}
+			driver.navigate().refresh();
+			DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(masterIdTable), driver, 20);
+		}
+		if (tableSize > 1) {
+			return tableSize;
+		} else
+			return 0;
 	}
 
 }

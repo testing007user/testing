@@ -55,6 +55,9 @@ public class SmsTargetPage extends SmsBasePage {
 	@FindBy(css = "input.string-value")
 	private WebElement segmentInputTextBox;
 
+	@FindBy(css = "div.targetActions> span")
+	private WebElement eligibleRecipientsText;
+
 	@SuppressWarnings("unused")
 	private String pageUrl;
 
@@ -78,8 +81,8 @@ public class SmsTargetPage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(ExpectedConditionExtended.
-				elementToBeClickable(attributeFilterInput), driver, 50)) {
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(attributeFilterInput), driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
@@ -93,9 +96,8 @@ public class SmsTargetPage extends SmsBasePage {
 	 *            status
 	 */
 	public void selectSubscriptionStatus(String subscription) {
-		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(subStatusDropdown),
-				driver, 10);
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(subStatusDropdown), driver, 10);
 		DriverUtility.selectDropDown(subStatusDropdown, subscription, 1);
 	}
 
@@ -106,9 +108,8 @@ public class SmsTargetPage extends SmsBasePage {
 	 * 
 	 */
 	private void filterSelect(String selectAttribute) {
-		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(attributeFilterInput),
-				driver, 20);
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(attributeFilterInput), driver, 20);
 		int i = 1;
 		attributeFilterInput.sendKeys(selectAttribute);
 
@@ -132,14 +133,12 @@ public class SmsTargetPage extends SmsBasePage {
 	 */
 	public boolean hasMobileNumberCheck() {
 
-		if (DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(selectedYesDropDown),
-				driver, 20) != null) {
+		if (DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(selectedYesDropDown), driver, 20) != null) {
 			return true;
 		} else {
-			if (DriverUtility.waitFor(
-					ExpectedConditionExtended.elementToBeClickable(selectYesDropDown),
-					driver, 10) != null)
+			if (DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(selectYesDropDown), driver, 10) != null)
 				DriverUtility.selectDropDown(selectYesDropDown, "Yes", 1);
 		}
 		return true;
@@ -157,7 +156,8 @@ public class SmsTargetPage extends SmsBasePage {
 		selectSubscriptionStatus(subscriptionStatus);
 		filterSelect(attributeName);
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(segmentE1), driver, 10);
+				ExpectedConditionExtended.elementToBeClickable(segmentE1),
+				driver, 10);
 
 		WebElement segmentHeaderText = driver
 				.findElement(By
@@ -171,7 +171,7 @@ public class SmsTargetPage extends SmsBasePage {
 		}
 		return stepCompleted(3, 10);
 	}
-	
+
 	/***
 	 * This method will return the job number
 	 * 
@@ -179,11 +179,40 @@ public class SmsTargetPage extends SmsBasePage {
 	 */
 	public String getMasterId() {
 		String strloginUrl = driver.getCurrentUrl();
-		
-		String jobNum = driver.getCurrentUrl().substring(
-				strloginUrl.lastIndexOf("#") + 1).replaceAll("[^0-9]", "");
-		
+
+		String jobNum = driver.getCurrentUrl()
+				.substring(strloginUrl.lastIndexOf("#") + 1)
+				.replaceAll("[^0-9]", "");
+
 		return jobNum;
 	}
 
+	/***
+	 * This method is added to get Eligible Recipient Count
+	 * 
+	 * @return Eligible Recipient Count
+	 * @author sangeetap
+	 */
+	public String getEligibleRecipientsCount() {
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(eligibleRecipientsText), driver, 20);
+		String[] targetTime = eligibleRecipientsText.getText().split(": ");
+		return targetTime[1].split(" ")[0];
+
+	}
+
+	/***
+	 * This method is added to get Count Performed Time
+	 * 
+	 * @return Time of Count Performed
+	 * @author sangeetap
+	 */
+	public String getCountPerformed()
+
+	{
+		String strCount = eligibleRecipientsText.getText();
+		String strCountNumber = strCount.substring(
+				strCount.lastIndexOf(":") + 2).replaceAll("[^0-9]", "");
+		return strCountNumber;
+	}
 }

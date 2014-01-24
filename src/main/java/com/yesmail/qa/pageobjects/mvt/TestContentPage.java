@@ -21,15 +21,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+
 import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.pageobjects.PagesHelper;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class TestContentPage extends MvtBase {
-	
 
 	private WebDriver driver;
 
@@ -40,13 +40,13 @@ public class TestContentPage extends MvtBase {
 	@FindBy(id = "addContent")
 	private WebElement addContentButton;
 
-	@FindBy(css = ".controls input[name='name']")
+	@FindBy(css = "div.modal.fade.in input[name=name]")
 	private WebElement contentNameTextBox;
 
-	@FindBy(css = ".controls input[name='description']")
+	@FindBy(css = "div.modal.fade.in input[name=description]")
 	private WebElement contentDescriptionTextBox;
 
-	@FindBy(id = "confirmAdd")
+	@FindBy(css = "div.modal.fade.in button[id=confirmAdd]")
 	private WebElement addConfirmButton;
 
 	@FindBy(xpath = "//div[@aria-hidden='false']/*/button[text()='Upload']")
@@ -55,17 +55,17 @@ public class TestContentPage extends MvtBase {
 	@FindBy(css = "button[id='contentUpload']")
 	private WebElement uploadButton;
 
-	@FindBy(id = "fileupload")
+	@FindBy(css = "html>body")
+	private WebElement htmlContent;
+
+	@FindBy(id = "file-upload")
 	private WebElement uploadformTextField;
 
-	@FindBys({ @FindBy(css = "#testCasePanel ul>li") })
+	@FindBys({ @FindBy(css = "div.open> .dropdown-menu.input-xlarge li") })
 	private List<WebElement> selectContentDropDownList;
 
-	@FindBy(css = "#testCasePanel ul")
-	private WebElement selectContentDropDown;
-
-	@FindBy(css = "#testCasePanel span#currentContent")
-	private WebElement selectedCurrentContent;
+	@FindBy(css = "span[data-target='contents'] span.caret")
+	private WebElement downArrow;
 
 	/**
 	 * Constructor section
@@ -84,7 +84,9 @@ public class TestContentPage extends MvtBase {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(elementToBeClickable(uploadButton), driver, 50))
+		if (null == DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(uploadButton),
+				driver, 50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
 	}
@@ -93,28 +95,58 @@ public class TestContentPage extends MvtBase {
 	 * This Method is to add content in the Test content page
 	 * 
 	 * @param count
-	 *            ` - numbder of content to add
+	 *            ` - number of content to add
 	 * @param uploadFileName
 	 *            :Name of the file like :Lexus.zip etc
 	 * @return countStore - number of content added
 	 */
-	public int addContent(int count, String uploadFileName) {
+	public int addContent(int count) {
 		int countStore = count;
-
 		if (count != 0) {
+			DriverUtility.waitFor(ExpectedConditionExtended
+					.elementToBeClickable(addContentButton), driver, 20);
 			addContentButton.click();
-			contentNameTextBox.sendKeys(Utils.getUniqueName(
-					PagesHelper.MULTIVARIATE_CONTENT_NAME, 25));
+			DriverUtility.waitFor(ExpectedConditionExtended
+					.elementsToBeClickable(contentNameTextBox), driver, 10);
+			String strContentName = Utils.getUniqueName(
+					PagesHelper.MULTIVARIATE_CONTENT_NAME, 25);
+			contentNameTextBox.sendKeys(strContentName);
 			contentDescriptionTextBox.sendKeys(Utils.getUniqueName(
 					PagesHelper.MULTIVARIATE_CONTENT_DESC, 25));
 			addConfirmButton.click();
-			DriverUtility.waitforElementDisplay(driver, addContentButton, 30);
-			uploadFile(uploadFileName);
+			Reporter.log("Ribbon Text for Test Content <br>"
+					+ getRibbonText(10), true);
+			DriverUtility.waitFor(
+					ExpectedConditionExtended.elementToBeClickable(downArrow),
+					driver, 30);
+			selectContentFromDropDown(strContentName);
+			uploadFile();
 			count--;
 			if (count >= 1)
-				addContent(count, uploadFileName);
+				addContent(count);
 		}
 		return countStore;
+	}
+
+	/***
+	 * This method is added to select the content from select content drop down
+	 * 
+	 * @param stringToSelect
+	 */
+	public void selectContentFromDropDown(String stringToSelect) {
+		downArrow.click();
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(selectContentDropDownList), driver, 20);
+		for (int index = 0; index < selectContentDropDownList.size(); index++) {
+			if (selectContentDropDownList.get(index).getText()
+					.equalsIgnoreCase(stringToSelect)) {
+				selectContentDropDownList.get(index).click();
+				break;
+
+			}
+		}
+		Reporter.log(" Ribbon text for Upload Content : <br>"
+				+ getRibbonText(10), true);
 	}
 
 	/***
@@ -123,17 +155,21 @@ public class TestContentPage extends MvtBase {
 	 * @param uploadFileName
 	 *            :Name of the file like :Lexus.zip etc
 	 */
-	public void uploadFile(String uploadFileName) {
+	public void uploadFile() {
 
-		uploadButton.click();
-		String uploadFilePath = Utils.getResources(this, uploadFileName);
-		Reporter.log("Uploaded file path is:"+uploadFilePath);
-		uploadformTextField.sendKeys(uploadFilePath);
-		// uploadformTextField
-		// .sendKeys("D:\\NEWUIAutomation\\kapil test\\target\\test-classes\\Test 12 March 2013.zip");
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(uploadButton),
+				driver, 50);
+		uploadButton.click();		
+		Reporter.log("Uploading File :<br>", true);
+		uploadformTextField.sendKeys( Utils.getResources(this, "Test 12 March 2013.zip"));	
+		DriverUtility.waitFor(ExpectedConditionExtended
+				.elementToBeClickable(uploadAssetsButton), driver, 50);
 		uploadAssetsButton.click();
-		stepCompleted(3,15);
-
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(htmlContent),
+				driver, 50);
+		
 	}
 
 }

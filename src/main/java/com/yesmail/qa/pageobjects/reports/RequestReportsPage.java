@@ -38,7 +38,7 @@ public class RequestReportsPage extends BasePage {
 	@FindBy(css = "table tbody tr:nth-of-type(1) td:nth-of-type(2)")
 	private WebElement tableMasterIDMailingView;
 
-	@FindBy(css = "#mainContentArea div:nth-child(3) select.reportTypeSelect")
+	@FindBy(css = "select.reportTypeSelect")
 	private WebElement reportTypeDropDown;
 
 	@FindBy(css = "#mainContentArea div:nth-child(3) select.mailingViewSelect")

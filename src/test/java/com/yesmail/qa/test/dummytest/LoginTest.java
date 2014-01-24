@@ -41,19 +41,11 @@ public class LoginTest {
 		pof.loginPage().load().isLoaded();
 		pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
 		pof.homePage().isLoaded();
-		pof.testSetupPage().load().isLoaded();
-		a.assertTrue(
-				true,
-				"Job ID is:"
-						+ pof.testSetupPage().fillSetUpPage(
-								CHECK_UNCHECK.CHECK, true, false));
+		pof.testSetupPage().load().isLoaded();		
 		pof.testEnvelopPage().load().isLoaded();
-		pof.testEnvelopPage().fillEnevlopePage(1, "marketing");
+		//pof.testEnvelopPage().fillEnevlopePage(1, "marketing");
 		pof.testContentPage().load().isLoaded();
-		pof.testContentPage()
-				.uploadFile(
-						XMLParser
-								.readComponentValueFromXML("Content.contentUploadFileName"));
+		
 		pof.testTargetPage().load().isLoaded();
 		a.assertAll();
 

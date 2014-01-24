@@ -23,7 +23,6 @@ import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 
-
 public class SmsSchedulePage extends SmsBasePage {
 
 	/**
@@ -73,7 +72,7 @@ public class SmsSchedulePage extends SmsBasePage {
 
 	@FindBy(css = ".btn-danger")
 	private WebElement disableBtn;
-	
+
 	/**
 	 * Initializing Constructor
 	 */
@@ -87,7 +86,8 @@ public class SmsSchedulePage extends SmsBasePage {
 	}
 
 	public void isLoaded() {
-		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(dateBox),
+		if (null == DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(dateBox),
 				driver, 50)) {
 
 			throw new FrameworkException(this.getClass().getName()
@@ -118,7 +118,7 @@ public class SmsSchedulePage extends SmsBasePage {
 		for (WebElement date : dateList) {
 			if (date.getText().equals(month_Day)) {
 				if (date.getAttribute("class").contains("ui-state-highlight")) {
-					date.click();					
+					date.click();
 					break;
 				}
 			}
@@ -182,14 +182,16 @@ public class SmsSchedulePage extends SmsBasePage {
 	 */
 	public boolean enableButtonAndConfirm() {
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(enableBtn), driver, 10);
+				ExpectedConditionExtended.elementToBeClickable(enableBtn),
+				driver, 10);
 		enableBtn.click();
-		DriverUtility
-				.waitFor(ExpectedConditionExtended.elementToBeClickable(confirmBtn),
-						driver, 10);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(confirmBtn),
+				driver, 10);
 		confirmBtn.click();
-		return(DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30)!= null);
+		return (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(disableBtn),
+				driver, 30) != null);
 	}
 
 	/**
@@ -199,10 +201,46 @@ public class SmsSchedulePage extends SmsBasePage {
 	 */
 	public boolean scheduleSMSMaster() {
 		setDateTime();
-		saveScheduleButton();		
+		saveScheduleButton();
 		Reporter.log("Ribbon Text for SchedulePage is: " + getRibbonText(20)
 				+ "<br>");
 		return stepCompleted(4, 10);
 
 	}
+
+	/**
+	 * This method is added to get Scheduled Date
+	 * 
+	 * @return Scheduled Date
+	 * @author sangeetap
+	 */
+	public String getScheduleDate() {
+		return dateBox.getAttribute("value");
+
+	}
+
+	/**
+	 * This method is added to get Scheduled Time
+	 * 
+	 * @return Scheduled Time
+	 * @author sangeetap
+	 */
+	public String getScheduleTime() {
+		String strHour = hourTextBox.getAttribute("value");
+		String strMinute = minuteTextBox.getAttribute("value");
+		String strHourUpdated = strHour.concat(":");
+		String strFinalTime = strHourUpdated.concat(strMinute);
+		return strFinalTime;
+	}
+
+	/**
+	 * This method is added to get Scheduled Date Time
+	 * 
+	 * @return Formatted Scheduled Date Time
+	 * @author sangeetap
+	 */
+	public String getScheduledDateTime() {
+		return getScheduleDate() + " " + getScheduleTime();
+	}
+
 }

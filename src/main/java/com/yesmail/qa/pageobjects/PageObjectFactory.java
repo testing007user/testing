@@ -34,6 +34,7 @@ import com.yesmail.qa.pageobjects.reports.RequestReportsPage;
 import com.yesmail.qa.pageobjects.sms.SmsContentPage;
 import com.yesmail.qa.pageobjects.sms.SmsHeaderPage;
 import com.yesmail.qa.pageobjects.sms.SmsSchedulePage;
+import com.yesmail.qa.pageobjects.sms.SmsSummaryPage;
 import com.yesmail.qa.pageobjects.sms.SmsTargetPage;
 import com.yesmail.qa.pageobjects.sms.ViewSmsPage;
 import com.yesmail.qa.pageobjects.subscriber.SubscribersPage;
@@ -94,6 +95,7 @@ public class PageObjectFactory {
 	private FacebookSchedulePage facebookSchedulePage;
 	private ViewFacebookPage viewFacebookPage;
 	private EmailSummaryPage emailSummaryPage;
+	private SmsSummaryPage smsSummaryPage;
 
 	private YahooPage yahooPage;
 
@@ -395,5 +397,12 @@ public class PageObjectFactory {
 			emailSummaryPage = new EmailSummaryPage(
 					driver);
 		return emailSummaryPage;
+	}
+	
+	public SmsSummaryPage smsSummaryPage() {
+		if (smsSummaryPage == null)
+			smsSummaryPage = new SmsSummaryPage(
+					driver);
+		return smsSummaryPage;
 	}
 }

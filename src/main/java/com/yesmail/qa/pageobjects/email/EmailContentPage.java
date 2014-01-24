@@ -219,7 +219,7 @@ public class EmailContentPage extends EmailBase {
 		userIdTextBox.sendKeys(PagesHelper.EMAIL_USERID);
 		sendPreviewBtn.click();
 		ribbonText = getRibbonText(20);
-		Reporter.log("Ribbon Text for Single Email Preview is: " + ribbonText,
+		Reporter.log("Ribbon Text for Single Email Preview is: " + ribbonText+"<br>",
 				true);
 		return (ribbonText != null);
 

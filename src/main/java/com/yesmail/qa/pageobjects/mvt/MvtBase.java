@@ -16,6 +16,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
+
+import com.yesmail.qa.framework.DriverUtility;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.pageobjects.BasePage;
 
 public class MvtBase extends BasePage {
@@ -57,17 +60,7 @@ public class MvtBase extends BasePage {
 		PageFactory.initElements(this.driver, this);
 
 	}
-
-	/*
-	 * public void load() {
-	 * 
-	 * driver.navigate().to(PagesHelper.URL+pageUrl); }
-	 */
-
-	/*
-	 * public void isLoaded() { DriverUtility.waitforElementDisplay(driver,
-	 * setUpTab, 30); }
-	 */
+	
 
 	/***
 	 * This method is added to create new view
@@ -80,7 +73,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to SetUp Test page
 	 */
 	public void navigateToSetUpTab() {
-		Reporter.log("Navigating to --> Test Setup Tab");
+		Reporter.log("Navigating to --> Test Setup Tab <br>",true);
 		setUpTab.click();
 	}
 
@@ -88,7 +81,8 @@ public class MvtBase extends BasePage {
 	 * Navigate to Envelope Test page
 	 */
 	public void navigateToEnvelopeTab() {
-		Reporter.log("Navigating to --> Test Envelope Tab");
+		Reporter.log("Navigating to --> Test Envelope Tab <br>",true);
+		if(DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(envelopTab), driver, 30)!=null)
 		envelopTab.click();
 	}
 
@@ -96,7 +90,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to Content Test page
 	 */
 	public void navigateToContentTab() {
-		Reporter.log("Navigating to --> Test Content Tab");
+		Reporter.log("Navigating to --> Test Content Tab <br>",true);
 		contentTab.click();
 
 	}
@@ -105,7 +99,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to Target Test page
 	 */
 	public void navigateToTargetTab() {
-		Reporter.log("Navigating to --> Test Target Tab");
+		Reporter.log("Navigating to --> Test Target Tab <br>",true);
 		targetTab.click();
 	}
 
@@ -113,6 +107,7 @@ public class MvtBase extends BasePage {
 	 * Navigate to Schedule Test page
 	 */
 	public void navigateToScheduleTab() {
+		Reporter.log("Navigating to --> Test Schedule Tab <br>",true);
 		scheduleTab.click();
 	}
 
@@ -121,7 +116,7 @@ public class MvtBase extends BasePage {
 	 */
 
 	public void navigateToSummaryTab() {
-		Reporter.log("Navigating to --> Test Summary Tab");
+		Reporter.log("Navigating to --> Test Summary Tab <br>",true);
 		summaryTab.click();
 	}
 
@@ -131,6 +126,7 @@ public class MvtBase extends BasePage {
 	public void navigateToResults()
 
 	{
+		Reporter.log("Navigating to --> Test Result Tab <br>",true);
 		resultsTab.click();
 	}
 	

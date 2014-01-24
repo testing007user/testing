@@ -9,23 +9,22 @@
 
 package com.yesmail.qa.pageobjects.mvt;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import com.yesmail.qa.pageobjects.PagesHelper;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
 
 public class TestEnvelopPage extends MvtBase {
+
+	private WebDriver driver;
 
 	// Page Elements for TestEnvelope Class
 
@@ -59,22 +58,8 @@ public class TestEnvelopPage extends MvtBase {
 	@FindBy(id = "saveEnvelope")
 	private WebElement saveEnvelopeButton;
 
-	@FindBy(css = "div[data-target='subject']>div>div>div>div.personalizedField")
-	private WebElement subject;
-
-	@FindBys(value = { @FindBy(css = "div[data-target='subject']>div>div>div>div") })
-	private List<WebElement> subjects;
-
-	@FindBy(css = "div>i.icon-plus-sign")
+	@FindBy(css = "div.last>div:nth-child(1)>div:nth-child(2)>i.add")
 	private WebElement plusSignSubject;
-
-	@FindBy(css = "div>i.icon-minus-sign")
-	private WebElement minusSignSubject;
-
-	@FindBy(css = "select[name='deliveryType']")
-	private WebElement deliveryType;
-
-	private WebDriver driver;
 
 	// Constructor
 
@@ -82,21 +67,21 @@ public class TestEnvelopPage extends MvtBase {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		
 
 	}
-	
-	public TestEnvelopPage load()
-	{
-		
+
+	public TestEnvelopPage load() {
+
 		navigateToEnvelopeTab();
 		return this;
 	}
-	
-	public void isLoaded()
-	{
-		if(null == DriverUtility.waitFor(ExpectedConditions.elementToBeClickable(nameTextBox), driver,50))
-			throw new FrameworkException(TestEnvelopPage.class.getName()+" is not loaded");
+
+	public void isLoaded() {
+		if (null == DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(nameTextBox),
+				driver, 50))
+			throw new FrameworkException(TestEnvelopPage.class.getName()
+					+ " is not loaded");
 	}
 
 	/****
@@ -107,9 +92,9 @@ public class TestEnvelopPage extends MvtBase {
 
 	public void fillEnvName() {
 
-		String strEnv = Utils
-				.getUniqueName(PagesHelper.MULTIVARIATE_ENVELOPE_NAME,25);
-		Reporter.log("Entering Envelope name as:"+strEnv);
+		String strEnv = Utils.getUniqueName(
+				PagesHelper.MULTIVARIATE_ENVELOPE_NAME, 25);
+		Reporter.log("Entering Envelope name as:" + strEnv + "<br>");
 		nameTextBox.clear();
 		nameTextBox.sendKeys(strEnv);
 	}
@@ -122,11 +107,13 @@ public class TestEnvelopPage extends MvtBase {
 	 * 
 	 * @author sangeetap
 	 */
-	public void selectDivision(String visibleDivision) {
-
-		Reporter.log("Selecting division:"+visibleDivision);
-		DriverUtility.selectDropDown(divisionDropDown,
-				PagesHelper.MULTIVARIATE_ENVELOPE_DIVISION, 0);
+	public void selectDivision() {
+		if (DriverUtility.waitFor(ExpectedConditionExtended
+				.elementsToBeClickable(divisionDropDown), driver, 50) != null)
+			DriverUtility.selectDropDown(divisionDropDown,
+					PagesHelper.MULTIVARIATE_ENVELOPE_DIVISION, 1);
+		Reporter.log("Selecting division:"
+				+ PagesHelper.MULTIVARIATE_ENVELOPE_DIVISION + "<br>");
 	}
 
 	/***
@@ -149,13 +136,16 @@ public class TestEnvelopPage extends MvtBase {
 							.cssSelector("div[data-target='subject']>div>div:nth-child("
 									+ i + ")>div:nth-child(1)>div:nth-child(1)"));
 			keyEle.sendKeys(strSub);
+			Reporter.log("Subject Name:" + strSub + "<br>");
 			countSubject--;
 
 			if (countSubject == 0)
 				break;
 			else
 				i++;
-			plusSignSubject.click();
+			if (DriverUtility.waitFor(ExpectedConditionExtended
+					.elementsToBeClickable(plusSignSubject), driver, 10) != null)
+				plusSignSubject.click();
 		}
 	}
 
@@ -167,10 +157,11 @@ public class TestEnvelopPage extends MvtBase {
 	 * @author sangeetap
 	 */
 	public void selectCampaign() {
-		DriverUtility.selectDropDown(campaignDropDown, PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME, 1);
-		
-		if (PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME.equalsIgnoreCase("Create New...")) {
-			//DriverUtility.selectDropDown(campaignDropDown,PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME, 1);
+		DriverUtility.selectDropDown(campaignDropDown,
+				PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME, 1);
+
+		if (PagesHelper.MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME
+				.equalsIgnoreCase("Create New...")) {
 			campaignNewCampaignName.clear();
 			String strName = Utils
 					.getUniqueName(PagesHelper.MULTIVARIATE_CONTENT_NAME);
@@ -187,14 +178,39 @@ public class TestEnvelopPage extends MvtBase {
 
 		}
 	}
+
 	/***
 	 * Enter from field text
 	 * 
 	 */
 
 	public void fillfrom() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(fromTextBox),
+				driver, 20);
 		fromTextBox.clear();
-		fromTextBox.sendKeys("from_test");
+		fromTextBox.sendKeys(Utils.getUniqueName(
+				PagesHelper.MULTIVARIATE_ENVELOPE_NAME, 25));
+	}
+
+	/***
+	 * Save Envelope
+	 */
+	public boolean saveEnvelope() {
+		saveEnvelopeButton.click();
+		Reporter.log("Ribbon Text Message for Test Envelop Page is: <br> "
+				+ getRibbonText(20) + " <br> ", true);
+		return stepCompleted(2, 20);
+	}
+
+	/***
+	 * This method is added to select encoding type
+	 * 
+	 * @param encodingType
+	 */
+	private void selectEncodingType(String encodingType) {
+		DriverUtility.selectDropDown(encodingDropDown, encodingType, 1);
+
 	}
 
 	/***
@@ -203,15 +219,15 @@ public class TestEnvelopPage extends MvtBase {
 	 * @param subjectCount
 	 *            - number of subject to add
 	 */
-	public void fillEnevlopePage(int subjectCount,String visibleDivision) {
-
+	public boolean fillEnvelopePage(int subjectCount) {
+		Reporter.log("Started filling Envelope: <br>", true);
 		fillEnvName();
-		selectDivision(visibleDivision);
-		fillfrom();
+		selectDivision();
 		fillSubject(subjectCount);
-		DriverUtility.selectDropDown(encodingDropDown,
-				PagesHelper.MULTIVARIATE_ENVELOPE_ENCODING, 1);
-		saveEnvelopeButton.click();
+		fillfrom();
+		selectEncodingType(PagesHelper.MULTIVARIATE_ENVELOPE_ENCODING);
+		return saveEnvelope();
+
 	}
 
 }

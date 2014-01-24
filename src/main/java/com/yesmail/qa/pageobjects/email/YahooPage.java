@@ -44,6 +44,10 @@ public class YahooPage extends BasePage {
 
 	@FindBy(css = ".list-view-items-page")
 	private WebElement inboxList;
+	
+	@FindBy(css = "div:nth-of-type(5)[data-action='select-message']")
+	private WebElement mailSection;
+	
 
 	// constructor.
 	public YahooPage(WebDriver driver, String pageUrl) {
@@ -117,7 +121,7 @@ public class YahooPage extends BasePage {
 			
 			DriverUtility
 			.waitFor(ExpectedConditionExtended
-					.elementToBeClickable(fromElement), driver, 20);
+					.elementToBeClickable(mailSection), driver, 20);
 			
 			while (System.currentTimeMillis() / 1000 <= stopTime) {				
 				for (WebElement mail : fromElement) {
@@ -131,7 +135,7 @@ public class YahooPage extends BasePage {
 				}
 				driver.navigate().refresh();
 				DriverUtility.waitFor(ExpectedConditionExtended
-						.elementToBeClickable(fromElement), driver, 30);
+						.elementToBeClickable(mailSection), driver, 30);
 			}
 				if (!searchFound)
 			Reporter.log("search Text: " + searchText

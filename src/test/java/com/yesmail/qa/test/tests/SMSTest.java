@@ -62,7 +62,7 @@ SAssert a = new SAssert();
 		a.assertAll();
 	}	
 	
-	@Test(testName = "smsSinglePreview", description = "Verify SMS  preview ", timeOut = 500000, enabled = true, groups = { "SMSSINGLEPREVIEW"})
+	@Test(testName = "smsSinglePreview", description = "Verify SMS  preview ", timeOut = 500000, enabled = true, groups = {"SMS", "SmsPreview","BAT"})
 	 public void smsSinglePreview() 
 	 {
 	  PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
@@ -78,6 +78,55 @@ SAssert a = new SAssert();
 	  Reporter.log("Loading Sms Content Page <br>",true);
 	  pof.smsContentPage().load().isLoaded();	  
 	  a.assertTrue(pof.smsContentPage().previewWithMobileNumber(PagesHelper.SMSMESSAGECONTENT, PagesHelper.SMSUSERID,PagesHelper.SMSMOBILENUMBER),"Create SMS Content Preview Mobile");
+	  a.assertAll();
+	 }
+	
+	@Test(testName = "smsSummaryPage", description = "Verify summary page displays correct data", timeOut = 500000, enabled = true, groups = {"SMS", "SmsSummary","BAT"})
+	 public void smsSummaryPage() {	 
+	
+				
+	  PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
+	  pof.loginPage().load().isLoaded();
+	  pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
+	  pof.homePage().isLoaded();
+	  
+	  pof.smsHeaderPage().load(PagesHelper.SMSMMID).isLoaded();
+	  String strSmsShortCode = pof.smsHeaderPage().getShortCode();
+	  Reporter.log("SMS Header Page Short Code: "+strSmsShortCode+"<br>",true);	 
+	  
+	  pof.smsContentPage().load().isLoaded();
+	  String strContentText = pof.smsContentPage().getContentMessage();
+	  Reporter.log("SMS Content Message :"+strContentText+"<br>",true);
+	  	  
+	  pof.smsTargetPage().load().isLoaded();
+	  String strsmsTarget = pof.smsTargetPage().getEligibleRecipientsCount();
+	  Reporter.log("SMS Target Page Recipients Count"+strsmsTarget+"<br>",true);
+	    
+	  pof.smsSchedulePage().load().isLoaded();	   	  	 
+	  String strScheduleFinalTime = pof.smsSchedulePage().getScheduledDateTime();
+	  Reporter.log("SMS Schedule Page Date :"+strScheduleFinalTime+"<br>",true);
+	  
+	  Reporter.log("Navigate To Summary Page <br>",true); 
+	  pof.smsSummaryPage().load().isLoaded();
+	  String strSummaryShortCode = pof.smsSummaryPage().shortCodeHeader();
+	  Reporter.log("Summary Page Short Code"+strSummaryShortCode+"<br>",true);
+	  a.assertEquals(strSmsShortCode, strSummaryShortCode, "Summary Header Section");
+	  
+	  String strSummaryContentText = pof.smsSummaryPage().contentTextmessage();
+	  Reporter.log("Summary Page Content Text"+strSummaryContentText+"<br>",true);
+	  a.assertEquals(strContentText,strSummaryContentText,"Summary Content Section");    
+	    
+	  String strSummaryTargetCount = pof.smsSummaryPage().targetEligibleRecipients();
+	  Reporter.log("Summary Page Target Count"+strSummaryTargetCount+"<br>",true);
+	  a.assertEquals(strsmsTarget,strSummaryTargetCount,"Summary Target Section");  
+	  
+	  String strSummarryScheduleDate = pof.smsSummaryPage().schedulingDeliveryDate();
+	  Reporter.log("Summary Page Schedule Date : <br>"+strSummarryScheduleDate,true);
+	  String strSummaryTime = pof.smsSummaryPage().schedulingDeliveryDate(); 
+	  a.assertEquals(strScheduleFinalTime,strSummaryTime,"Summary Schedule Section");
+	  
+	  Reporter.log("Summary Advanced Targeting SQL<br>",true);
+	  a.assertTrue(pof.smsSummaryPage().advancedTargetingSQL(),"Advanced Targeting SQL");
 	  a.assertAll();
 	 }
 

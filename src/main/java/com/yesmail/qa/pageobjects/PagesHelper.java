@@ -53,11 +53,14 @@ public class PagesHelper {
        public final static String MULTIVARIATE_TARGET_EMAILID = prop.getValue("multivariate.target.email");
        public final static String MULTIVARIATE_SEARCH_TEXT = prop.getValue("multivariate.search.mvt"); 
        public final static String MULTIVARIATE_TARGET_SUBSCRIPTION_STATUS = prop.getValue("multivariate.target.subscription");
-       public final static String MULTIVARIATE_TARGET_FILTER_ATTRI = prop.getValue("multivariate.target.attributes");
-       public final static String MULTIVARIATE_TARGET_FILTER_ATTRI_EMAIL= prop.getValue("multivariate.target.attremail");
-       public final static String MULTIVARIATE_TARGET_FILTER_ATTRI_STRING= prop.getValue("multivariate.target.attristring");
+       
+       public final static String MULTIVARIATE_TARGET_ATTRIBUTENAME= prop.getValue("multivariate.target.attributename");
+       public final static String MULTIVARIATE_TARGET_ATTRIBUTEVALUE= prop.getValue("multivariate.target.attributevalue");
        public final static String MULTIVARIATE_ENVELOPE_CAMPAIGN_NAME= prop.getValue("multivariate.envelope.campaign.name");
-       public final static String MULTIVARIATE_ENVELOPE_ENCODING = "Western(ISO-8859-1)";
+       public final static String MULTIVARIATE_ENVELOPE_ENCODING = prop.getValue("multivariate.envelope.encoding");
+       public final static String MULTIVARIANT_SCHEDULE_TESTSCHEDULETIME = prop.getValue("multivariate.test.time");
+       public final static String MULTIVARIATE_CONTENT_CHECKBOX = prop.getValue("multivariate.content.checkbox");
+	   public final static String MULTIVARIATE_AUTOWINNING_CHECKBOX = prop.getValue("multivariate.autowinning.checkbox");
 	
 
 	
@@ -97,6 +100,7 @@ public class PagesHelper {
     	public static final String SMSMESSAGECONTENT = prop.getValue("sms.content");
 		public static final String SMSUSERID = prop.getValue("sms.userid");
 		public static final String SMSMOBILENUMBER = prop.getValue("sms.mobilenumber");
+		public final static String SMSMMID = prop.getValue("sms.mmid");
 
     	public final static String STATUSENABLED = "enabled";
     	public final static String STATUSDELIVERED = "delivered";	
@@ -111,6 +115,9 @@ public class PagesHelper {
 		//Report
 		public final static String REPORT_TYPE = prop.getValue("report.type");
 		public final static String REPORT_VIEW =  prop.getValue("report.view");
+		
+		
+		
 		
 	
 		

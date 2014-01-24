@@ -8,7 +8,6 @@
  *  
  * */
 
-
 package com.yesmail.qa.pageobjects.mvt;
 
 import java.util.List;
@@ -19,23 +18,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
-
-import com.yesmail.qa.pageobjects.PagesHelper;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.DriverUtility.CLICK_STRATEGY;
 import com.yesmail.qa.framework.exception.FrameworkException;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
 public class TestTargetPage extends MvtBase {
 
+	private WebDriver driver;
 
 	/***
-	 *  Page Elements for TestTarget Class
+	 * Page Elements for TestTarget Class
 	 */
-	
-	@FindBy(css = ".targetActions button:nth-of-type(2)")
-	private WebElement targetButton;
 
 	@FindBy(css = ".segment_group>div:nth-of-type(2)>div:nth-of-type(2) select")
 	private WebElement subStatusDropdown;
@@ -43,131 +39,109 @@ public class TestTargetPage extends MvtBase {
 	@FindBy(css = ".targetActions button:nth-of-type(2)")
 	private WebElement saveGetCount;
 
-	@FindBy(css = ".targetActions button:nth-of-type(1)")
-	private WebElement saveTarget;
-
 	@FindBy(css = "input.clearable")
 	private WebElement attributeFilterInput;
 
-	// List of attribute
 	@FindBys({ @FindBy(css = ".m-attributesList") })
 	private List<WebElement> attributeList;
 
-	//
 	@FindBy(css = "input.string-value")
-	private WebElement emailSegMentInput;
+	private WebElement segmentInputTextBox;
 
-	@FindBy(css = "div.header")
-	private WebElement segmentHeader;
-	
-	//Has Email and Subscription status segment css
 	@FindBy(css = "div.segments div:nth-child(2).segment")
 	private WebElement segmentE1;
 
-	//Has Email and Subscription status segment header css
-	@FindBy(css = "div.segments div:nth-child(2).ui-draggable>div.header")
-	private WebElement segmentE1Header;
-
-	private WebDriver driver;
-
-
-
-/***
- * Constructor to initalise page objects and navigate to page url
- * @param driver
- * @param pageUrl
- * @author sangeetap
- */
+	/***
+	 * Constructor to initialize page objects and navigate to page URL
+	 * 
+	 * @param driver
+	 * @param pageUrl
+	 * @author sangeetap
+	 */
 	public TestTargetPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		
+
 	}
-	
-	public TestTargetPage load()
-	{
+
+	public TestTargetPage load() {
 		navigateToTargetTab();
 		return this;
 	}
-	
-	public boolean isLoaded()
-	{
-		if(null == DriverUtility.waitFor(elementToBeClickable(attributeFilterInput), driver,50))
-		{
+
+	public boolean isLoaded() {
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended
+				.elementsToBeClickable(attributeFilterInput), driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");
 		}
 		return true;
 	}
 
-	/***
-	 * This mehtod added to select subscription satus from subscription status drop down
+	/**
+	 * This method is added to select the subscription status drop down value
+	 * 
+	 * @param subscription
+	 *            status
 	 */
-	public void selectSubsStatus() {
-		DriverUtility.selectDropDown(subStatusDropdown,
-				PagesHelper.MULTIVARIATE_TARGET_SUBSCRIPTION_STATUS, 1);
+	public void selectSubscriptionStatus(String subscription) {
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(subStatusDropdown),
+				driver, 10);
+		DriverUtility.selectDropDown(subStatusDropdown, subscription, 1);
 	}
 
-	/***
-	 * This mehtod added to search the given attribute and double click on the same 
-	 * @author sangeetap
+	/**
+	 * This method is added to select the filter value from attribute list
+	 * 
+	 * @param selectAttribute
+	 * 
 	 */
-	
-	public void filterSelect() {
+	public void filterSelect(String selectAttribute) {
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(attributeFilterInput),
+				driver, 10);
 		int i = 1;
-		attributeFilterInput
-				.sendKeys(selectAttr.attrString.toString());
-		attributeList.size();
+		attributeFilterInput.sendKeys(selectAttribute);
+
 		for (WebElement elementToClick : attributeList) {
 			elementToClick = driver.findElement(By
 					.cssSelector("div.mAttr:nth-child(" + i + ")"));
-			if ((elementToClick.getText())
-					.equalsIgnoreCase(selectAttr.attrString.toString())) {
-				DriverUtility.doubleClick(elementToClick, driver, CLICK_STRATEGY.USING_ACTION);
+			if ((elementToClick.getText().trim())
+					.equalsIgnoreCase(selectAttribute)) {
+				DriverUtility.doubleClick(elementToClick, driver,
+						CLICK_STRATEGY.USING_ACTION);
 				break;
-			}
-			else
+			} else
 				i++;
-
 		}
-
 	}
-	/***
-	 * This enum selectAttr class is added to list attribute to be searched
-	 */
-
-	public enum selectAttr {
-		eMail, attrString
-	}
-	
 
 	/***
-	 * This mehtod added to get the count for the target attribute
+	 * This method is added to get the count for the target attribute
 	 * 
+	 * @param - attribute Name, attribute Value, Subscription Status
 	 * @author sangeetap
 	 */
-	public void clickSaveGetCount(selectAttr selectAttr) {
+	public boolean clickSaveGetCount(String attributeName,
+			String attributeValue, String subscriptionStatus) {
+		selectSubscriptionStatus(subscriptionStatus);
+		filterSelect(attributeName);
+		DriverUtility.waitFor(
+				ExpectedConditions.elementToBeClickable(segmentE1), driver, 10);
 
-		selectSubsStatus();
-		filterSelect();
-		DriverUtility.waitforElementDisplay(driver, segmentE1, 30);
-		if (segmentE1Header.getText().equalsIgnoreCase(
-				selectAttr.toString())) {
-			
-			switch (selectAttr) {
-			case eMail:
-				emailSegMentInput
-						.sendKeys(PagesHelper.MULTIVARIATE_TARGET_FILTER_ATTRI_EMAIL);
-				break;
-			case attrString:
-				emailSegMentInput
-						.sendKeys(PagesHelper.MULTIVARIATE_TARGET_FILTER_ATTRI_STRING);
-			default:
-				break;
-			}
+		WebElement segmentHeaderText = driver
+				.findElement(By
+						.cssSelector("div.segments div:nth-child(2).ui-draggable>div.header"));
+		if (segmentHeaderText.getText().equalsIgnoreCase(attributeName)) {
+			segmentInputTextBox.sendKeys(attributeValue);
+
+			saveGetCount.click();
+			Reporter.log("Ribbon Text Message for Test Target Page is:"
+					+ getRibbonText(10) + "<br>", true);
 		}
-		saveGetCount.click();
+		return stepCompleted(4, 10);
 	}
-	
+
 }

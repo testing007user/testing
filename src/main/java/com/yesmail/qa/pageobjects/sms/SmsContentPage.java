@@ -50,6 +50,9 @@ public class SmsContentPage extends SmsBasePage {
 
 	@FindBy(css = ".page div.alert-error")
 	private WebElement alertError;
+	
+	@FindBy( css = "div.previewContent")
+	private WebElement previewContentdisableTextBox;
 
 	@SuppressWarnings("unused")
 	private String pageUrl;
@@ -68,12 +71,12 @@ public class SmsContentPage extends SmsBasePage {
 
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(saveContent),
+				ExpectedConditionExtended.elementToBeClickable(previewTab),
 				driver, 50)) {
 			navigateToContent();
 			if (null == DriverUtility
 					.waitFor(ExpectedConditionExtended
-							.elementToBeClickable(saveContent), driver, 50))
+							.elementToBeClickable(previewTab), driver, 50))
 				throw new FrameworkException(this.getClass().getName()
 						+ " is not loaded in 50 seconds");
 		}
@@ -154,6 +157,18 @@ public class SmsContentPage extends SmsBasePage {
 		Reporter.log("Ribbon Text for Content Page is : " + getRibbonText(20)
 				+ "<br>");
 		return stepCompleted(2, 20);
+	}
+	
+	/**
+	 * This method is added to get the preview content message
+	 * 
+	 * @param mobileNumber
+	 * @author sangeetap
+	 */
+	public String getContentMessage()
+	{
+		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(previewContentdisableTextBox), driver, 20);
+				return previewContentdisableTextBox.getText();
 	}
 
 }

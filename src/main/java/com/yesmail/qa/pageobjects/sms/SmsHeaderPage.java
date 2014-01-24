@@ -71,6 +71,11 @@ public class SmsHeaderPage extends SmsBasePage {
 		driver.get(PagesHelper.URL + pageUrl);
 		return this;
 	}
+	
+	public SmsHeaderPage load(String strMMID) {
+		driver.get(PagesHelper.URL + "#sms/" + strMMID + "/header");
+		return this;
+	}
 
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(smsName),
@@ -147,6 +152,17 @@ public class SmsHeaderPage extends SmsBasePage {
 		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(saveContent),
 				driver, 30);//This is added as workaround for header page reload issue.
 		return stepCompleted(1, 20);
+	}
+	
+	/**
+	 * This method is added to get short Code value
+	 * @return short code value
+	 * @author sangeetap
+	 */
+	public String getShortCode()
+	{
+		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(shortCode), driver, 20);
+		return disabledSelectBoxText(shortCode, driver);
 	}
 
 }
