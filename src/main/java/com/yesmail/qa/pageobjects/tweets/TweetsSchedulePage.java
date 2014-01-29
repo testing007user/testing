@@ -29,12 +29,11 @@ import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 import com.yesmail.qa.framework.libraries.Utils;
+import com.yesmail.qa.pageobjects.BasePage;
 
-public class TweetsSchedulePage extends TweetsContentPage {
+public class TweetsSchedulePage extends BasePage {
 
 	// Tweet Schedule page web element allocation
-
-	// @FindBy(css= "input[id='scheduleDatePicker']")
 	@FindBy(css = "input#scheduleDatePicker")
 	private WebElement dateBox;
 
@@ -57,7 +56,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	private WebElement amRadioButton;
 
 	@FindBy(css = "input[value = 'pm']")
-	private WebElement pmRadioButton;	
+	private WebElement pmRadioButton;
 
 	@FindBy(css = "input[id = 'scheduleNow']")
 	private WebElement scheduleImmediatelyButton;
@@ -67,14 +66,16 @@ public class TweetsSchedulePage extends TweetsContentPage {
 
 	@FindBy(css = ".workflow-master-btn.btn-mini.social-disable.btn-danger")
 	public WebElement disableBtn;
-	
+
+	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
+	private WebElement scheduleTab;
+
 	private WebDriver driver;
 
 	// Constructor
 
-	public TweetsSchedulePage(WebDriver driver, String pageUrl) {
-
-		super(driver, pageUrl);
+	public TweetsSchedulePage(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 
@@ -92,6 +93,16 @@ public class TweetsSchedulePage extends TweetsContentPage {
 					+ " is not loaded");
 	}
 
+	/**
+	 * This method is added to navigate to schedule page
+	 */
+	private void navigateToScheduleTab() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(scheduleTab),
+				driver, 50);
+		scheduleTab.click();
+	}
+
 	/***
 	 * This method is added to insert date
 	 */
@@ -105,12 +116,12 @@ public class TweetsSchedulePage extends TweetsContentPage {
 		for (WebElement date : dateList) {
 			if (date.getText().equals(month_Day)) {
 				if (date.getAttribute("class").contains("ui-state-highlight")) {
-					date.click();					
+					date.click();
 					break;
 				}
 			}
 		}
-		
+
 	}
 
 	/***
@@ -150,11 +161,11 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	public void setDateTime() {
 
 		insertDate();
-		DriverUtility.waitforElementDisplay(driver,hourTextBox,50);
+		DriverUtility.waitforElementDisplay(driver, hourTextBox, 50);
 		enterCurrentHour();
-		DriverUtility.waitforElementDisplay(driver,minuteTextBox,50);
+		DriverUtility.waitforElementDisplay(driver, minuteTextBox, 50);
 		enterCurrentMinutes();
-		DriverUtility.waitforElementDisplay(driver,amRadioButton,50);
+		DriverUtility.waitforElementDisplay(driver, amRadioButton, 50);
 		setAmPm();
 	}
 
@@ -163,7 +174,8 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	 */
 	public boolean saveSchedule() {
 		saveScheduleButton.click();
-		Reporter.log("Ribbon Text Message for Tweet Schedule Page is: " +getRibbonText(10)+"<br>",true);
+		Reporter.log("Ribbon Text Message for Tweet Schedule Page is: "
+				+ getRibbonText(10) + "<br>", true);
 		return stepCompleted(2, 10);
 	}
 
@@ -171,12 +183,18 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	 * This method is added to enable and confirm the tweet
 	 */
 	public boolean enableandConfirmTweet() {
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(enable), driver, 20);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(enable),
+				driver, 20);
 		enable.click();
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(confirm), driver, 30);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(confirm),
+				driver, 30);
 		confirm.click();
-		return(DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(disableBtn), driver, 30) != null);
-		
+		return (DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(disableBtn),
+				driver, 30) != null);
+
 	}
 
 	/***
@@ -190,12 +208,13 @@ public class TweetsSchedulePage extends TweetsContentPage {
 
 	/***
 	 * This method is added to schedule Tweet on specific time /later
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public boolean scheduleTweet() {
 
 		setDateTime();
-		return saveSchedule();	
+		return saveSchedule();
 
 	}
 
@@ -206,7 +225,7 @@ public class TweetsSchedulePage extends TweetsContentPage {
 	 */
 
 	public String getMasterId() {
-				String loginUrl = driver.getCurrentUrl();
+		String loginUrl = driver.getCurrentUrl();
 		String jobNum = driver.getCurrentUrl()
 				.substring(loginUrl.lastIndexOf("#") + 1)
 				.replaceAll("[^0-9]", "");

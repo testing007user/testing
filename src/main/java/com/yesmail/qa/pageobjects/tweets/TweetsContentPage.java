@@ -43,10 +43,10 @@ public class TweetsContentPage extends BasePage{
 	private WebElement contentTextBox;
 
 	@FindBy(css = "form#tweetContentForm button")
-	private WebElement saveButton;	
-
-	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
-	private WebElement scheduleTab;
+	private WebElement saveButton;
+	
+	@FindBy(css = "button[id = 'save']")
+	private WebElement saveScheduleButton;
 	
 	private WebDriver driver;
 	private String pageUrl;
@@ -67,19 +67,12 @@ public class TweetsContentPage extends BasePage{
 	}
 
 	public void isLoaded() {
-		if (!DriverUtility.waitforElementDisplay(driver, accountDropDown, 30))
+		if (null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(accountDropDown), driver, 50))
 			throw new FrameworkException(TweetsContentPage.class.getName()
 					+ " is not loaded");
 
 	}
-
-	/**
-	 * This method is added to navigate to schedule page
-	 */
-	public void navigateToScheduleTab() {
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(scheduleTab), driver, 50);
-		scheduleTab.click();
-	}
+	
 
 	/***
 	 * This method added to select twitter account
@@ -113,6 +106,7 @@ public class TweetsContentPage extends BasePage{
 	public boolean saveTweetContent() {
 		saveButton.click();
 		Reporter.log("Ribbon Text for TweetContent is:"+getRibbonText(10)+"<br>",true);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(saveScheduleButton), driver, 10);
 		return stepCompleted(1, 10);
 		
 	}

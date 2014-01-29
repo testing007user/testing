@@ -337,7 +337,7 @@ public class PageObjectFactory {
 	public TweetsSchedulePage tweetsSchedulePage() {
 
 		if (tweetsSchedulePage == null)
-			tweetsSchedulePage = new TweetsSchedulePage(driver, "");
+			tweetsSchedulePage = new TweetsSchedulePage(driver);
 		return tweetsSchedulePage;
 	}
 

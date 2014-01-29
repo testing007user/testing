@@ -7,49 +7,49 @@ import com.yesmail.qa.framework.testng.support.SAssert;
 import com.yesmail.qa.pageobjects.PageObjectFactory;
 import com.yesmail.qa.pageobjects.PagesHelper;
 /**
- * This class will contain Tweet related testcases
+ * This class will contain Twitter related testcases
  * @author achyutd
  *
  */
 public class TweetTest {
 	
-	private String tweetMasterId = null; 
+	private String twitterMasterId = null; 
 	
 	SAssert a = new SAssert(); 
 	
-	 @Test(testName = "createTweetsMaster", description = "Create a Tweet & enable the same", timeOut = 500000, groups ={"BAT","Tweet"})
-		public void createTweetsMaster() {
+	 @Test(testName = "createTwitterMaster", description = "Create a Twitter Master & enable the same", timeOut = 500000, groups ={"BAT","Twitter"})
+		public void createTwitterMaster() {
 
 			PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 			pof.loginPage().load().isLoaded();
 			pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
 			pof.homePage().isLoaded();
 
-			Reporter.log("Creating Tweets Master<br>",true);
+			Reporter.log("Creating Twitter Master<br>",true);
 			pof.tweetsContentPage().load().isLoaded();
-			a.assertTrue(pof.tweetsContentPage().createTweet(PagesHelper.TWITTER_ACCOUNT),"Creating Tweet Content");
+			a.assertTrue(pof.tweetsContentPage().createTweet(PagesHelper.TWITTER_ACCOUNT),"Creating Twitter Content");
 			
-			Reporter.log("Scheduling Tweet master <br>",true);
+			Reporter.log("Scheduling Twitter master <br>",true);
 			pof.tweetsSchedulePage().load().isLoaded();				
-			tweetMasterId = pof.tweetsSchedulePage().getMasterId();
-			Reporter.log("Generated Tweet master Id: "+tweetMasterId+"<br>",true);
-			a.assertTrue(pof.tweetsSchedulePage().scheduleTweet(),"Scheduling Tweet Content");
-			a.assertTrue(pof.tweetsSchedulePage().enableandConfirmTweet(),"Enabling and Confirming the Tweets Schudule for Job Id: "+tweetMasterId);
+			twitterMasterId = pof.tweetsSchedulePage().getMasterId();
+			Reporter.log("Generated Twitter master Id: "+twitterMasterId+"<br>",true);
+			a.assertTrue(pof.tweetsSchedulePage().scheduleTweet(),"Scheduling Twitter Content");
+			a.assertTrue(pof.tweetsSchedulePage().enableandConfirmTweet(),"Enabling and Confirming the Twitter Schudule for Job Id: "+twitterMasterId);
 			a.assertAll();
 
 		}
 
-		@Test(testName = "verifyTweetsStatus", description = "Verifying the status of Tweets", timeOut = 500000, groups ={"BAT","Tweet"}, dependsOnMethods = {"createTweetsMaster"})
-		public void verifyTweetsStatus() {
+		@Test(testName = "verifyTwitterStatus", description = "Verifying the status of Twitter", timeOut = 500000, groups ={"BAT","Twitter"}, dependsOnMethods = {"createTwitterMaster"})
+		public void verifyTwitterStatus() {
 
 			PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
 			pof.loginPage().load().isLoaded();
 			pof.loginPage().loginAs(PagesHelper.USERNAME, PagesHelper.PASSWORD);
 			pof.homePage().isLoaded();
 
-			Reporter.log("Loading View Tweets Page<br>", true);
+			Reporter.log("Loading View Twitter Page<br>", true);
 			pof.viewTweetsPage().load().isLoaded();
-			a.assertTrue(pof.viewTweetsPage().verifyTweetMasterStatus(tweetMasterId,PagesHelper.STATUSPUBLISHED), "Verify Tweet Status for Master Id: "+tweetMasterId);
+			a.assertTrue(pof.viewTweetsPage().verifyTweetMasterStatus(twitterMasterId,PagesHelper.STATUSPUBLISHED), "Verify Twitter Status for Master Id: "+twitterMasterId);
 			a.assertAll();
 		}
 
