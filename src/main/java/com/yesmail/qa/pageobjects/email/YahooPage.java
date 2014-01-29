@@ -10,10 +10,10 @@ package com.yesmail.qa.pageobjects.email;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
 import com.yesmail.qa.framework.DriverUtility;
@@ -38,9 +38,6 @@ public class YahooPage extends BasePage {
 
 	@FindBy(css = ".inbox-label")
 	private WebElement inboxLink;
-
-	@FindBys({ @FindBy(css = "div[class='from'] >span") })
-	private List<WebElement> fromElement;
 
 	@FindBy(css = ".list-view-items-page")
 	private WebElement inboxList;
@@ -123,8 +120,9 @@ public class YahooPage extends BasePage {
 			.waitFor(ExpectedConditionExtended
 					.elementToBeClickable(mailSection), driver, 20);
 			
-			while (System.currentTimeMillis() / 1000 <= stopTime) {				
-				for (WebElement mail : fromElement) {
+			while (System.currentTimeMillis() / 1000 <= stopTime) {	
+				List<WebElement> fromElement2 = driver.findElements(By.xpath("//div[@class='from']/span[contains(text(),'"+searchText+"')]"));			   
+				for (WebElement mail : fromElement2) {			    
 					if (mail.getText().equalsIgnoreCase(searchText)) {
 						searchFound = true;
 						break;

@@ -87,6 +87,7 @@ class DriverFactory {
 			if (browser.equalsIgnoreCase("firefox")) {
 				log.debug("Returning REMOTE firefox driver.");
 				dc = DesiredCapabilities.firefox();
+				dc.setCapability("nativeEvents", false);
 			} else if (browser.equalsIgnoreCase("ie")) {
 				log.debug("Returning REMOTE IE driver.");
 				dc = DesiredCapabilities.internetExplorer();

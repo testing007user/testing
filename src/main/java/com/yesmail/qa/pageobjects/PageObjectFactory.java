@@ -24,9 +24,9 @@ import com.yesmail.qa.pageobjects.facebook.ViewFacebookPage;
 
 import com.yesmail.qa.pageobjects.email.YahooPage;
 
+import com.yesmail.qa.pageobjects.homepage.HomePage;
 import com.yesmail.qa.pageobjects.imports.Import;
 import com.yesmail.qa.pageobjects.imports.ImportHomePage;
-import com.yesmail.qa.pageobjects.login.HomePage;
 import com.yesmail.qa.pageobjects.login.LoginPage;
 import com.yesmail.qa.pageobjects.mvt.*;
 import com.yesmail.qa.pageobjects.reports.ReportsPage;

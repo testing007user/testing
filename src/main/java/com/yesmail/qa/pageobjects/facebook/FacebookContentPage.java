@@ -54,6 +54,9 @@ public class FacebookContentPage extends BasePage {
 
 	@FindBy(css = "div:nth-child(2) input[id='scheduleDatePicker']")
 	public WebElement dateBox;
+	
+	@FindBy(css = "div.twitter button#save")
+	private WebElement saveScheduleButton;
 
 	private WebDriver driver;
 	private String pageUrl;
@@ -153,10 +156,10 @@ public class FacebookContentPage extends BasePage {
 	 * 
 	 * @return getMaserId - return generated Facebook matster id
 	 */
-
 	private boolean saveFacebookContent() {
 		savebutton.click();
 		 Reporter.log("Ribbon text for facebook content page :"+getRibbonText(10)+"<br>");
+		 DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(saveScheduleButton), driver, 15);//This is added as workaround for FaceBook Content Page reload issue.
 		return stepCompleted(1, 10);
 	}
 

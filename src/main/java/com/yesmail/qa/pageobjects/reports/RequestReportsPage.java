@@ -127,7 +127,7 @@ public class RequestReportsPage extends BasePage {
 	public void selectMailingView(String visibleText) {
 		DriverUtility.selectDropDown(viewBy, visibleText, 0);
 		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(tableMasterIDMailingView),driver,
-				30);
+				50);
 		firstRowCheckBox.click();
 	}
 
