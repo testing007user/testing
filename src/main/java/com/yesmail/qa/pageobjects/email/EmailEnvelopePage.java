@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
@@ -29,8 +30,9 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 public class EmailEnvelopePage extends EmailBase {
 
 	private WebDriver driver;
-	private String pageUrl;	
-	private String masterName = Utils.getUniqueName(PagesHelper.EMAIL_MASTER, 25);
+	private String pageUrl;
+	private String masterName = Utils.getUniqueName(PagesHelper.EMAIL_MASTER,
+			25);
 
 	@FindBy(id = "name")
 	private WebElement nameTextBox;
@@ -94,7 +96,7 @@ public class EmailEnvelopePage extends EmailBase {
 
 	@FindBy(css = "form > select.span3")
 	private WebElement campaignTypeDropdown;
-	
+
 	@FindBy(css = "button.saveContent")
 	private WebElement textSaveButton;
 
@@ -114,7 +116,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 * This method is added to load the page.
 	 */
 	public EmailEnvelopePage load() {
-		driver.get(PagesHelper.URL+pageUrl);
+		driver.get(PagesHelper.URL + pageUrl);
 		return this;
 	}
 
@@ -123,8 +125,8 @@ public class EmailEnvelopePage extends EmailBase {
 	 */
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(nameTextBox), driver,
-				50))
+				ExpectedConditionExtended.elementToBeClickable(nameTextBox),
+				driver, 50))
 			throw new FrameworkException(EmailEnvelopePage.class.getName()
 					+ " is not loaded");
 	}
@@ -134,7 +136,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 * 
 	 * @author sangeetap
 	 */
-	private void fillEnvName() {		
+	private void fillEnvName() {
 		nameTextBox.clear();
 		nameTextBox.sendKeys(masterName);
 	}
@@ -162,7 +164,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 */
 	private void selectCampaign(String campaignType) {
 		DriverUtility.selectDropDown(campaignDropDown,
-				PagesHelper.EMAIL_CAMPAIGN_NAME, 1);		
+				PagesHelper.EMAIL_CAMPAIGN_NAME, 1);
 
 		if (PagesHelper.EMAIL_CAMPAIGN_NAME.equalsIgnoreCase("Create New...")) {
 			campaignNewCampaignName.clear();
@@ -174,7 +176,7 @@ public class EmailEnvelopePage extends EmailBase {
 				String StrDesc = Utils.getUniqueName("test_campaign_type");
 				StrDesc = StrDesc.substring(0, StrDesc.length() - 20);
 				newCampaignNewTypeTextBox.sendKeys(StrDesc);
-			}			
+			}
 			newCampaignCreateButton.click();
 
 		}
@@ -185,6 +187,8 @@ public class EmailEnvelopePage extends EmailBase {
 	 * 
 	 */
 	private void fillfromName() {
+		Actions action = new Actions(driver);
+		action.moveToElement(fromTextBox).perform();
 		fromTextBox.clear();
 		fromTextBox.sendKeys(masterName);
 	}
@@ -242,17 +246,25 @@ public class EmailEnvelopePage extends EmailBase {
 	public String createEnvelope() {
 		fillEnvName();
 		selectCampaign("Create New...");
-		selectDivision();		
+		selectDivision();
 		fillSubject();
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		fillfromName();
+		Actions action = new Actions(driver);// This has been added as a
+												// workaround to move the focus
+												// from element "from" to
+												// "saveEnvelope".
+		action.moveToElement(saveEnvelope).perform();
 		saveEnvelope.click();
-		Reporter.log("Ribbon Text for EnvelopePage is: "+getRibbonText(10)+"<br>",true);
-		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(textSaveButton),
-				driver, 20);//This is added as workaround for Envelope page reload issue.
+		Reporter.log("Ribbon Text for EnvelopePage is: " + getRibbonText(10)
+				+ "<br>", true);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(textSaveButton),
+				driver, 20);// This is added as workaround for Envelope page
+							// reload issue.
 		nameTextBox.click();
-		return masterName;		
+		return masterName;
 	}
 
 	/***
@@ -274,8 +286,10 @@ public class EmailEnvelopePage extends EmailBase {
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
-		DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(textSaveButton),
-				driver, 30);//This is added as workaround for Envelope page reload issue.
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(textSaveButton),
+				driver, 30);// This is added as workaround for Envelope page
+							// reload issue.
 		return masterName;
 	}
 
@@ -287,12 +301,16 @@ public class EmailEnvelopePage extends EmailBase {
 	public boolean uploadXml() {
 		xmlUploadLink.click();
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(xmlUploadPath), driver,
-				10);
+				ExpectedConditionExtended.elementToBeClickable(xmlUploadPath),
+				driver, 10);
 
-		xmlUploadPath.sendKeys(Utils.getResources(this, "fileName"));// Replace File Name with Actual.
+		xmlUploadPath.sendKeys(Utils.getResources(this, "fileName"));// Replace
+																		// File
+																		// Name
+																		// with
+																		// Actual.
 		submitxmlUploadLinkBTN.click();
-		return stepCompleted(1, 10);		
+		return stepCompleted(1, 10);
 	}
 
 	/***
@@ -303,7 +321,7 @@ public class EmailEnvelopePage extends EmailBase {
 		DriverUtility.selectDropDown(subjectPersonalizeDropdown, attribute, 1);
 		subjectPersonalizeInsertButton.click();
 	}
-	
+
 	/***
 	 * This method is added to load the page for masterId.
 	 * 

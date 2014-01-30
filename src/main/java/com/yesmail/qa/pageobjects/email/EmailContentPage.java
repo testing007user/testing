@@ -93,6 +93,9 @@ public class EmailContentPage extends EmailBase {
 
 	@FindBy(css = ".emailList>select")
 	private WebElement emailListDropdown;
+	
+	@FindBy(id = "name")
+	private WebElement dummyElement;
 
 	public EmailContentPage(WebDriver driver) {
 		super(driver);
@@ -206,31 +209,26 @@ public class EmailContentPage extends EmailBase {
 
 	/***
 	 * This method is added to select Single Email Preview.
-	 * 
-	 * @return - Single Preview Sent(True/False)
+	 *	
 	 */
-	public boolean selectSinglePreview() {
-		String ribbonText = null;
+	public void selectSinglePreview() {	
 		emailPreviewBtn.click();
 		DriverUtility.waitFor(ExpectedConditionExtended
 				.elementsToBeClickable(singleAddressRadioBtn), driver, 30);
 		singleAddressRadioBtn.click();
 		emailAddressTextBox.sendKeys(PagesHelper.EMAIL_ATTR_VALUE);
 		userIdTextBox.sendKeys(PagesHelper.EMAIL_USERID);
-		sendPreviewBtn.click();
-		ribbonText = getRibbonText(20);
-		Reporter.log("Ribbon Text for Single Email Preview is: " + ribbonText+"<br>",
+		sendPreviewBtn.click();		
+		Reporter.log("Ribbon Text for Single Email Preview is: " + getRibbonText(20)+"<br>",
 				true);
-		return (ribbonText != null);
-
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//This has been added as a workaround for the application to send preview successfully.
 	}
 
 	/***
 	 * This method is added to select Group Email Preview.
-	 * 
-	 * @return - Group Preview Sent(True/False)
+	 *	 
 	 */
-	public boolean selectGroupPreview() {
+	public void selectGroupPreview() {
 		String ribbonText = null;
 		emailPreviewBtn.click();
 		DriverUtility.waitFor(ExpectedConditionExtended
@@ -242,7 +240,7 @@ public class EmailContentPage extends EmailBase {
 		ribbonText = getRibbonText(20);
 		Reporter.log("Ribbon Text for Group Email Preview is: " + ribbonText,
 				true);
-		return (ribbonText != null);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//This has been added as a workaround for the application to send preview successfully.
 	}
 
 }

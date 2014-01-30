@@ -72,7 +72,7 @@ public class EmailTest {
 		a.assertAll();
 	}
 	
-	@Test(testName = "VerifyEmailOnYahoo", dependsOnMethods = {"verifyMaster"}, description = "Verifying Email from Master on Yahoo", timeOut = 500000, enabled = true, groups= {"YAHOO","Email"})
+	@Test(testName = "VerifyEmailOnYahoo", dependsOnMethods = {"verifyMaster"}, description = "Verifying Email from Master on Yahoo", timeOut = 500000, enabled = true, groups= {"BAT","YAHOO","Email"})
 	public void VerifyEmailOnYahoo() {
 		
 		PageObjectFactory pof = new PageObjectFactory(Driver.getDriver());
@@ -102,7 +102,7 @@ public class EmailTest {
 		pof.emailContentPage().selectSinglePreview();	
 		
 		Reporter.log("Verifying Email on Yahoo <br>",true);
-		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName,5),"Verify Email on Yahoo");		
+		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName,3),"Verify Email on Yahoo");		
 		a.assertAll();
 		
 	}
@@ -128,7 +128,7 @@ public class EmailTest {
 		pof.emailContentPage().selectGroupPreview();	
 		
 		Reporter.log("Verifying Email on Yahoo <br>",true);
-		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName, 5),"Verify Email on Yahoo");		
+		a.assertTrue(pof.yahooPage().verifyEmailOnYahoo(masterName, 3),"Verify Email on Yahoo");		
 		a.assertAll();
 	}
 	
