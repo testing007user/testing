@@ -69,6 +69,9 @@ public class TweetsSchedulePage extends BasePage {
 
 	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
 	private WebElement scheduleTab;
+	
+	@FindBy(css = "textarea#tweetContentArea")
+	private WebElement dummyElement;
 
 	private WebDriver driver;
 
@@ -159,7 +162,7 @@ public class TweetsSchedulePage extends BasePage {
 	 */
 
 	public void setDateTime() {
-
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//this is added as a workaround for date textBox alignment issue.
 		insertDate();
 		DriverUtility.waitforElementDisplay(driver, hourTextBox, 50);
 		enterCurrentHour();
