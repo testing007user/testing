@@ -47,13 +47,16 @@ public class SAssert extends Assertion {
 			assertMap.get().put(a, "");
 		} catch (AssertionError ex) {
 			String screenShotPath = "";
+			String screenCaptureName ="";
 			if (CommandLineArgs.getScreenShotFlag()) {
+				String screenShotName = UUID.randomUUID() + ".png";
 				screenShotPath = DriverInitialization.outPutDir
-						+ File.separator + UUID.randomUUID();
+						+ File.separator + screenShotName;
 				DriverUtility
 						.takeScreenShot(Driver.getDriver(), screenShotPath);
+				screenCaptureName = "../New_E8_Automation_Suite/"+screenShotName;
 			}
-			assertMap.get().put(a, screenShotPath);
+			assertMap.get().put(a, screenCaptureName);
 			m_errors.get().put(ex, a);
 		}
 	}

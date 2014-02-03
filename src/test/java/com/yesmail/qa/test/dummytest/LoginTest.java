@@ -2,9 +2,7 @@ package com.yesmail.qa.test.dummytest;
 
 import org.testng.annotations.Test;
 import com.yesmail.qa.pageobjects.*;
-import com.yesmail.qa.test.configuration.XMLParser;
 import com.yesmail.qa.framework.Driver;
-import com.yesmail.qa.framework.DriverUtility.CHECK_UNCHECK;
 import com.yesmail.qa.framework.libraries.Utils;
 import com.yesmail.qa.framework.testng.support.SAssert;
 
@@ -141,7 +139,7 @@ public class LoginTest {
 		pof.tweetsSchedulePage().load().isLoaded();
 		pof.tweetsSchedulePage().scheduleTweet();
 		pof.viewTweetsPage().load().isLoaded();
-		pof.viewTweetsPage().verifyTweetMasterStatus(strTweetId, "PUBLISHED");
+		pof.viewTweetsPage().verifyTweetMasterStatus(strTweetId, "PUBLISHED", 5);
 	}
 	 
 //	 @Test(groups="testStatus1232",timeOut=50000000)

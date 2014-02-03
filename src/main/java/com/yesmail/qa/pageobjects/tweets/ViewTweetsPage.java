@@ -91,7 +91,7 @@ public class ViewTweetsPage {
 	 * @return
 	 */
 
-	public boolean verifyTweetMasterStatus(String jobId, String expectedStatus) {
+	public boolean verifyTweetMasterStatus(String jobId, String expectedStatus, int waitTime) {
 		
 		int index;
 		boolean jobFound = false;
@@ -100,7 +100,7 @@ public class ViewTweetsPage {
 
 		long startTime = System.currentTimeMillis() / 1000;
 
-		long stopTime = startTime + 300;
+		long stopTime = startTime + (60 * waitTime);
 
 		while (System.currentTimeMillis() / 1000 <= stopTime) {
 

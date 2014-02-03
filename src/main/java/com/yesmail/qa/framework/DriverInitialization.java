@@ -213,14 +213,15 @@ public class DriverInitialization implements IInvokedMethodListener {
 
 					String outPutDirectory = testResult.getTestContext()
 							.getOutputDirectory();
+					String screenShotName = UUID.randomUUID() + ".png";
 					String filePath = outPutDirectory + File.separator
-							+ UUID.randomUUID() + ".png";
+							+ screenShotName;
 					DriverUtility.takeScreenShot(Driver.getDriver(), filePath);
 					// Append the screen Shot in the Reporter Log
 					Reporter.log("Test Case -" + testResult.getName()
 							+ " failed due to exception screen shot below");
 					Reporter.log("<div style=\"height:400px; width: 750px; overflow:scroll\"><img src=\""
-							+ filePath + "\"></div>");
+							+ "../New_E8_Automation_Suite/"+ screenShotName + "\"></div>");
 
 				}
 			}
