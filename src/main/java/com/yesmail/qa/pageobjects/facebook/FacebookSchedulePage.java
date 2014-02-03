@@ -84,6 +84,9 @@ public class FacebookSchedulePage extends BasePage {
 	@FindBy(id = "scheduleNowFields")
 	private WebElement scheduleNowFields;
 	
+	@FindBy(css = "textarea#tweetContentArea")
+	private WebElement dummyElement;
+	
 	
 
 	private WebDriver driver;
@@ -167,7 +170,7 @@ public class FacebookSchedulePage extends BasePage {
 	 */
 
 	private void setDateTime() {
-
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//this is added as a workaround for date textBox alignment issue.
 		insertDate();
 		enterCurrentHour();
 		enterCurrentMinutes();

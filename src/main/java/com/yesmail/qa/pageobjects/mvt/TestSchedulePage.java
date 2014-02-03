@@ -86,6 +86,9 @@ public class TestSchedulePage extends MvtBase {
 
 	@FindBy(id = "autoSendElapsedTime")
 	private WebElement testDurationTimeTextBox;
+	
+	@FindBy(css = "textarea#tweetContentArea")
+	private WebElement dummyElement;
 
 	public static String preCompileMinutes;
 	public static String preCompileHour;
@@ -208,6 +211,7 @@ public class TestSchedulePage extends MvtBase {
 	 */
 
 	public void setDateTime() {
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//this is added as a workaround for date textBox alignment issue.
 		insertDate();
 		DriverUtility.waitFor(
 				ExpectedConditionExtended.elementsToBeClickable(hourTextBox),
