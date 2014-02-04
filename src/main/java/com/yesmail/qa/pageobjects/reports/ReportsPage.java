@@ -52,8 +52,8 @@ public class ReportsPage extends BasePage {
 	@FindBys({ @FindBy(css = "table tbody tr td:nth-child(2)") })
 	private List<WebElement> messageIdTds;
 
-	@FindBy(css = ".dataTable tbody")
-	private WebElement tableBody;
+	@FindBy(css = "div[data-target='reportsTable']>div.tableContainer")
+	private WebElement tableContainer;
 	
 	@FindBy(css = "tbody > tr > td:nth-of-type(3).selectable")
 	private List<WebElement> filterByType;
@@ -77,7 +77,7 @@ public class ReportsPage extends BasePage {
 	
 		if (null == DriverUtility
 				.waitFor(
-						ExpectedConditionExtended.elementsToBeClickable(tableBody),
+						ExpectedConditionExtended.elementsToBeClickable(tableContainer),
 						driver, 50)) {
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds ");
@@ -159,7 +159,7 @@ public class ReportsPage extends BasePage {
 				break;
 			}
 			driver.navigate().refresh();
-			DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(tableBody),driver,40);			
+			DriverUtility.waitFor(ExpectedConditionExtended.elementToBeClickable(tableContainer),driver,40);			
 			selectDropDownOnReportsPage();
 		}
 		return expStatus;

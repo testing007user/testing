@@ -70,7 +70,7 @@ public class TweetsSchedulePage extends BasePage {
 	@FindBy(css = "div:nth-child(2)>a:nth-of-type(2)")
 	private WebElement scheduleTab;
 	
-	@FindBy(css = "textarea#tweetContentArea")
+	@FindBy(css = "textarea#twittContentArea")
 	private WebElement dummyElement;
 
 	private WebDriver driver;
