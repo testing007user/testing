@@ -98,7 +98,7 @@ public class EmailEnvelopePage extends EmailBase {
 	private WebElement campaignTypeDropdown;
 
 	@FindBy(css = "button.saveContent")
-	private WebElement textSaveButton;
+	private WebElement dummyElement;
 
 	/**
 	 * Constructor section
@@ -187,6 +187,9 @@ public class EmailEnvelopePage extends EmailBase {
 	 * 
 	 */
 	private void fillfromName() {
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(dummyElement),
+				driver, 15);
 		Actions action = new Actions(driver);
 		action.moveToElement(fromTextBox).perform();
 		fromTextBox.clear();
@@ -244,6 +247,7 @@ public class EmailEnvelopePage extends EmailBase {
 	 * @return - Master Name
 	 */
 	public String createEnvelope() {
+		
 		fillEnvName();
 		selectCampaign("Create New...");
 		selectDivision();
@@ -260,7 +264,7 @@ public class EmailEnvelopePage extends EmailBase {
 		Reporter.log("Ribbon Text for EnvelopePage is: " + getRibbonText(10)
 				+ "<br>", true);
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(textSaveButton),
+				ExpectedConditionExtended.elementToBeClickable(dummyElement),
 				driver, 20);// This is added as workaround for Envelope page
 							// reload issue.
 		nameTextBox.click();
@@ -287,8 +291,8 @@ public class EmailEnvelopePage extends EmailBase {
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
 		saveEnvelope.click();
 		DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(textSaveButton),
-				driver, 30);// This is added as workaround for Envelope page
+				ExpectedConditionExtended.elementToBeClickable(dummyElement),
+				driver, 20);// This is added as workaround for Envelope page
 							// reload issue.
 		return masterName;
 	}

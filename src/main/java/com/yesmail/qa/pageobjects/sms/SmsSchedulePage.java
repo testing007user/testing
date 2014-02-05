@@ -72,6 +72,9 @@ public class SmsSchedulePage extends SmsBasePage {
 
 	@FindBy(css = ".btn-danger")
 	private WebElement disableBtn;
+	
+	@FindBy(css = "button.saveContent")
+	private WebElement dummyElement;
 
 	/**
 	 * Initializing Constructor
@@ -157,7 +160,14 @@ public class SmsSchedulePage extends SmsBasePage {
 	 * This method is added to set Date and Time
 	 */
 
-	public void setDateTime() {
+	public void setDateTime() {		
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(dummyElement),
+				driver, 20);// This is added as workaround for date textBox
+							// alignment issue.
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(dateBox),
+				driver, 20);
 		insertDate();
 		enterCurrentHour();
 		enterCurrentMinutes();
