@@ -104,10 +104,10 @@ public class TestContentPage extends MvtBase {
 		int countStore = count;
 		if (count != 0) {
 			DriverUtility.waitFor(ExpectedConditionExtended
-					.elementToBeClickable(addContentButton), driver, 20);
+					.elementToBeClickable(addContentButton), driver, 30);
 			addContentButton.click();
 			DriverUtility.waitFor(ExpectedConditionExtended
-					.elementsToBeClickable(contentNameTextBox), driver, 10);
+					.elementsToBeClickable(contentNameTextBox), driver, 30);
 			String strContentName = Utils.getUniqueName(
 					PagesHelper.MULTIVARIATE_CONTENT_NAME, 25);
 			contentNameTextBox.sendKeys(strContentName);
@@ -115,7 +115,7 @@ public class TestContentPage extends MvtBase {
 					PagesHelper.MULTIVARIATE_CONTENT_DESC, 25));
 			addConfirmButton.click();
 			Reporter.log("Ribbon Text for Test Content <br>"
-					+ getRibbonText(10), true);
+					+ getRibbonText(20), true);
 			DriverUtility.waitFor(
 					ExpectedConditionExtended.elementToBeClickable(downArrow),
 					driver, 30);
@@ -136,7 +136,7 @@ public class TestContentPage extends MvtBase {
 	public void selectContentFromDropDown(String stringToSelect) {
 		downArrow.click();
 		DriverUtility.waitFor(ExpectedConditionExtended
-				.elementToBeClickable(selectContentDropDownList), driver, 20);
+				.elementToBeClickable(selectContentDropDownList), driver, 30);
 		for (int index = 0; index < selectContentDropDownList.size(); index++) {
 			if (selectContentDropDownList.get(index).getText()
 					.equalsIgnoreCase(stringToSelect)) {
@@ -146,7 +146,7 @@ public class TestContentPage extends MvtBase {
 			}
 		}
 		Reporter.log(" Ribbon text for Upload Content : <br>"
-				+ getRibbonText(10), true);
+				+ getRibbonText(20), true);
 	}
 
 	/***
@@ -162,6 +162,9 @@ public class TestContentPage extends MvtBase {
 				driver, 50);
 		uploadButton.click();		
 		Reporter.log("Uploading File :<br>", true);
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementsToBeClickable(uploadformTextField),
+				driver, 30);
 		uploadformTextField.sendKeys( Utils.getResources(this, "Test 12 March 2013.zip"));	
 		DriverUtility.waitFor(ExpectedConditionExtended
 				.elementToBeClickable(uploadAssetsButton), driver, 50);

@@ -93,7 +93,7 @@ public class MvtTest {
 		
 		Reporter.log("Creating Test Target page <br>",true);
 		pof.testTargetPage().load().isLoaded();
-		a.assertTrue(pof.testTargetPage().clickSaveGetCount(PagesHelper.MULTIVARIATE_TARGET_ATTRIBUTENAME,PagesHelper.MULTIVARIATE_TARGET_ATTRIBUTEVALUE,PagesHelper.MULTIVARIATE_TARGET_SUBSCRIPTION_STATUS),"Craeting Test Target Page");
+		a.assertTrue(pof.testTargetPage().clickSaveGetCount(PagesHelper.MULTIVARIATE_TARGET_ATTRIBUTENAME,PagesHelper.MULTIVARIATE_TARGET_ATTRIBUTEVALUE,PagesHelper.MULTIVARIATE_TARGET_SUBSCRIPTION_STATUS),"Create Test Target Page");
 		
 		Reporter.log("Creating Test Schedule page <br>",true);
 		pof.testSchedulePage().load().isLoaded();

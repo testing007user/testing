@@ -81,7 +81,7 @@ public class EmailSummaryPage extends EmailBase {
 	public String targetCount() {
 		DriverUtility.waitFor(
 				ExpectedConditionExtended.elementsToBeClickable(countStatus),
-				driver, 15);
+				driver, 30);
 		return countStatus.getText();
 	}
 
