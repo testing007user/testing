@@ -60,6 +60,9 @@ public class TestEnvelopPage extends MvtBase {
 
 	@FindBy(css = "div.last>div:nth-child(1)>div:nth-child(2)>i.add")
 	private WebElement plusSignSubject;
+	
+	@FindBy(id = "dummyelement")
+	private WebElement dummyElement;
 
 	// Constructor
 
@@ -200,6 +203,7 @@ public class TestEnvelopPage extends MvtBase {
 		saveEnvelopeButton.click();
 		Reporter.log("Ribbon Text Message for Test Envelop Page is: <br> "
 				+ getRibbonText(20) + " <br> ", true);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);
 		return stepCompleted(2, 20);
 	}
 

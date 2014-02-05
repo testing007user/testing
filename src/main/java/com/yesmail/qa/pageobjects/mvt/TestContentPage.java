@@ -66,6 +66,9 @@ public class TestContentPage extends MvtBase {
 
 	@FindBy(css = "span[data-target='contents'] span.caret")
 	private WebElement downArrow;
+	
+	@FindBy(id = "dummyElement")
+	private WebElement dummyElement;
 
 	/**
 	 * Constructor section
@@ -100,9 +103,9 @@ public class TestContentPage extends MvtBase {
 	 *            :Name of the file like :Lexus.zip etc
 	 * @return countStore - number of content added
 	 */
-	public int addContent(int count) {
-		int countStore = count;
-		if (count != 0) {
+	public void addContent(int count) {		
+		while(count != 0)
+		{
 			DriverUtility.waitFor(ExpectedConditionExtended
 					.elementToBeClickable(addContentButton), driver, 30);
 			addContentButton.click();
@@ -117,15 +120,18 @@ public class TestContentPage extends MvtBase {
 			Reporter.log("Ribbon Text for Test Content <br>"
 					+ getRibbonText(20), true);
 			DriverUtility.waitFor(
+					ExpectedConditionExtended.elementToBeClickable(dummyElement),
+					driver, 10);
+			DriverUtility.waitFor(
 					ExpectedConditionExtended.elementToBeClickable(downArrow),
 					driver, 30);
 			selectContentFromDropDown(strContentName);
 			uploadFile();
+			DriverUtility.waitFor(
+					ExpectedConditionExtended.elementToBeClickable(dummyElement),
+					driver, 10);
 			count--;
-			if (count >= 1)
-				addContent(count);
-		}
-		return countStore;
+		}		
 	}
 
 	/***
