@@ -170,7 +170,7 @@ public class FacebookSchedulePage extends BasePage {
 	 */
 
 	private void setDateTime() {
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//this is added as a workaround for date textBox alignment issue.
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 25);//this is added as a workaround for date textBox alignment issue.
 		insertDate();
 		enterCurrentHour();
 		enterCurrentMinutes();

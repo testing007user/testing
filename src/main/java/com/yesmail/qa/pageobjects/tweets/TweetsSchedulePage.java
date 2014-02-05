@@ -162,13 +162,13 @@ public class TweetsSchedulePage extends BasePage {
 	 */
 
 	public void setDateTime() {
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//this is added as a workaround for date textBox alignment issue.
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 25);//this is added as a workaround for date textBox alignment issue.
 		insertDate();
-		DriverUtility.waitforElementDisplay(driver, hourTextBox, 50);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(hourTextBox), driver, 20);
 		enterCurrentHour();
-		DriverUtility.waitforElementDisplay(driver, minuteTextBox, 50);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(minuteTextBox), driver, 20);		
 		enterCurrentMinutes();
-		DriverUtility.waitforElementDisplay(driver, amRadioButton, 50);
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(amRadioButton), driver, 20);		
 		setAmPm();
 	}
 
