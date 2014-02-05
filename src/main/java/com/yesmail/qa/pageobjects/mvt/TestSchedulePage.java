@@ -211,7 +211,7 @@ public class TestSchedulePage extends MvtBase {
 	 */
 
 	public void setDateTime() {
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//this is added as a workaround for date textBox alignment issue.
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 20);//this is added as a workaround for date textBox alignment issue.
 		insertDate();
 		DriverUtility.waitFor(
 				ExpectedConditionExtended.elementsToBeClickable(hourTextBox),

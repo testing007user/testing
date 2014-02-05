@@ -180,8 +180,10 @@ public class EmailContentPage extends EmailBase {
 	 * @return - step Completed (True/False)
 	 */
 	public boolean uploadFile() {
-
 		uploadButton.click();
+		DriverUtility.waitFor(
+				ExpectedConditionExtended.elementToBeClickable(uploadformTextField),
+				driver, 30);
 		uploadformTextField.sendKeys(Utils.getResources(this,
 				"Test 12 March 2013.zip"));
 		uploadAssetsButton.click();
@@ -221,7 +223,7 @@ public class EmailContentPage extends EmailBase {
 		sendPreviewBtn.click();		
 		Reporter.log("Ribbon Text for Single Email Preview is: " + getRibbonText(20)+"<br>",
 				true);
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//This has been added as a workaround for the application to send preview successfully.
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 20);//This has been added as a workaround for the application to send preview successfully.
 	}
 
 	/***
@@ -240,7 +242,7 @@ public class EmailContentPage extends EmailBase {
 		ribbonText = getRibbonText(20);
 		Reporter.log("Ribbon Text for Group Email Preview is: " + ribbonText,
 				true);
-		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 10);//This has been added as a workaround for the application to send preview successfully.
+		DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(dummyElement), driver, 20);//This has been added as a workaround for the application to send preview successfully.
 	}
 
 }
