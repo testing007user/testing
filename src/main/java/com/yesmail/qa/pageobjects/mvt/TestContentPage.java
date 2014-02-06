@@ -67,6 +67,9 @@ public class TestContentPage extends MvtBase {
 	@FindBy(css = "span[data-target='contents'] span.caret")
 	private WebElement downArrow;
 	
+	@FindBy(id = "viewHtmlContent")
+	private WebElement htmlTab;
+	
 	@FindBy(id = "dummyElement")
 	private WebElement dummyElement;
 
@@ -88,7 +91,7 @@ public class TestContentPage extends MvtBase {
 
 	public void isLoaded() {
 		if (null == DriverUtility.waitFor(
-				ExpectedConditionExtended.elementToBeClickable(uploadButton),
+				ExpectedConditionExtended.elementToBeClickable(htmlTab),
 				driver, 50))
 			throw new FrameworkException(this.getClass().getName()
 					+ " is not loaded in 50 seconds");

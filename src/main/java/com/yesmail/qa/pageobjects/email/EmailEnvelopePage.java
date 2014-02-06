@@ -189,7 +189,7 @@ public class EmailEnvelopePage extends EmailBase {
 	private void fillfromName() {
 		DriverUtility.waitFor(
 				ExpectedConditionExtended.elementToBeClickable(dummyElement),
-				driver, 15);
+				driver, 20);
 		Actions action = new Actions(driver);
 		action.moveToElement(fromTextBox).perform();
 		fromTextBox.clear();
@@ -252,9 +252,10 @@ public class EmailEnvelopePage extends EmailBase {
 		selectCampaign("Create New...");
 		selectDivision();
 		fillSubject();
+		fillfromName();
 		selectDeliveryType("Send HTML and Plain Text");
 		selectEncodingType(PagesHelper.EMAIL_ENCODING_TYPE);
-		fillfromName();
+		
 		Actions action = new Actions(driver);// This has been added as a
 												// workaround to move the focus
 												// from element "from" to
