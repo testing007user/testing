@@ -49,7 +49,7 @@ public class TweetTest {
 
 			Reporter.log("Loading View Twitter Page<br>", true);
 			pof.viewTweetsPage().load().isLoaded();
-			a.assertTrue(pof.viewTweetsPage().verifyTweetMasterStatus(twitterMasterId,PagesHelper.STATUSPUBLISHED, 5), "Verify Twitter Status for Master Id: "+twitterMasterId);
+			a.assertTrue(pof.viewTweetsPage().verifyTweetMasterStatus(twitterMasterId,PagesHelper.STATUSPUBLISHED, 3), "Verify Twitter Status for Master Id: "+twitterMasterId);
 			a.assertAll();
 		}
 
