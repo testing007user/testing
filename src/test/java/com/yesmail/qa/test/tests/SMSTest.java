@@ -98,7 +98,7 @@ SAssert a = new SAssert();
 	  String strContentText = pof.smsContentPage().getContentMessage();
 	  Reporter.log("SMS Content Message :"+strContentText+"<br>",true);
 	  	  
-	  pof.smsTargetPage().load().isLoaded();
+	  pof.smsTargetPage().load();//Removed is load as it not valid condition
 	  String strsmsTarget = pof.smsTargetPage().getEligibleRecipientsCount();
 	  Reporter.log("SMS Target Page Recipients Count"+strsmsTarget+"<br>",true);
 	    

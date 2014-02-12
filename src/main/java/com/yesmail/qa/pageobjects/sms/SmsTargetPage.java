@@ -195,7 +195,7 @@ public class SmsTargetPage extends SmsBasePage {
 	 */
 	public String getEligibleRecipientsCount() {
 		DriverUtility.waitFor(ExpectedConditionExtended
-				.elementToBeClickable(eligibleRecipientsText), driver, 20);
+				.elementToBeClickable(eligibleRecipientsText), driver, 50);
 		String[] targetTime = eligibleRecipientsText.getText().split(": ");
 		return targetTime[1].split(" ")[0];
 

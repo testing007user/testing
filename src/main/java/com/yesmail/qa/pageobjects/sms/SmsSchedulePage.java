@@ -250,7 +250,7 @@ public class SmsSchedulePage extends SmsBasePage {
 	 * @author sangeetap
 	 */
 	public String getScheduledDateTime() {
-		return getScheduleDate() + " " + getScheduleTime();
+		return getScheduleDate();
 	}
 
 }

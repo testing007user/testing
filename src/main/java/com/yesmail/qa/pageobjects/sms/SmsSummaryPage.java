@@ -3,10 +3,12 @@ package com.yesmail.qa.pageobjects.sms;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import com.yesmail.qa.framework.DriverUtility;
 import com.yesmail.qa.framework.exception.FrameworkException;
 import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
@@ -117,10 +119,11 @@ public class SmsSummaryPage extends SmsBasePage {
 				nft.setDecimalSeparatorAlwaysShown(false); 
 				
 		String monthInt = nft.format(cal.get(Calendar.MONTH) + 1);
-		int date = cal.get(Calendar.DATE);
+		String date = nft.format(cal.get(Calendar.DATE));
 		int year = cal.get(Calendar.YEAR);
 		String strFormattedDate = monthInt+"/"+date+"/"+year;
-
+		
+/* Code is commented - Logic need to be optimized for date format e.g. 1:01 vs 01:01
 		String strTime[] = strDeliverDate.split(", ");
 		String strTime1[] = strTime[1].split(" GMT");
 		String[] strTime2 = strTime1[0].split("\\s+");
@@ -130,8 +133,8 @@ public class SmsSummaryPage extends SmsBasePage {
 		String strFormattedDateTime = strFormattedDate.concat(" ");
 		String strFinalFormattedDate = strFormattedDateTime
 				.concat(strTimeFinal);
-
-		return strFinalFormattedDate;
+*/
+		return strFormattedDate;
 
 	}
 
