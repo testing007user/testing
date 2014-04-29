@@ -1,11 +1,3 @@
-/**File name : PropertyMapping
- * Description: This class is used to load multiple properties file and
- * return single hashmap for fetching values
- * Author: kapil Aggarwal 
- * Version: Draft 1.0 
- * completed by 12/20/13
- * Version History
- */
 
 package com.yesmail.qa.framework.libraries;
 

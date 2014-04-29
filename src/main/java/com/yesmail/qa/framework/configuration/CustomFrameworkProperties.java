@@ -1,10 +1,4 @@
-/**File name : CustomFrameworkProperties
- * Description: This  Class is used to load custom properties file
- * Author: kapil Aggarwal 
- * Version: Draft 1.0 
- * completed by 12/20/13
- * Version History
- */
+
 package com.yesmail.qa.framework.configuration;
 
 import org.apache.log4j.Logger;

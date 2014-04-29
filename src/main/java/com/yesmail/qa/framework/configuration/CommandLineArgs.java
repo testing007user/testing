@@ -1,11 +1,3 @@
-/**File name : CommandLineArgs
- * Description: This  Class is contains logic for setting
- * variables from commandline or properties file 
- * Author: kapil Aggarwal 
- * Version: Draft 1.0 
- * completed by 12/20/13
- * Version History
- */
 
 package com.yesmail.qa.framework.configuration;
 

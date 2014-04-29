@@ -1,10 +1,3 @@
-/**File name : ExpectedConditionExtended
- * Description: This  Class is extended waitfor functionality to be used in Webdriver
- * Author: kapil Aggarwal 
- * Version: Draft 1.0 
- * completed by 12/20/13
- * Version History
- */
 
 package com.yesmail.qa.framework.libraries;
 

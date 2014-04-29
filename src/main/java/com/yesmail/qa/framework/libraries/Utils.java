@@ -1,10 +1,4 @@
-/**File name : Utils
- * Description: This class contains generic Utility function a
- * Author: kapil Aggarwal 
- * Version: Draft 1.0 
- * completed by 12/20/13
- * Version History
- */
+
 
 package com.yesmail.qa.framework.libraries;
 

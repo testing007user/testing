@@ -52,8 +52,7 @@ public class LoginPage {
 	 
 	 public LoginPage load()
 	 {
-		 driver.get(PagesHelper.URL);
-		 driver.navigate().refresh();
+		 driver.get("http://www.google.com");		 
 		 return this;
 	 }
 	 
