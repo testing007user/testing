@@ -6,8 +6,6 @@ import com.yesmail.qa.test.configuration.ConfigurationClass;
 /***
  * Page helper class gives test data required for test cases
  * 
- * @author rahull
- * 
  */
 public class PagesHelper {
 

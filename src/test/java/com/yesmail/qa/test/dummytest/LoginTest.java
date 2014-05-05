@@ -3,7 +3,7 @@ package com.yesmail.qa.test.dummytest;
 import org.testng.annotations.Test;
 import com.yesmail.qa.pageobjects.*;
 import com.yesmail.qa.framework.Driver;
-import com.yesmail.qa.framework.libraries.Utils;
+
 import com.yesmail.qa.framework.testng.support.SAssert;
 
 public class LoginTest {

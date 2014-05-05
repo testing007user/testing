@@ -27,38 +27,28 @@ public class LoginPage {
 
 	
 	private WebDriver driver;
-	@FindBy(name = "username")
-	private WebElement emailInput;
-	
-	@FindBy(css = "#gigya-login-screen > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)")
-	//@FindBy(css = "input[name='password']")
-	private WebElement passwordInput;
-	
-	@FindBy(css = "#gigya-login-screen > form:nth-child(1)> div:nth-child(4) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > input:nth-child(1)")
-	//@FindBy(css = "div:nth-child(4) .gigya-input-submit")
-	private WebElement submitBtn;
 	
 	@FindBy(id = "recentMessagesIcon" )
 	private WebElement recentMessagesIcon;
-	@FindBy(id = "test")
-	private WebElement test;
 	
+	private String pageUrl;
 	
-	 public LoginPage(WebDriver driver) {
+	 public LoginPage(WebDriver driver,String pageUrl) {
 		 PageFactory.initElements(driver, this);
 		 this.driver = driver;
+		 this.pageUrl = pageUrl;
 	
 	}
 	 
 	 public LoginPage load()
 	 {
-		 driver.get("http://www.google.com");		 
+		 driver.get(pageUrl);		 
 		 return this;
 	 }
 	 
 	 public boolean isLoaded()
 	 {
-		 if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(emailInput,passwordInput), driver, 50))
+		 if(null == DriverUtility.waitFor(ExpectedConditionExtended.elementsToBeClickable(recentMessagesIcon), driver, 50))
 		 {
 			 
 				throw new FrameworkException(this.getClass().getName()
@@ -67,24 +57,4 @@ public class LoginPage {
 		 return true;
 	 }
 	
-	 /**
-	  * This method is added to log in to the app
-	  * @param userName - valid username 
-	  * @param password - valid password
-	  */
-	public void loginAs(String userName,String password) {
-		emailInput.sendKeys(userName);
-		passwordInput.sendKeys(password);
-		submitBtn.click();
 	}
-	
-	/**
-	 * This method is used to check for homepage load
-	 * @return
-	 */
-	public boolean check()
-	{
-		return DriverUtility.waitforElementDisplay(driver, recentMessagesIcon, 20);		
-	}
-	
-}

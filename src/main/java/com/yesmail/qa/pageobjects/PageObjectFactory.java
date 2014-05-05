@@ -2,14 +2,13 @@ package com.yesmail.qa.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
+
 import com.yesmail.qa.pageobjects.login.LoginPage;
 import com.yesmail.qa.test.configuration.XMLParser;
 
 /**
  * PageObjectFactory gives object for pages
- * 
- * @author rahull
- * 
+ *
  */
 public class PageObjectFactory {
 
@@ -25,7 +24,7 @@ public class PageObjectFactory {
 
 	public LoginPage loginPage() {
 		if (loginPage == null)
-			loginPage = new LoginPage(driver);
+			loginPage = new LoginPage(driver,XMLParser.readComponentValueFromXML("Google.pageUrl"));
 		return loginPage;
 	}
 

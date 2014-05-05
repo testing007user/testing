@@ -23,7 +23,7 @@ import com.yesmail.qa.framework.libraries.ExpectedConditionExtended;
 
 /***
  * Common Functionality accross UI
- * @author kapilag
+ 
  *
  */
 public class BasePage {

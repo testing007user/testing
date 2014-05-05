@@ -13,7 +13,6 @@ import com.yesmail.qa.pageobjects.PagesHelper;
 /***
  * This class is initialization of configuration data for Test cases
  * 
- * @author rahull
  * 
  */
 public class ConfigurationClass {

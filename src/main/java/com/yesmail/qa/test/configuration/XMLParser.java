@@ -12,7 +12,6 @@ import org.xml.sax.SAXException;
 /***
  * This class contains methods for reading componenet.xml file
  * 
- * @author rahull
  * 
  */
 public class XMLParser {
