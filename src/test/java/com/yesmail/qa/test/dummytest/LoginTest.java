@@ -17,6 +17,7 @@ public class LoginTest {
 		pof.loginPage().load();
 
 		a.assertTrue(true,"testing the assert");
+		a.assertTrue(false,"testing the failed assert");
 			//	"Checking for Web Element on Home page");
 
 		a.assertAll();
